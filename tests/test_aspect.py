@@ -33,9 +33,7 @@ def test_index_route_shows_mp4_files(client):
 
 
 def test_upload_file_success(client):
-    data = {
-        "file": (io.BytesIO(b"mp4 data"), "video.mp4")
-    }
+    data = {"file": (io.BytesIO(b"mp4 data"), "video.mp4")}
     response = client.post("/upload", content_type="multipart/form-data", data=data)
     assert response.status_code == 200
     assert b"Uploaded: video.mp4" in response.data
@@ -43,10 +41,7 @@ def test_upload_file_success(client):
 
 
 def test_upload_file_invalid_type(client):
-    data = {
-        "file": (io.BytesIO(b"not a video"), "file.txt")
-    }
+    data = {"file": (io.BytesIO(b"not a video"), "file.txt")}
     response = client.post("/upload", content_type="multipart/form-data", data=data)
     assert response.status_code == 400
     assert b"Invalid file type" in response.data
-
