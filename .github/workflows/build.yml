@@ -1,15 +1,15 @@
-name: Lint recently changed python files
+name: Lint recently changed Python files
 
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     paths:
       - src/**
       - tests/**
     branches:
-      - main
+      - master
 
 jobs:
   build:
