@@ -1,0 +1,35 @@
+[project]
+name = "aspect"
+version = "1.0.0"
+description = ""
+authors = [{ name = "lp2851"} ]
+license = {text = "GPL-3.0"}
+readme = "README.md"
+
+requires-python = ">=3.12"
+
+[tool.poetry]
+packages = [{ include = "src" }]
+
+[tool.black]
+line-length = 120
+
+[tool.poetry.dependencies]
+pylint = "3.3.6"
+black = "25.1.0"
+pillow = "^11.2.1"
+flask = "3.1.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-mock = "3.14.0"
+
+[tool.poetry.group.dev.dependencies]
+nuitka = "^2.6.9"
+
+[tool.poetry.scripts]
+build_binary="build_binary:build"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
