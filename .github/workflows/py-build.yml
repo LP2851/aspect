@@ -6,8 +6,8 @@ on:
       - master
   push:
     paths:
-      - src/**
-      - tests/**
+      - ../../backend/src/**
+      - ../../backend/tests/**
     branches:
       - master
 

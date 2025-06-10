@@ -12,6 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route("/")
 def home() -> str:
+    # TODO REMOVE OLD
     """
     Home page: Show existing projects and allow creation of new projects.
     """
@@ -19,11 +20,24 @@ def home() -> str:
         d for d in os.listdir(app.config["UPLOAD_FOLDER"])
         if os.path.isdir(os.path.join(app.config["UPLOAD_FOLDER"], d))
     ]
-    return render_template("index.html", projects=projects)
+    return render_template("templates/index.html", projects=projects)
+
+
+@app.route("/projects")
+def projects():
+    """
+    # Home page: Show existing projects and allow creation of new projects.
+    """
+    projects = [
+        d for d in os.listdir(app.config["UPLOAD_FOLDER"])
+        if os.path.isdir(os.path.join(app.config["UPLOAD_FOLDER"], d))
+    ]
+    return { "projects": projects }
 
 
 @app.route("/upload", methods=["GET"])
 def go_to_project():
+    # TODO REMOVE OLD
     """
     Redirect to the project upload page based on selection or new name.
     """
@@ -37,9 +51,9 @@ def go_to_project():
     return redirect(url_for("project_upload", project_name=project_name))
 
 
-
 @app.route("/uploads/<project_name>/<filename>")
 def uploaded_file(project_name: str, filename: str):
+    # TODO REMOVE OLD
     """
     Serve a file from a specific project directory.
     """
@@ -48,6 +62,7 @@ def uploaded_file(project_name: str, filename: str):
 
 @app.route("/projects/<project_name>")
 def project_upload(project_name: str):
+    # TODO REMOVE OLD
     """
     Display the upload page for a specific project.
     """
@@ -57,10 +72,11 @@ def project_upload(project_name: str):
         f for f in os.listdir(project_path)
         if f.endswith(".mp4")
     ]
-    return render_template("upload.html", files=files, project=project_name)
+    return render_template("templates/upload.html", files=files, project=project_name)
 
 @app.route("/upload/<project_name>", methods=["POST"])
 def upload_file(project_name: str):
+    # TODO REMOVE OLD
     """
     Upload an MP4 file to a specific project's folder.
     """

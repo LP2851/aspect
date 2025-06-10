@@ -1,7 +1,7 @@
 import os
 import io
 import pytest
-from src.aspect import app, UPLOAD_FOLDER
+from aspect import app, UPLOAD_FOLDER
 
 
 @pytest.fixture(autouse=True)
