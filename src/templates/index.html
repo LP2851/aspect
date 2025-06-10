@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+TC&display=swap" rel="stylesheet" />
+
+  <title>Home - aspect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "WDXL Lubrifont TC", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .navbar {
+      background-color: #1f1f1f;
+      padding: 15px 30px;
+      font-weight: bold;
+      font-size: xx-large;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      user-select: none;
+    }
+
+    .title-gradient {
+      background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      display: inline-block;
+      font-weight: 400;
+      font-style: normal;
+      font-size: xxx-large;
+      cursor: pointer;
+    }
+
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      height: calc(100vh - 68px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: xx-large;
+      margin-bottom: 1.5rem;
+      color: #ccc;
+      text-align: center;
+    }
+
+    form label {
+      font-size: 1.1rem;
+      color: #aaa;
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background-color: #121212;
+      color: #eee;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: #6a5acd;
+      background-color: #181818;
+    }
+
+    input[type="submit"] {
+      margin-top: 2rem;
+      width: 100%;
+      background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
+      border: none;
+      padding: 12px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(90deg, #8a2be2, #6a5acd, #730bbf);
+    }
+
+    #error-message {
+      color: #e06c75;
+      margin-top: 1rem;
+      font-weight: 600;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="/" class="title-gradient">aspect</a>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      <h1>Select or Create a Project</h1>
+
+      <form action="/upload" method="get" id="projectForm">
+        <label for="project-select">Choose an existing project:</label>
+        <select name="project" id="project-select">
+          <option value="" selected disabled>-- Select project --</option>
+          {% for project in projects %}
+            <option value="{{ project }}">{{ project }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="new-project">Or create a new project:</label>
+        <input type="text" name="new_project" id="new-project" placeholder="Enter new project name" autocomplete="off" />
+
+        <input type="submit" value="Go" />
+      </form>
+
+      <p id="error-message"></p>
+    </div>
+  </div>
+
+  <script>
+    const projectSelect = document.getElementById('project-select');
+    const newProjectInput = document.getElementById('new-project');
+    const errorMessage = document.getElementById('error-message');
+    const projectForm = document.getElementById('projectForm');
+
+    newProjectInput.addEventListener('input', () => {
+      if (newProjectInput.value.trim().length > 0) {
+        projectSelect.selectedIndex = 0;  // Reset select to disabled
+        errorMessage.style.display = 'none';
+      }
+    });
+
+    projectSelect.addEventListener('change', () => {
+      if (projectSelect.value) {
+        newProjectInput.value = '';
+        errorMessage.style.display = 'none';
+      }
+    });
+
+    projectForm.addEventListener('submit', (e) => {
+      if (!projectSelect.value && newProjectInput.value.trim() === '') {
+        e.preventDefault();
+        errorMessage.textContent = 'Please select an existing project or enter a new project name.';
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

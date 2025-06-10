@@ -1,7 +1,7 @@
 import os
 import webbrowser
 
-from flask import request, render_template, send_from_directory, Response, Flask
+from flask import request, render_template, send_from_directory, Flask, redirect, url_for
 
 app = Flask(__name__)
 
@@ -11,50 +11,71 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 @app.route("/")
-def index() -> str:
+def home() -> str:
     """
-    Handles the root URL endpoint to render the upload.html template with a list
-    of uploaded .mp4 files.
-
-    :returns: Rendered HTML template with a list of `.mp4` files.
-    :rtype: str
+    Home page: Show existing projects and allow creation of new projects.
     """
-    files = [f for f in os.listdir(app.config["UPLOAD_FOLDER"]) if f.endswith(".mp4")]
-    return render_template("upload.html", files=files)
+    projects = [
+        d for d in os.listdir(app.config["UPLOAD_FOLDER"])
+        if os.path.isdir(os.path.join(app.config["UPLOAD_FOLDER"], d))
+    ]
+    return render_template("index.html", projects=projects)
 
 
-@app.route("/upload/<filename>")
-def uploaded_file(filename: str) -> Response:
+@app.route("/upload", methods=["GET"])
+def go_to_project():
     """
-    Handles the request to serve a file that has been uploaded to the server.
-
-    :param filename: The name of the file to be served.
-    :type filename: str
-    :return: The requested file from the upload folder.
-    :rtype: Response
+    Redirect to the project upload page based on selection or new name.
     """
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+    project = request.args.get("project")
+    new_project = request.args.get("new_project", "").strip().replace(" ", "_")
+
+    project_name = new_project if new_project else project
+    if not project_name:
+        return redirect(url_for("home"))  # fallback
+
+    return redirect(url_for("project_upload", project_name=project_name))
 
 
-@app.route("/upload", methods=["POST"])
-def upload_file() -> tuple[str, int]:
+
+@app.route("/uploads/<project_name>/<filename>")
+def uploaded_file(project_name: str, filename: str):
     """
-    Handles the upload of a file via a POST request. The method ensures the file is of
-    a valid type (mp4) and saves it to the configured upload folder.
+    Serve a file from a specific project directory.
+    """
+    return send_from_directory(os.path.join(app.config["UPLOAD_FOLDER"], project_name), filename)
 
-    :return: A tuple containing a message about the file upload status and the associated HTTP
-        status code:
-        - "Uploaded: {file.filename}", 200 if the file upload succeeded.
-        - "Invalid file type", 400 if the file is not an mp4 file.
-    :rtype: tuple
+
+@app.route("/projects/<project_name>")
+def project_upload(project_name: str):
+    """
+    Display the upload page for a specific project.
+    """
+    project_path = os.path.join(app.config["UPLOAD_FOLDER"], project_name)
+    os.makedirs(project_path, exist_ok=True)
+    files = [
+        f for f in os.listdir(project_path)
+        if f.endswith(".mp4")
+    ]
+    return render_template("upload.html", files=files, project=project_name)
+
+@app.route("/upload/<project_name>", methods=["POST"])
+def upload_file(project_name: str):
+    """
+    Upload an MP4 file to a specific project's folder.
     """
     file = request.files.get("file")
-    file.filename = file.filename.replace(" ", "_")
-    if file and file.filename.endswith(".mp4"):
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-        file.save(filepath)
-        return f"Uploaded: {file.filename}", 200
-    return "Invalid file type", 400
+    if not file or not file.filename.endswith(".mp4"):
+        return "Invalid file type", 400
+
+    filename = file.filename.replace(" ", "_")
+    project_path = os.path.join(app.config["UPLOAD_FOLDER"], project_name)
+    os.makedirs(project_path, exist_ok=True)
+
+    filepath = os.path.join(project_path, filename)
+    file.save(filepath)
+
+    return f"Uploaded: {filename}", 200
 
 
 if __name__ == "__main__":

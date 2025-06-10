@@ -6,17 +6,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+TC&display=swap" rel="stylesheet" />
 
-  <title>aspect</title>
+  <title>{{ project }} - aspect</title>
   <style>
     * {
       box-sizing: border-box;
+      font-family: "WDXL Lubrifont TC", sans-serif;
     }
 
     body {
       margin: 0;
       background-color: #121212;
       color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       height: 100vh;
@@ -28,7 +28,7 @@
       padding: 15px 30px;
       font-weight: bold;
       font-size: xx-large;
-      color: #fff; /* fallback */
+      color: #fff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       user-select: none;
     }
@@ -39,7 +39,6 @@
       -webkit-text-fill-color: transparent;
       color: transparent;
       display: inline-block;
-      font-family: "WDXL Lubrifont TC", sans-serif;
       font-weight: 400;
       font-style: normal;
       font-size: xxx-large;
@@ -73,7 +72,7 @@
     }
 
     .sidebar {
-      width: 20rem;
+      width: 30rem;
       background-color: #1a1a1a;
       border-left: 1px solid #333;
       display: flex;
@@ -81,8 +80,55 @@
       justify-content: space-between;
       padding: 20px;
       overflow: auto;
-      min-width: 150px;
+      min-width: 300px;
       max-width: 50vw;
+    }
+
+    .setting-config-box {
+      width: 100%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      background-color: #1f1f1f;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .setting-config-box.collapsed .content-inner {
+      display: none;
+    }
+
+    .setting-config-box header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .setting-config-box header h4 {
+      font-size: x-large;
+      margin: 0;
+      color: #ccc;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: color 0.3s;
+      padding: 0;
+      user-select: none;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-btn:hover {
+      color: #6a5acd;
     }
 
     .sidebar h2 {
@@ -123,7 +169,6 @@
     }
 
     .wdxl-lubrifont-tc-regular {
-      font-family: "WDXL Lubrifont TC", sans-serif;
       font-weight: 400;
       font-style: normal;
     }
@@ -142,6 +187,82 @@
     .resizing {
       background-color: #555;
     }
+
+    input.reset-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #e53935, #b71c1c);
+      border: none;
+      padding: 12px 0;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    input.reset-btn:hover {
+      background: linear-gradient(90deg, #b71c1c, #e53935);
+    }
+
+    input.save-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #4caf50, #388e3c);
+      border: none;
+      padding: 12px 0;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    input.save-btn:hover {
+      background: linear-gradient(90deg, #388e3c, #4caf50);
+    }
+
+    input.apply-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
+      border: none;
+      padding: 12px 0;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    input.apply-btn:hover {
+      background: linear-gradient(90deg, #8a2be2, #6a5acd, #730bbf);
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background-color: #121212;
+      color: #eee;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: #6a5acd;
+      background-color: #181818;
+    }
+
+    form label {
+      font-size: 1.1rem;
+      color: #aaa;
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -152,25 +273,41 @@
     <div class="content">
       <div id="videoPreviews" class="video-grid">
         {% for file in files %}
-          <video controls src="{{ url_for('uploaded_file', filename=file) }}"></video>
+          <video controls src="{{ url_for('uploaded_file', project_name=project, filename=file) }}"></video>
         {% endfor %}
       </div>
     </div>
 
     <div class="resizer" id="resizer"></div>
 
-    <div class="sidebar">
+    <form id="projectForm" class="sidebar">
       <div class="settings-content">
-        <h2 class="wdxl-lubrifont-tc-regular" style="font-size: x-large">Settings</h2>
-        <!-- Add settings UI here if needed -->
+        <h2 class="wdxl-lubrifont-tc-regular" style="font-size: xx-large">Settings</h2>
+          <div class="setting-config-box" id="generalSettingsBox">
+            <header>
+              <h4 class="wdxl-lubrifont-tc-regular">Configuration</h4>
+              <button type="button" class="toggle-btn" aria-label="Toggle General Settings">−</button>
+            </header>
+            <div class="content-inner">
+              <p style="color: #a1a1a1">Base configuration for this project.</p>
+              <label for="project-name">Project Name:</label>
+              <input id="project-name" name="project-name" type="text" placeholder="Project name" value="{{ project }}" />
+              <div id="project-name-error" style="color: #ff5555; margin-top: 5px; display: none;">Project name cannot be empty.</div>
+            </div>
+          </div>
       </div>
       <div class="upload-wrapper">
         <label class="upload-zone wdxl-lubrifont-tc-regular" for="fileInput">
           Click or drag an MP4 file here to upload
         </label>
         <input id="fileInput" type="file" accept="video/mp4" />
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <input type="reset" value="Reset changes" class="reset-btn" />
+            <input type="submit" value="Save changes" class="save-btn" />
+            <input type="submit" value="Apply" class="apply-btn" />
+          </div>
       </div>
-    </div>
+    </form>
   </div>
 
   <script>
@@ -180,7 +317,7 @@
 
     function handleFileUpload(file) {
       if (!file.type.startsWith('video/mp4')) {
-        alert("Only MP4 files are supported.");
+        showError("Only MP4 files are supported.");
         return;
       }
 
@@ -193,73 +330,113 @@
       const formData = new FormData();
       formData.append('file', file);
 
-      fetch('/upload', {
+      fetch(`/upload/{{ project }}`, {
         method: 'POST',
         body: formData,
       }).then(response => {
         if (!response.ok) {
-          alert('Upload failed: ' + response.statusText);
+          showError('Upload failed: ' + response.statusText);
         }
       }).catch(err => {
-        alert('Error uploading: ' + err.message);
+        showError('Error uploading: ' + err.message);
       });
     }
 
-    input.addEventListener('change', () => {
+    function showError(message) {
+      const originalText = dropZone.textContent;
+      dropZone.textContent = message;
+      dropZone.style.color = '#ff5555';
+      setTimeout(() => {
+        dropZone.textContent = originalText;
+        dropZone.style.color = '#ccc';
+      }, 3000);
+    }
+
+    input.addEventListener('change', (e) => {
       if (input.files.length > 0) {
         handleFileUpload(input.files[0]);
-        input.value = '';
       }
     });
 
     dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
-      dropZone.style.backgroundColor = '#333';
+      dropZone.style.backgroundColor = '#292929';
     });
 
-    dropZone.addEventListener('dragleave', () => {
+    dropZone.addEventListener('dragleave', (e) => {
+      e.preventDefault();
       dropZone.style.backgroundColor = '#1e1e1e';
     });
 
     dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
       dropZone.style.backgroundColor = '#1e1e1e';
-      const file = e.dataTransfer.files[0];
-      if (file) {
-        handleFileUpload(file);
+      if (e.dataTransfer.files.length > 0) {
+        handleFileUpload(e.dataTransfer.files[0]);
       }
     });
 
     const resizer = document.getElementById('resizer');
     const sidebar = document.querySelector('.sidebar');
-
     let isResizing = false;
 
-    resizer.addEventListener('mousedown', function(e) {
+    resizer.addEventListener('mousedown', e => {
       isResizing = true;
-      resizer.classList.add('resizing');
-      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'ew-resize';
     });
 
-    document.addEventListener('mouseup', function(e) {
+    document.addEventListener('mousemove', e => {
+      if (!isResizing) return;
+      let newWidth = window.innerWidth - e.clientX;
+      if (newWidth < 300) newWidth = 300; // updated min-width
+      if (newWidth > window.innerWidth / 2) newWidth = window.innerWidth / 2;
+      sidebar.style.width = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', e => {
       if (isResizing) {
         isResizing = false;
-        resizer.classList.remove('resizing');
-        document.body.style.userSelect = '';
+        document.body.style.cursor = 'default';
       }
     });
 
-    document.addEventListener('mousemove', function(e) {
-      if (!isResizing) return;
+    const projectForm = document.getElementById('projectForm');
+    const projectNameInput = document.getElementById('project-name');
+    const projectNameError = document.getElementById('project-name-error');
 
-      const minWidth = 150;
-      const maxWidth = window.innerWidth * 0.5;
-      let newWidth = window.innerWidth - e.clientX;
+    projectForm.addEventListener('submit', (e) => {
+      if (document.activeElement.classList.contains('apply-btn')) {
+        e.preventDefault();
+        // TODO add apply functionality here later
+        return;
+      }
 
-      if (newWidth < minWidth) newWidth = minWidth;
-      if (newWidth > maxWidth) newWidth = maxWidth;
+      if (projectNameInput.value.trim() === '') {
+        e.preventDefault();
+        projectNameError.style.display = 'block';
+      } else {
+        projectNameError.style.display = 'none';
+        // TODO add save changes logic
+      }
+    });
 
-      sidebar.style.width = newWidth + 'px';
+    projectForm.addEventListener('reset', (e) => {
+      projectNameError.style.display = 'none';
+    });
+
+    projectNameInput.addEventListener('input', () => {
+      if (projectNameInput.value.trim() !== '') {
+        projectNameError.style.display = 'none';
+      }
+    });
+
+    const generalBox = document.getElementById('generalSettingsBox');
+    const toggleBtn = generalBox.querySelector('.toggle-btn');
+
+    toggleBtn.addEventListener('click', () => {
+      const isCollapsed = generalBox.classList.toggle('collapsed');
+      toggleBtn.textContent = isCollapsed ? '+' : '−';
+      toggleBtn.setAttribute('aria-label', isCollapsed ? 'Expand General Settings' : 'Collapse General Settings');
     });
   </script>
 </body>
