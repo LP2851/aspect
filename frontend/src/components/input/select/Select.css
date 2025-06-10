@@ -1,0 +1,17 @@
+.select-input {
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #121212;
+  color: #eee;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+
+  &:focus {
+    border-color: #6a5acd;
+    background-color: #181818;
+  }
+}

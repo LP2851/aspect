@@ -1,0 +1,20 @@
+.content {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+.card-h1 {
+  font-weight: 400;
+  font-size: xx-large;
+  margin-bottom: 1.5rem;
+  color: #ccc;
+  text-align: center;
+}
+
+.btn-wrapper {
+  margin-top: 1rem;
+}
