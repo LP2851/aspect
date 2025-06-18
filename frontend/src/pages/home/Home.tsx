@@ -5,7 +5,6 @@ import TextInput from "../../components/input/text/TextInput.tsx";
 import Button from "../../components/button/Button.tsx";
 import ErrorMessage from "../../components/error-message/ErrorMessage.tsx";
 import AspectClient from "../../api/AspectClient.ts";
-import ButtonTypes from "../../components/button/ButtonTypes.ts";
 import type { Project } from "../../api/types/types.ts";
 import "./Home.css";
 
@@ -82,11 +81,7 @@ const Home = () => {
         <ErrorMessage message={error} />
 
         <div className="btn-wrapper">
-          <Button
-            value="Go"
-            type={ButtonTypes.PRIMARY}
-            onClick={handleSubmit}
-          />
+          <Button value="Go" type={"primary"} onClick={handleSubmit} />
         </div>
       </form>
     </div>

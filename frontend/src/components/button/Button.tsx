@@ -1,5 +1,5 @@
 import { memo } from "react";
-import type ButtonTypes from "./ButtonTypes.ts";
+import type { ButtonTypes } from "./ButtonTypes.ts";
 import "./Button.css";
 
 const Button = ({

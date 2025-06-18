@@ -1,6 +1,5 @@
 import { memo, useState, useRef, useEffect } from "react";
 import Button from "../button/Button";
-import ButtonTypes from "../button/ButtonTypes";
 import ConfigBox from "../config-box/ConfigBox";
 import TextInput from "../input/text/TextInput";
 import type { Project } from "../../api/types/types.ts";
@@ -115,19 +114,15 @@ const Sidebar = ({
           <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
             <Button
               value="Reset changes"
-              type={ButtonTypes.DANGER}
+              type={"danger"}
               onClick={() => window.location.reload()}
             />
             <Button
               value="Save changes"
-              type={ButtonTypes.SECONDARY}
+              type={"secondary"}
               onClick={handleSubmit}
             />
-            <Button
-              value="Apply"
-              type={ButtonTypes.PRIMARY}
-              onClick={handleSubmit}
-            />
+            <Button value="Apply" type={"primary"} onClick={handleSubmit} />
           </div>
         </div>
       </form>
