@@ -38,10 +38,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        poetry install
+        cd backend && poetry install
 
     - name: Fail if black reformats files
       run: |
+          cd backend && 
           echo "Checking formatting......."
           if ! poetry run black . --check --diff; then
             echo ""
@@ -52,8 +53,8 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        poetry run pylint --fail-under=9 $(git ls-files '*.py')
+        cd backend && poetry run pylint --fail-under=9 $(git ls-files '*.py')
 
     - name: Running all tests in project
       run: |
-        poetry run pytest
+        cd backend && poetry run pytest
