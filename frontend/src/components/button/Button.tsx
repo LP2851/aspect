@@ -6,12 +6,14 @@ const Button = ({
   value,
   onClick,
   type,
+  style
 }: {
   value: string;
   onClick: any;
   type: ButtonTypes;
+  style?: any;
 }) => (
-  <button className={`button ${type.toString()}`} onClick={onClick}>
+  <button className={`button ${type.toString()}`} onClick={onClick} style={style}>
     {value}
   </button>
 );

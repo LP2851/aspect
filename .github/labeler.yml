@@ -21,4 +21,9 @@ frontend:
 backend:
   - any:
       - changed-files:
-          - any-glob-to-any-file: ["frontend/*.*"]
+          - any-glob-to-any-file: ["backend/*.*"]
+
+schema:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ["**/*.sql"]
