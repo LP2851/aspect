@@ -3,9 +3,10 @@
   font-family: inherit;
 }
 
-.button.primary {
+.button.primary,
+.button.secondary,
+.button.danger {
   width: 100%;
-  background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
   border: none;
   padding: 12px 0;
   font-size: 1.2rem;
@@ -15,8 +16,28 @@
   cursor: pointer;
   user-select: none;
   transition: background 0.3s;
+}
+
+.primary {
+  background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
 
   &:hover {
     background: linear-gradient(90deg, #8a2be2, #6a5acd, #730bbf);
+  }
+}
+
+.danger {
+  background: linear-gradient(90deg, #e53935, #b71c1c);
+
+  &:hover {
+    background: linear-gradient(90deg, #b71c1c, #e53935);
+  }
+}
+
+.secondary {
+  background: linear-gradient(90deg, #4caf50, #388e3c);
+
+  &:hover {
+    background: linear-gradient(90deg, #388e3c, #4caf50);
   }
 }

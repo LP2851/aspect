@@ -9,6 +9,7 @@ const TextInput = ({
   placeholder,
   onChange,
   value,
+  disabled,
 }: {
   id: string;
   label?: string;
@@ -16,6 +17,7 @@ const TextInput = ({
   placeholder: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
+  disabled?: boolean;
 }) => (
   <>
     {label && <Label id={id} message={label} />}
@@ -27,6 +29,7 @@ const TextInput = ({
       onChange={onChange}
       value={value}
       placeholder={placeholder}
+      disabled={disabled}
     />
   </>
 );

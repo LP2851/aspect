@@ -12,7 +12,7 @@ const Select = ({
 }: {
   id: string;
   label?: string;
-  options?: string[];
+  options?: { value: string; label: string }[];
   value?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   defaultOption?: string;
@@ -25,8 +25,8 @@ const Select = ({
 
       {options &&
         options?.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
+          <option key={index} value={option.value}>
+            {option.label}
           </option>
         ))}
     </select>

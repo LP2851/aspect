@@ -1,4 +1,5 @@
-name: react-build.yml
+name: Lint recently changed Typescript files
+
 on:
   pull_request:
     branches:
