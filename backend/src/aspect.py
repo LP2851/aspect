@@ -20,16 +20,18 @@ def get_projects():
     rows = project_service.find_all()
     return rows
 
+
 def create_new_project(project_name: str):
     # todo create new project
-
 
     project_path = os.path.join(app.config["UPLOAD_FOLDER"], project_name)
     os.makedirs(project_path, exist_ok=True)
 
+
 @app.route("/projects")
 def projects():
     return {"projects": get_projects()}
+
 
 @app.route("/projects/<project_id>")
 def get_project(project_id: str):
@@ -42,13 +44,14 @@ def get_project(project_id: str):
     print(project_dict)
     return project_dict
 
+
 @app.route("/projects", methods=["POST"])
 def create_new_project_route():
     data = request.get_json()
-    if not data or 'projectName' not in data:
+    if not data or "projectName" not in data:
         return jsonify({"error": "Missing 'projectName' in request body"}), 400
 
-    project_name = data['projectName'].strip()
+    project_name = data["projectName"].strip()
 
     if not project_name:
         return jsonify({"projectName": "Project name cannot be empty"}), 400

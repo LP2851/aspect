@@ -8,6 +8,7 @@ from typing import Any
 DB_PATH = "database.db"
 SCHEMA_SQL = "resources/schema.sql"
 
+
 # TODO add logger instead of prints
 class DatabaseConnector:
     def __init__(self) -> None:
@@ -61,6 +62,7 @@ class DatabaseConnector:
             self.connection.close()
             print("Database connection closed")
             self.connection = None
+
 
 if __name__ == "__main__":
     db = DatabaseConnector()
