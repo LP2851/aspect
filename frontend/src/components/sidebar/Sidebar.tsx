@@ -3,14 +3,14 @@ import Button from "../button/Button";
 import ButtonTypes from "../button/ButtonTypes";
 import ConfigBox from "../config-box/ConfigBox";
 import TextInput from "../input/text/TextInput";
-import type {Project} from "../../api/types/types.ts";
+import type { Project } from "../../api/types/types.ts";
 import "./Sidebar.css";
 
 const Sidebar = ({
-                   project,
-                   setProject,
-                   onUpload,
-                 }: {
+  project,
+  setProject,
+  onUpload,
+}: {
   project: Project;
   setProject: (project: Project) => void;
   onUpload: (file: File) => void;
@@ -57,7 +57,7 @@ const Sidebar = ({
 
   const setProjectName = (projectName: string) => {
     setProject({ ...project, project_name: projectName } as Project);
-  }
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -76,7 +76,10 @@ const Sidebar = ({
         <div className="settings-scroll-container">
           <div className="settings-content">
             <h2>Configuration</h2>
-            <ConfigBox name="General" description="Base settings for this project.">
+            <ConfigBox
+              name="General"
+              description="Base settings for this project."
+            >
               <TextInput
                 id="project-name"
                 value={project.project_name}
@@ -95,7 +98,6 @@ const Sidebar = ({
                 autocomplete={false}
                 disabled={true}
               />
-
             </ConfigBox>
           </div>
         </div>
@@ -111,9 +113,21 @@ const Sidebar = ({
             onChange={handleFileChange}
           />
           <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-            <Button value="Reset changes" type={ButtonTypes.DANGER} onClick={() => window.location.reload()} />
-            <Button value="Save changes" type={ButtonTypes.SECONDARY} onClick={handleSubmit} />
-            <Button value="Apply" type={ButtonTypes.PRIMARY} onClick={handleSubmit} />
+            <Button
+              value="Reset changes"
+              type={ButtonTypes.DANGER}
+              onClick={() => window.location.reload()}
+            />
+            <Button
+              value="Save changes"
+              type={ButtonTypes.SECONDARY}
+              onClick={handleSubmit}
+            />
+            <Button
+              value="Apply"
+              type={ButtonTypes.PRIMARY}
+              onClick={handleSubmit}
+            />
           </div>
         </div>
       </form>

@@ -6,7 +6,7 @@ import Button from "../../components/button/Button.tsx";
 import ErrorMessage from "../../components/error-message/ErrorMessage.tsx";
 import AspectClient from "../../api/AspectClient.ts";
 import ButtonTypes from "../../components/button/ButtonTypes.ts";
-import type {Project} from "../../api/types/types.ts";
+import type { Project } from "../../api/types/types.ts";
 import "./Home.css";
 
 const Home = () => {
@@ -62,7 +62,8 @@ const Home = () => {
             setError("");
           }}
           options={projects.map((project: Project) => {
-            return { value: project.id, label: project.project_name }})}
+            return { value: project.id, label: project.project_name };
+          })}
           defaultOption="-- Select project --"
         />
         <TextInput

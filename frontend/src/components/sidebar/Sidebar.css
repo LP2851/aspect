@@ -1,84 +1,84 @@
 .sidebar-wrapper {
-    display: flex;
-    height: 100%;
+  display: flex;
+  height: 100%;
 }
 
 .sidebar {
-    width: 30rem;
-    background-color: #1a1a1a;
-    border-left: 1px solid #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    overflow: hidden;
-    min-width: 300px;
-    max-width: 50vw;
-    height: 100%;
-    box-sizing: border-box;
+  width: 30rem;
+  background-color: #1a1a1a;
+  border-left: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  overflow: hidden;
+  min-width: 300px;
+  max-width: 50vw;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .settings-scroll-container {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-right: -20px;
-    padding-right: 20px;
-    scrollbar-gutter: stable;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-right: -20px;
+  padding-right: 20px;
+  scrollbar-gutter: stable;
 }
 
 .settings-content {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 .settings-scroll-container {
-    scrollbar-color: #222 transparent;
-    scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+  scrollbar-width: thin;
 }
 
 .sidebar h2 {
-    margin-top: 0;
-    font-size: xx-large;
-    color: #ccc;
+  margin-top: 0;
+  font-size: xx-large;
+  color: #ccc;
 }
 
 .upload-wrapper {
-    padding-top: 20px;
-    flex-shrink: 0;
+  padding-top: 20px;
+  flex-shrink: 0;
 }
 
 .upload-zone {
-    border: 2px dashed #555;
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-    background-color: #1e1e1e;
-    font-size: 0.95rem;
-    color: #ccc;
-    cursor: pointer;
-    min-height: 4.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s;
+  border: 2px dashed #555;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  background-color: #1e1e1e;
+  font-size: 0.95rem;
+  color: #ccc;
+  cursor: pointer;
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
 }
 
 .upload-zone:hover {
-    background-color: #292929;
+  background-color: #292929;
 }
 
 input[type="file"] {
-    display: none;
+  display: none;
 }
 
 .resizer {
-    width: 5px;
-    cursor: ew-resize;
-    background-color: transparent;
-    transition: background-color 0.2s ease;
-    z-index: 10;
+  width: 5px;
+  cursor: ew-resize;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  z-index: 10;
 }
 
 .resizer:hover {
-    background-color: #aaa;
+  background-color: #aaa;
 }

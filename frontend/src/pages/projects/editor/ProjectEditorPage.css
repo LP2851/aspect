@@ -1,16 +1,16 @@
 .video-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 video {
-    width: 300px;
-    border-radius: 10px;
-    border: 1px solid #444;
+  width: 300px;
+  border-radius: 10px;
+  border: 1px solid #444;
 }
 
 .editor-content-wrapper {
-    flex-grow: 1;
-    overflow-y: auto;
+  flex-grow: 1;
+  overflow-y: auto;
 }

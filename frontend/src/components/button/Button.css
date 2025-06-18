@@ -3,7 +3,9 @@
   font-family: inherit;
 }
 
-.button.primary, .button.secondary, .button.danger {
+.button.primary,
+.button.secondary,
+.button.danger {
   width: 100%;
   border: none;
   padding: 12px 0;

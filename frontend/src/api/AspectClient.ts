@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from "axios";
-import type {Project} from "./types/types.ts";
+import type { Project } from "./types/types.ts";
 
 export default class AspectClient {
   private client: AxiosInstance;
@@ -23,10 +23,14 @@ export default class AspectClient {
   }
 
   public async createProject(projectName: string) {
-    return await this.client.post("/projects", { projectName }, {
-      headers: {
-        "Content-Type": "application/json",
+    return await this.client.post(
+      "/projects",
+      { projectName },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   }
 }

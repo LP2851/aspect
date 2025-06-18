@@ -2,10 +2,10 @@ import { useState, memo } from "react";
 import "./ConfigBox.css";
 
 const ConfigBox = ({
-                     children,
-                     name,
-                     description,
-                   }: {
+  children,
+  name,
+  description,
+}: {
   children: any;
   name: string;
   description: string;
@@ -24,9 +24,7 @@ const ConfigBox = ({
         onClick={() => setCollapsed(!collapsed)}
       >
         <h4>{name}</h4>
-        <button className="toggle-btn">
-          {collapsed ? "+" : "-"}
-        </button>
+        <button className="toggle-btn">{collapsed ? "+" : "-"}</button>
       </header>
 
       {!collapsed && (

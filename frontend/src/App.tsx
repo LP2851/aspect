@@ -11,7 +11,10 @@ function App() {
       <div className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/project/:projectId" element={<ProjectEditorPage files={[]} />}/>
+          <Route
+            path="/project/:projectId"
+            element={<ProjectEditorPage files={[]} />}
+          />
         </Routes>
       </div>
     </>
