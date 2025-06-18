@@ -1,0 +1,34 @@
+name: Lint recently changed Typescript files
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    paths:
+      - ../../frontend/src/**
+    branches:
+      - master
+
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: cd frontend && npm install
+
+      - name: Build React app
+        run: cd frontend && npm run build
+
+      - name: Run linter
+        run: cd frontend && npm run lint

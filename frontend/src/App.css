@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 87px);
+  justify-content: center;
+  align-items: center;
+}
