@@ -1,73 +1,8 @@
-default_language_version:
-  python: python3.12
-
 default_stages: [pre-commit, pre-push]
 
 repos:
-  # Python Poetry hooks for backend
-  - repo: https://github.com/python-poetry/poetry
-    rev: '2.0.1'
-    hooks:
-      - id: poetry-lock
-        args: ['--directory', 'backend']
-      - id: poetry-check
-        args: ['--directory', 'backend']
-      - id: poetry-install
-        args: ['--directory', 'backend']
-
-  # Common file-level checks
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 'v5.0.0'
-    hooks:
-      - id: check-ast
-        name: Check Python syntax
-        entry: check-ast
-        types: [python]
-        files: ^backend/
-
-      - id: check-added-large-files
-        name: Check added large files
-
-      - id: check-json
-        name: Check JSON
-        types: [json]
-
-      - id: check-toml
-        name: Check TOML
-        types: [toml]
-
-      - id: check-yaml
-        name: Check YAML
-        types: [yaml]
-
-      - id: end-of-file-fixer
-        name: End of file fixer
-
-      - id: trailing-whitespace
-        name: Trailing whitespace
-
-  # Black for Python formatting
-  - repo: https://github.com/psf/black
-    rev: '25.1.0'
-    hooks:
-      - id: black
-        name: Black (Python formatter)
-        language_version: python3.12
-        files: ^backend/
-
-  # Run pytest using poetry in backend
-  - repo: local
-    hooks:
-      - id: pytest
-        name: Run pytest
-        entry: poetry run pytest
-        language: system
-        types: [python]
-        pass_filenames: false
-        always_run: true
-        files: ^backend/
-
-  # ESLint for frontend TypeScript/JavaScript
+  # Frontend Checks
+  # ESLint TypeScript/JavaScript
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.56.0
     hooks:
@@ -80,7 +15,7 @@ repos:
         always_run: true
         working_directory: frontend
 
-  # Prettier for frontend code formatting
+  # Prettier code formatting
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.2.5
     hooks:
@@ -89,3 +24,28 @@ repos:
         types: [javascript, typescript, json, yaml, html, css, markdown]
         additional_dependencies: [prettier]
         files: ^frontend/
+
+
+  # Backend Checks
+  # ESLint TypeScript/JavaScript
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: npm run lint
+        language: system
+        types: [javascript, typescript]
+        pass_filenames: false
+        always_run: true
+        working_directory: backend
+
+  # Prettier code formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.2.5
+    hooks:
+      - id: prettier
+        name: Prettier
+        types: [javascript, typescript, json, yaml, html, css, markdown]
+        additional_dependencies: [prettier]
+        files: ^backend/

@@ -4,46 +4,56 @@ Interface for creating and running ffmpeg filters
 ---
 ## Getting Started
 ### Dependencies
-- [Python](https://www.python.org/) version 3.12 or later
-- [Poetry](https://python-poetry.org/)
-- [ffmpeg](https://ffmpeg.org/)
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
+- [ffmpeg](https://ffmpeg.org/) - may remove
+- [docker](https://www.docker.com/)
 
 ---
+
 ## Developing the Backend
-The API is a [Flask](https://flask.palletsprojects.com/) application.
+The backend of the application is a [KeystoneJS](https://keystonejs.com/) application.
+
 ### Running the application
-Install the dependencies by executing the following command:
+Make sure you are using the correct version of Node.js by running the command:
+```shell
+nvm use
+```
+
+Install the dependencies by executing the following command
 ```shell
 cd backend
-poetry install
+npm install
 ```
 
-Run with the command:
+Create and run the docker container for your database:
 ```shell
-poetry run python src/aspect.py
+docker-compose up -d postgres
+# to stop the container
+docker-compose down
 ```
+
+Run the dev instance with the command:
+```shell
+npm run dev
+```
+
 ### Running the tests
-We use [pytest](https://docs.pytest.org/en/stable/) for testing. You can run the tests by executing the following command:
-```
-poetry run pytest
-```
+TODO add jest and playwright
 
 ### Code style
-We use [Pylint](https://pypi.org/project/pylint/) for linting and [Black](https://github.com/psf/black) for code formatting.
+We use [ESLint](https://eslint.org/) for linting and [Prettier](https://prettier.io/) for code formatting
 
-In this repository, the minimum linting score is 9/10. To run pylint, execute the following command:
+To run ESLint, execute the following command:
 ```shell
-poetry run pylint .
+npm run lint
 ```
 
-To run Black, execute the following command:
+To run Prettier, execute the following command:
 ```shell
-poetry run black .
+npm run lint:fix
 ```
 
----
 
 ## Developing the Frontend
 The frontend of the application is a [React](https://react.dev/) application.
@@ -64,6 +74,14 @@ Run the dev instance with the command:
 ```shell
 npm run dev
 ```
+
+### Generating GraphQL with Codegen
+We use [GraphQL Codegen](https://the-guild.dev/graphql/codegen) for generating GraphQL types and queries for the frontend. 
+To generate this file, make sure you have the backend running and then run the following command:
+```shell
+npm run graphql
+```
+
 ### Running the tests
 TODO add jest and playwright
 

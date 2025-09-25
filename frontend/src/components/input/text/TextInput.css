@@ -3,8 +3,8 @@
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #555;
-  background-color: #121212;
-  color: #eee;
+  background-color: var(--bg-primary);
+  color: var(--font-color-primary);
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s;
@@ -12,7 +12,7 @@
   font-family: inherit;
 
   &:focus {
-    border-color: #6a5acd;
+    border-color: var(--highlight-color-dark);
     background-color: #181818;
   }
 

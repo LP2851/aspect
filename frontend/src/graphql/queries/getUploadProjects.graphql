@@ -1,0 +1,33 @@
+query GetUploadProjects(
+  $where: UploadProjectWhereInput!
+  $take: Int
+  $skip: Int!
+) {
+  uploadProjects(
+    where: $where
+    take: $take
+    skip: $skip
+    orderBy: { updatedAt: desc }
+  ) {
+    id
+    projectName
+    description
+    user {
+      name
+    }
+    status
+    uploadLocation {
+      id
+      type
+    }
+    uploadsTo {
+      id
+      uploadStatus
+      uploadTo
+    }
+    uploadsToCount
+    createdAt
+    updatedAt
+    deletedAt
+  }
+}

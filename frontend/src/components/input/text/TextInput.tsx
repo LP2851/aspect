@@ -10,6 +10,7 @@ const TextInput = ({
   onChange,
   value,
   disabled,
+  inputType,
 }: {
   id: string;
   label?: string;
@@ -18,12 +19,13 @@ const TextInput = ({
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
   disabled?: boolean;
+  inputType?: string;
 }) => (
   <>
     {label && <Label id={id} message={label} />}
     <input
       id={id}
-      type="text"
+      type={inputType ?? "text"}
       className="text-input"
       autoComplete={autocomplete ? "on" : "off"}
       onChange={onChange}

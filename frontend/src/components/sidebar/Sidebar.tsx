@@ -43,7 +43,7 @@ const Sidebar = ({
       document.removeEventListener("mousemove", resize);
       document.removeEventListener("mouseup", stopResizing);
     };
-  }, []);
+  });
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];

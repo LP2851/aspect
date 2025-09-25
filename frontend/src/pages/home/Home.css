@@ -1,5 +1,5 @@
 .content {
-  background-color: #1a1a1a;
+  background-color: var(--bg-secondary);
   padding: 40px;
   border-radius: 12px;
   width: 400px;
