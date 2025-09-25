@@ -21,7 +21,7 @@ export interface Project {
   template?: Template;
 }
 
-export enum ProjectStatus {
+export const enum ProjectStatus {
   CREATED = "CREATED",
   READY = "READY",
   QUEUED = "QUEUED",
@@ -31,7 +31,7 @@ export enum ProjectStatus {
   FAILED = "FAILED",
 }
 
-export enum UploadLocationType {
+export const enum UploadLocationType {
   S3 = "S3",
   LOCAL = "LOCAL",
   GOOGLE_DRIVE = "G_DRIVE",
@@ -58,7 +58,7 @@ export interface UploadLocation {
   googleDrive?: UploadLocationGoogleDrive;
 }
 
-export enum UploadPlatform {
+export const enum UploadPlatform {
   TIK_TOK = "TIK TOK",
   YOUTUBE = "YOUTUBE",
   INSTAGRAM = "INSTAGRAM",
@@ -66,7 +66,7 @@ export enum UploadPlatform {
   X = "X",
 }
 
-export enum UploadStatus {
+export const enum UploadStatus {
   PENDING_RELEASE = "PENDING RELEASE",
   QUEUED = "QUEUED",
   UPLOADING = "UPLOADING",

@@ -16,7 +16,7 @@ import {
   useGetUploadProjectsQuery,
   YouTubeAuthUrlDocument,
   type YouTubeAuthUrlQueryResult,
-} from "../../../generated/graphql.tsx";
+} from "../../../generated/graphql";
 import { useApolloClient } from "@apollo/client/react";
 import PaginationControls from "../../../components/pagination-controls/PaginationControls.tsx";
 

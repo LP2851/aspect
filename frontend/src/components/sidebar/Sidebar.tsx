@@ -55,12 +55,12 @@ const Sidebar = ({
   };
 
   const setProjectName = (projectName: string) => {
-    setProject({ ...project, project_name: projectName } as Project);
+    setProject({ ...project, projectName: projectName } as Project);
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (project.project_name.trim() === "") {
+    if (project.projectName.trim() === "") {
       setError("Project name cannot be empty.");
     } else {
       setError("");
@@ -81,7 +81,7 @@ const Sidebar = ({
             >
               <TextInput
                 id="project-name"
-                value={project.project_name}
+                value={project.projectName}
                 label="Project Name:"
                 onChange={(e) => setProjectName(e.target.value)}
                 placeholder="Project name"

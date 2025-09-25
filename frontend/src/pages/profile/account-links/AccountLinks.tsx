@@ -13,7 +13,7 @@ import {
   // type FacebookAuthUrlQueryResult,
   // XAuthUrlDocument,
   // type XAuthUrlQueryResult,
-} from "../../../generated/graphql.tsx";
+} from "../../../generated/graphql";
 import { useAuth } from "../../../auth/AuthProvider.tsx";
 import {
   isFeatureFacebookEnabled,

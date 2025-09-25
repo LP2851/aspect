@@ -9,7 +9,7 @@ import "./Home.css";
 
 const Home = () => {
   // const [projects, setProjects] = useState<Project[]>([]);
-  const projects = [];
+  const projects: Project[] = [];
   const [selectedProject, setSelectedProject] = useState("");
   const [newProject, setNewProject] = useState("");
   const [error, setError] = useState("");
@@ -61,7 +61,7 @@ const Home = () => {
             setError("");
           }}
           options={projects.map((project: Project) => {
-            return { value: project.id, label: project.project_name };
+            return { value: project.id, label: project.projectName };
           })}
           defaultOption="-- Select project --"
         />
