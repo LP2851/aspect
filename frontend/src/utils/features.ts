@@ -1,9 +1,17 @@
+const isEnabled = (value: string | undefined) => value === "true";
+
 export const isFeatureYouTubeEnabled = () =>
-  import.meta.env.VITE_ENABLE_YOUTUBE === "true";
+  isEnabled(import.meta.env.VITE_ENABLE_YOUTUBE);
 export const isFeatureTikTokEnabled = () =>
-  import.meta.env.VITE_ENABLE_TIKTOK === "true";
+  isEnabled(import.meta.env.VITE_ENABLE_TIKTOK);
 export const isFeatureInstagramEnabled = () =>
-  import.meta.env.VITE_ENABLE_INSTAGRAM === "true";
+  isEnabled(import.meta.env.VITE_ENABLE_INSTAGRAM);
 export const isFeatureFacebookEnabled = () =>
-  import.meta.env.VITE_ENABLE_FACEBOOK === "true";
-export const isFeatureXEnabled = () => import.meta.env.VITE_ENABLE_X === "true";
+  isEnabled(import.meta.env.VITE_ENABLE_FACEBOOK);
+export const isFeatureXEnabled = () => isEnabled(import.meta.env.VITE_ENABLE_X);
+
+export const isFeatureLocalProjectFileSourceEnabled = () =>
+  isEnabled(import.meta.env.VITE_ENABLE_LOCAL_PROJECT_FILE_SOURCE);
+
+export const isFeatureFiltersEnabled = () =>
+  isEnabled(import.meta.env.VITE_ENABLE_FILTERS);

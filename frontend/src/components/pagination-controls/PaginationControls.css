@@ -1,0 +1,21 @@
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.pagination-button-prev {
+  margin-right: 1rem;
+}
+
+.pagination-button-next {
+  margin-left: 1rem;
+}
+
+.pagination-label {
+  padding-top: 5px;
+}
+
+.pagination-chevron {
+  height: 24px;
+}

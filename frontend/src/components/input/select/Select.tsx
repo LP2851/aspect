@@ -1,6 +1,8 @@
-import { type ChangeEventHandler, memo } from "react";
-import Label from "../label/Label.tsx";
 import "./Select.css";
+
+import { type ChangeEventHandler, memo } from "react";
+
+import Label from "../label/Label.tsx";
 
 const Select = ({
   id,

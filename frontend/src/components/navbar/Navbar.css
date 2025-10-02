@@ -1,21 +1,58 @@
 .navbar {
+  display: inline-flex;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   background-color: #1f1f1f;
-  padding: 15px 30px;
-  font-weight: bold;
+  width: 100%;
+  color: var(--font-color-primary);
   font-size: xx-large;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
   user-select: none;
 }
 
 .title-gradient {
-  background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
   display: inline-block;
+  background: var(--fancy-gradient-purple);
+  background-clip: text;
+  cursor: pointer;
+  padding: 15px 30px;
+  color: transparent;
+  font-size: xxx-large;
   font-weight: 400;
   font-style: normal;
-  font-size: xxx-large;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-item {
+  align-content: center;
+  transition:
+    background-color,
+    color 0.2s ease-in-out;
   cursor: pointer;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--font-color-primary);
+  font-size: x-large;
+  font-weight: 400;
+  font-style: normal;
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    color: var(--highlight-color);
+  }
+}
+
+.pushed-right {
+  margin-left: auto;
+}
+
+.nav-icon {
+  margin-right: 8px;
+}
+
+.border-left {
+  border-left: 1px solid var(--border-color);
+}
+
+.border-right {
+  border-right: 1px solid var(--border-color);
 }

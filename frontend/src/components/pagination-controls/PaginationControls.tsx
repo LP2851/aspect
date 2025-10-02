@@ -1,3 +1,5 @@
+import "./PaginationControls.css";
+
 import { memo } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
@@ -15,24 +17,21 @@ const PaginationControls = ({
   totalItems: number;
 }) => {
   return (
-    <div
-      className="pagination-controls"
-      style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}
-    >
+    <div className="pagination-controls">
       <button
+        className="pagination-button-prev"
         onClick={() => onClickPrev(-1)}
         disabled={currentPage === 1}
-        style={{ marginRight: "8px" }}
       >
-        <FaChevronLeft style={{ height: "24px" }} />
+        <FaChevronLeft className="pagination-chevron" />
       </button>
-      <span style={{ paddingTop: "5px" }}>Page {currentPage}</span>
+      <span className="pagination-label">Page {currentPage}</span>
       <button
+        className="pagination-button-next"
         onClick={() => onClickNext(1)}
         disabled={totalItems < itemsPerPage}
-        style={{ marginLeft: "8px" }}
       >
-        <FaChevronRight style={{ height: "24px" }} />
+        <FaChevronRight className="pagination-chevron" />
       </button>
     </div>
   );

@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
 import "./AccountLinks.css";
+
 import { useApolloClient } from "@apollo/client/react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+
+import { useAuth } from "../../../auth/AuthProvider.tsx";
+import Button from "../../../components/button/Button.tsx";
+import Toast from "../../../components/toast/Toast.tsx";
 import {
   YouTubeAuthUrlDocument,
   type YouTubeAuthUrlQueryResult,
@@ -14,7 +19,6 @@ import {
   // XAuthUrlDocument,
   // type XAuthUrlQueryResult,
 } from "../../../generated/graphql";
-import { useAuth } from "../../../auth/AuthProvider.tsx";
 import {
   isFeatureFacebookEnabled,
   isFeatureInstagramEnabled,
@@ -162,11 +166,6 @@ const AccountLinks = () => {
       // Clean up URL
       navigate(location.pathname, { replace: true });
     }
-
-    // Auto-hide notifications after 5 seconds
-    if (success || error) {
-      setTimeout(() => setNotification(null), 5000);
-    }
   }, [location, navigate]);
 
   const socialPlatforms = [
@@ -252,12 +251,11 @@ const AccountLinks = () => {
   return (
     <div className="account-links-section">
       {notification && (
-        <div className={`toast ${notification.type}`}>
-          <span className="toast-message">{notification.message}</span>
-          <button className="toast-close" onClick={() => setNotification(null)}>
-            ×
-          </button>
-        </div>
+        <Toast
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification(null)}
+        />
       )}
 
       <div className="section-content">
@@ -340,7 +338,8 @@ const AccountLinks = () => {
                           </span>
                         </div>
                         <div className="connected-actions">
-                          <button
+                          <Button
+                            variant="secondary"
                             onClick={() => {
                               switch (platform.value) {
                                 case "YOUTUBE":
@@ -360,14 +359,14 @@ const AccountLinks = () => {
                                   break;
                               }
                             }}
-                            className="reconnect-btn"
+                            extraClasses="reconnect-btn"
                           >
                             Reconnect
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     ) : (
-                      <button
+                      <Button
                         onClick={() => {
                           switch (platform.value) {
                             case "YOUTUBE":
@@ -387,10 +386,10 @@ const AccountLinks = () => {
                               break;
                           }
                         }}
-                        className="add-link-btn"
+                        extraClasses="add-link-btn"
                       >
                         Connect {platform.label}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </div>

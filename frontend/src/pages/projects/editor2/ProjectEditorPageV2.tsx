@@ -1,7 +1,9 @@
-import { memo, useEffect } from "react";
-import { useFfmpeg } from "../../../hooks/useFfmpeg.tsx";
 import "./ProjectEditorPageV2.css";
+
+import { memo, useEffect } from "react";
+
 import Sidebar from "../../../components/simple-sidebar/Sidebar.tsx";
+import { useFfmpeg } from "../../../hooks/useFfmpeg.tsx";
 
 const ProjectEditorPageV2 = () => {
   const { loaded, loadFfmpeg } = useFfmpeg();

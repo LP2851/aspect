@@ -1,13 +1,15 @@
-import { Route, Routes, useLocation } from "react-router";
-import Home from "./pages/home/Home.tsx";
-import Navbar from "./components/navbar/Navbar.tsx";
 import "./App.css";
-import ProjectEditorPage from "./pages/projects/editor/ProjectEditorPage.tsx";
-import ProjectEditorPageV2 from "./pages/projects/editor2/ProjectEditorPageV2.tsx";
-import ProjectsPage from "./pages/projects/list-page/ProjectsPage.tsx";
+
+import { Route, Routes, useLocation } from "react-router";
+
+import Navbar from "./components/navbar/Navbar.tsx";
 import LoginPage from "./pages/auth/LoginPage.tsx";
 import PrivateRoute from "./pages/helpers/PrivateRoute.tsx";
+import Home from "./pages/home/Home.tsx";
 import ProfilePage from "./pages/profile/ProfilePage.tsx";
+import ProjectDetailPage from "./pages/projects/detail/ProjectDetailsPage.tsx";
+import ProjectEditorPageV2 from "./pages/projects/editor2/ProjectEditorPageV2.tsx";
+import ProjectsPage from "./pages/projects/list-page/ProjectsPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -27,10 +29,11 @@ function App() {
             }
           />
           <Route
-            path="/project/:projectId"
+            path="/projects/:projectId"
             element={
               <PrivateRoute>
-                <ProjectEditorPage files={[]} />
+                {/*<ProjectEditorPage files={[]} />*/}
+                <ProjectDetailPage />
               </PrivateRoute>
             }
           />

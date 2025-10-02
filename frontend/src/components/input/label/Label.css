@@ -1,7 +1,12 @@
 .label {
-  font-size: 1.1rem;
-  color: #aaa;
   display: block;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+  color: var(--font-color-primary);
+  font-size: var(--label-font-size);
+}
+
+.required-asterisk {
+  margin-left: 4px;
+  color: var(--label-required-asterisk-color);
 }

@@ -1,9 +1,11 @@
-import { memo, useState, useRef, useEffect } from "react";
-import Button from "../button/Button";
+import "./Sidebar.css";
+
+import { memo, useEffect, useRef, useState } from "react";
+
+import type { Project } from "../../api/types/types.ts";
 import ConfigBox from "../config-box/ConfigBox";
 import TextInput from "../input/text/TextInput";
-import type { Project } from "../../api/types/types.ts";
-import "./Sidebar.css";
+import Button from "../old-button/Button";
 
 const Sidebar = ({
   project,

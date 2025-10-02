@@ -3,13 +3,14 @@ import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 export default tseslint.config(
   { ignores: ["dist", "src/generated/**"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
-    ignores: ["src/generated/**", "node_modules/**"],
+    ignores: ["src/generated/graphql.ts", "node_modules/**"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -17,6 +18,7 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
+      "simple-import-sort": simpleImportSort,
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
@@ -25,6 +27,13 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "sort-imports": "off",
     },
   },
 );

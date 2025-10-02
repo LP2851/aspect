@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
 import {
-  useSignInMutation,
   useLogoutMutation,
   useMeLazyQuery,
   type User,
+  useSignInMutation,
 } from "../generated/graphql";
-import { useNavigate } from "react-router";
 
 type AuthContextType = {
   user: User | null;

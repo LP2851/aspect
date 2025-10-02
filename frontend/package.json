@@ -7,10 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
+    "lint:fix": "run-s prettier eslint:fix stylelint:fix",
+    "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "stylelint:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
     "graphql": "graphql-codegen --config codegen.yml",
     "preview": "vite preview",
-    "prettier": "npx prettier --write .",
-    "lint:fix": "npm run prettier && eslint --fix --ext .js,.jsx,.ts,.tsx ."
+    "prettier": "npx prettier --write ."
   },
   "dependencies": {
     "@apollo/client": "^4.0.5",
@@ -21,6 +24,7 @@
     "@graphql-codegen/typescript-operations": "^5.0.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "axios": "^1.9.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "graphql": "^16.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -39,7 +43,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "3.5.3",
+    "stylelint": "^16.24.0",
+    "stylelint-config-concentric-order": "^5.2.1",
+    "stylelint-config-standard": "^39.0.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"

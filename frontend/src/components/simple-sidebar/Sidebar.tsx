@@ -1,5 +1,6 @@
-import { memo, useRef, useEffect, type PropsWithChildren } from "react";
 import "./Sidebar.css";
+
+import { memo, type PropsWithChildren, useEffect, useRef } from "react";
 
 const Sidebar = ({ children }: PropsWithChildren) => {
   const sidebarRef = useRef<HTMLDivElement>(null);

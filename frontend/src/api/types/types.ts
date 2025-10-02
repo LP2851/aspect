@@ -10,6 +10,7 @@ export interface Template {
 export interface Project {
   id: string;
   projectName: string;
+  description: string;
   status: string;
   templateId: string;
   configuration: string;

@@ -1,39 +1,41 @@
 .profile-page-container {
-  display: flex;
-  height: calc(100vh - var(--navbar-height, 60px));
-  width: 100%;
-  background-color: var(--bg-primary);
-  color: var(--font-color-primary);
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  background-color: var(--bg-primary);
+  padding: 0;
+  width: 100%;
+
+  /* height: calc(100vh - var(--navbar-height, 60px)); */
+  height: 100%;
+  color: var(--font-color-primary);
 }
 
-.sidebar {
-  width: var(--sidebar-left-width);
-  background-color: var(--bg-secondary);
-  color: var(--font-color-primary);
+.profile-page-sidebar {
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 0 5px rgb(0 0 0 / 25%);
+  background-color: var(--bg-secondary);
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.25);
+  width: var(--sidebar-left-width);
+  color: var(--font-color-primary);
 }
 
 .sidebar-menu {
-  list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .sidebar-menu li {
-  margin-bottom: 15px;
-  font-size: 16px;
-  padding: 10px 15px;
-  border-radius: 4px;
   transition:
     background-color 0.3s,
     color 0.3s;
+  margin-bottom: 15px;
+  border-radius: 4px;
   cursor: pointer;
+  padding: 10px 15px;
+  font-size: 16px;
 }
 
 .sidebar-menu li:hover {
@@ -48,27 +50,27 @@
 
 .main-content {
   flex: 1;
-  padding: 40px;
   border-left: var(--border);
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: -2px 0 5px rgb(0 0 0 / 20%);
+  padding: 40px;
 }
 
 .main-content h1 {
-  font-size: 24px;
   margin-bottom: 20px;
-  color: var(--font-color-purple);
   border-bottom: 2px solid var(--highlight-color);
   padding-bottom: 10px;
+  color: var(--font-color-purple);
+  font-size: 24px;
 }
 
 .user-details {
-  padding: 1rem;
-  font-size: 18px;
-  line-height: 1.6;
   border: var(--border);
   border-radius: 8px;
   background-color: var(--bg-secondary);
+  padding: 1rem;
+  line-height: 1.6;
   color: var(--font-color-primary);
+  font-size: 18px;
 }
 
 .user-details p {
@@ -76,8 +78,8 @@
 }
 
 .section-content {
-  font-size: 16px;
   color: var(--font-color-primary);
+  font-size: 16px;
 
   & > h2 {
     margin-top: 0;

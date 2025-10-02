@@ -1,8 +1,10 @@
+import "./ProjectEditorPage.css";
+
 import { memo, useState } from "react";
 import { useParams } from "react-router";
-import Sidebar from "../../../components/sidebar/Sidebar.tsx";
-import "./ProjectEditorPage.css";
+
 import type { Project } from "../../../api/types/types.ts";
+import Sidebar from "../../../components/sidebar/Sidebar.tsx";
 // import AspectClient from "../../../api/AspectClient.ts";
 
 const ProjectEditorPage = ({ files = [] }: { files: string[] }) => {

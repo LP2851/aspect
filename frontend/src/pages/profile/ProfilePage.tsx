@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../auth/AuthProvider.tsx";
-import { useNavigate, useLocation } from "react-router";
 import "./ProfilePage.css";
+
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+
+import { useAuth } from "../../auth/AuthProvider.tsx";
 import AccountLinks from "./account-links/AccountLinks.tsx";
 
 const ProfilePage = () => {
@@ -52,7 +54,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page-container">
-      <aside className="sidebar">
+      <aside className="profile-page-sidebar">
         <ul className="sidebar-menu">
           <li onClick={() => setSelectedSection("profile")}>Profile</li>
           <li onClick={() => setSelectedSection("generate-info")}>
