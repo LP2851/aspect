@@ -10,6 +10,7 @@ export const UploadLocationLocal = list({
   fields: {
     location: relationship({
       ref: "UploadLocation",
+      many: false,
       ui: { displayMode: "select" },
     }),
     path: text({ validation: { isRequired: true } }),

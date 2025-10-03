@@ -10,8 +10,7 @@ type Upload {
   updatedAt: DateTime
 }
 
-scalar DateTime
-  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+scalar DateTime @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 input UploadWhereUniqueInput {
   id: ID
@@ -149,6 +148,9 @@ type UploadLocation {
   id: ID!
   type: String
   project: UploadProject
+  s3Link: UploadLocationS3
+  localLink: UploadLocationLocal
+  googleDrive: UploadLocationGoogleDrive
 }
 
 input UploadLocationWhereUniqueInput {
@@ -163,6 +165,9 @@ input UploadLocationWhereInput {
   id: IDFilter
   type: StringFilter
   project: UploadProjectWhereInput
+  s3Link: UploadLocationS3WhereInput
+  localLink: UploadLocationLocalWhereInput
+  googleDrive: UploadLocationGoogleDriveWhereInput
 }
 
 input UploadLocationOrderByInput {
@@ -173,6 +178,27 @@ input UploadLocationOrderByInput {
 input UploadLocationUpdateInput {
   type: String
   project: UploadProjectRelateToOneForUpdateInput
+  s3Link: UploadLocationS3RelateToOneForUpdateInput
+  localLink: UploadLocationLocalRelateToOneForUpdateInput
+  googleDrive: UploadLocationGoogleDriveRelateToOneForUpdateInput
+}
+
+input UploadLocationS3RelateToOneForUpdateInput {
+  create: UploadLocationS3CreateInput
+  connect: UploadLocationS3WhereUniqueInput
+  disconnect: Boolean
+}
+
+input UploadLocationLocalRelateToOneForUpdateInput {
+  create: UploadLocationLocalCreateInput
+  connect: UploadLocationLocalWhereUniqueInput
+  disconnect: Boolean
+}
+
+input UploadLocationGoogleDriveRelateToOneForUpdateInput {
+  create: UploadLocationGoogleDriveCreateInput
+  connect: UploadLocationGoogleDriveWhereUniqueInput
+  disconnect: Boolean
 }
 
 input UploadLocationUpdateArgs {
@@ -183,6 +209,24 @@ input UploadLocationUpdateArgs {
 input UploadLocationCreateInput {
   type: String
   project: UploadProjectRelateToOneForCreateInput
+  s3Link: UploadLocationS3RelateToOneForCreateInput
+  localLink: UploadLocationLocalRelateToOneForCreateInput
+  googleDrive: UploadLocationGoogleDriveRelateToOneForCreateInput
+}
+
+input UploadLocationS3RelateToOneForCreateInput {
+  create: UploadLocationS3CreateInput
+  connect: UploadLocationS3WhereUniqueInput
+}
+
+input UploadLocationLocalRelateToOneForCreateInput {
+  create: UploadLocationLocalCreateInput
+  connect: UploadLocationLocalWhereUniqueInput
+}
+
+input UploadLocationGoogleDriveRelateToOneForCreateInput {
+  create: UploadLocationGoogleDriveCreateInput
+  connect: UploadLocationGoogleDriveWhereUniqueInput
 }
 
 type UploadLocationGoogleDrive {
@@ -330,13 +374,7 @@ type UploadProject {
   user: User
   status: String
   uploadLocation: UploadLocation
-  uploadsTo(
-    where: UploadWhereInput! = {}
-    orderBy: [UploadOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadWhereUniqueInput
-  ): [Upload!]
+  uploadsTo(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
   uploadsToCount(where: UploadWhereInput! = {}): Int
   createdAt: DateTime
   updatedAt: DateTime
@@ -437,22 +475,10 @@ type User {
   name: String
   email: String
   password: PasswordState
-  projects(
-    where: UploadProjectWhereInput! = {}
-    orderBy: [UploadProjectOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadProjectWhereUniqueInput
-  ): [UploadProject!]
+  projects(where: UploadProjectWhereInput! = {}, orderBy: [UploadProjectOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadProjectWhereUniqueInput): [UploadProject!]
   projectsCount(where: UploadProjectWhereInput! = {}): Int
   isAdmin: Boolean
-  tokens(
-    where: UserTokenWhereInput! = {}
-    orderBy: [UserTokenOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UserTokenWhereUniqueInput
-  ): [UserToken!]
+  tokens(where: UserTokenWhereInput! = {}, orderBy: [UserTokenOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserTokenWhereUniqueInput): [UserToken!]
   tokensCount(where: UserTokenWhereInput! = {}): Int
   createdAt: DateTime
 }
@@ -681,10 +707,7 @@ input VideoCreateInput {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON
-  @specifiedBy(
-    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
-  )
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type Mutation {
   createUpload(data: UploadCreateInput!): Upload
@@ -695,81 +718,34 @@ type Mutation {
   deleteUploads(where: [UploadWhereUniqueInput!]!): [Upload]
   createUploadLocation(data: UploadLocationCreateInput!): UploadLocation
   createUploadLocations(data: [UploadLocationCreateInput!]!): [UploadLocation]
-  updateUploadLocation(
-    where: UploadLocationWhereUniqueInput!
-    data: UploadLocationUpdateInput!
-  ): UploadLocation
+  updateUploadLocation(where: UploadLocationWhereUniqueInput!, data: UploadLocationUpdateInput!): UploadLocation
   updateUploadLocations(data: [UploadLocationUpdateArgs!]!): [UploadLocation]
   deleteUploadLocation(where: UploadLocationWhereUniqueInput!): UploadLocation
-  deleteUploadLocations(
-    where: [UploadLocationWhereUniqueInput!]!
-  ): [UploadLocation]
-  createUploadLocationGoogleDrive(
-    data: UploadLocationGoogleDriveCreateInput!
-  ): UploadLocationGoogleDrive
-  createUploadLocationGoogleDrives(
-    data: [UploadLocationGoogleDriveCreateInput!]!
-  ): [UploadLocationGoogleDrive]
-  updateUploadLocationGoogleDrive(
-    where: UploadLocationGoogleDriveWhereUniqueInput!
-    data: UploadLocationGoogleDriveUpdateInput!
-  ): UploadLocationGoogleDrive
-  updateUploadLocationGoogleDrives(
-    data: [UploadLocationGoogleDriveUpdateArgs!]!
-  ): [UploadLocationGoogleDrive]
-  deleteUploadLocationGoogleDrive(
-    where: UploadLocationGoogleDriveWhereUniqueInput!
-  ): UploadLocationGoogleDrive
-  deleteUploadLocationGoogleDrives(
-    where: [UploadLocationGoogleDriveWhereUniqueInput!]!
-  ): [UploadLocationGoogleDrive]
-  createUploadLocationLocal(
-    data: UploadLocationLocalCreateInput!
-  ): UploadLocationLocal
-  createUploadLocationLocals(
-    data: [UploadLocationLocalCreateInput!]!
-  ): [UploadLocationLocal]
-  updateUploadLocationLocal(
-    where: UploadLocationLocalWhereUniqueInput!
-    data: UploadLocationLocalUpdateInput!
-  ): UploadLocationLocal
-  updateUploadLocationLocals(
-    data: [UploadLocationLocalUpdateArgs!]!
-  ): [UploadLocationLocal]
-  deleteUploadLocationLocal(
-    where: UploadLocationLocalWhereUniqueInput!
-  ): UploadLocationLocal
-  deleteUploadLocationLocals(
-    where: [UploadLocationLocalWhereUniqueInput!]!
-  ): [UploadLocationLocal]
+  deleteUploadLocations(where: [UploadLocationWhereUniqueInput!]!): [UploadLocation]
+  createUploadLocationGoogleDrive(data: UploadLocationGoogleDriveCreateInput!): UploadLocationGoogleDrive
+  createUploadLocationGoogleDrives(data: [UploadLocationGoogleDriveCreateInput!]!): [UploadLocationGoogleDrive]
+  updateUploadLocationGoogleDrive(where: UploadLocationGoogleDriveWhereUniqueInput!, data: UploadLocationGoogleDriveUpdateInput!): UploadLocationGoogleDrive
+  updateUploadLocationGoogleDrives(data: [UploadLocationGoogleDriveUpdateArgs!]!): [UploadLocationGoogleDrive]
+  deleteUploadLocationGoogleDrive(where: UploadLocationGoogleDriveWhereUniqueInput!): UploadLocationGoogleDrive
+  deleteUploadLocationGoogleDrives(where: [UploadLocationGoogleDriveWhereUniqueInput!]!): [UploadLocationGoogleDrive]
+  createUploadLocationLocal(data: UploadLocationLocalCreateInput!): UploadLocationLocal
+  createUploadLocationLocals(data: [UploadLocationLocalCreateInput!]!): [UploadLocationLocal]
+  updateUploadLocationLocal(where: UploadLocationLocalWhereUniqueInput!, data: UploadLocationLocalUpdateInput!): UploadLocationLocal
+  updateUploadLocationLocals(data: [UploadLocationLocalUpdateArgs!]!): [UploadLocationLocal]
+  deleteUploadLocationLocal(where: UploadLocationLocalWhereUniqueInput!): UploadLocationLocal
+  deleteUploadLocationLocals(where: [UploadLocationLocalWhereUniqueInput!]!): [UploadLocationLocal]
   createUploadLocationS3(data: UploadLocationS3CreateInput!): UploadLocationS3
-  createUploadLocationS3s(
-    data: [UploadLocationS3CreateInput!]!
-  ): [UploadLocationS3]
-  updateUploadLocationS3(
-    where: UploadLocationS3WhereUniqueInput!
-    data: UploadLocationS3UpdateInput!
-  ): UploadLocationS3
-  updateUploadLocationS3s(
-    data: [UploadLocationS3UpdateArgs!]!
-  ): [UploadLocationS3]
-  deleteUploadLocationS3(
-    where: UploadLocationS3WhereUniqueInput!
-  ): UploadLocationS3
-  deleteUploadLocationS3s(
-    where: [UploadLocationS3WhereUniqueInput!]!
-  ): [UploadLocationS3]
+  createUploadLocationS3s(data: [UploadLocationS3CreateInput!]!): [UploadLocationS3]
+  updateUploadLocationS3(where: UploadLocationS3WhereUniqueInput!, data: UploadLocationS3UpdateInput!): UploadLocationS3
+  updateUploadLocationS3s(data: [UploadLocationS3UpdateArgs!]!): [UploadLocationS3]
+  deleteUploadLocationS3(where: UploadLocationS3WhereUniqueInput!): UploadLocationS3
+  deleteUploadLocationS3s(where: [UploadLocationS3WhereUniqueInput!]!): [UploadLocationS3]
   createUploadProject(data: UploadProjectCreateInput!): UploadProject
   createUploadProjects(data: [UploadProjectCreateInput!]!): [UploadProject]
-  updateUploadProject(
-    where: UploadProjectWhereUniqueInput!
-    data: UploadProjectUpdateInput!
-  ): UploadProject
+  updateUploadProject(where: UploadProjectWhereUniqueInput!, data: UploadProjectUpdateInput!): UploadProject
   updateUploadProjects(data: [UploadProjectUpdateArgs!]!): [UploadProject]
   deleteUploadProject(where: UploadProjectWhereUniqueInput!): UploadProject
-  deleteUploadProjects(
-    where: [UploadProjectWhereUniqueInput!]!
-  ): [UploadProject]
+  deleteUploadProjects(where: [UploadProjectWhereUniqueInput!]!): [UploadProject]
   createUser(data: UserCreateInput!): User
   createUsers(data: [UserCreateInput!]!): [User]
   updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
@@ -778,10 +754,7 @@ type Mutation {
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
   createUserToken(data: UserTokenCreateInput!): UserToken
   createUserTokens(data: [UserTokenCreateInput!]!): [UserToken]
-  updateUserToken(
-    where: UserTokenWhereUniqueInput!
-    data: UserTokenUpdateInput!
-  ): UserToken
+  updateUserToken(where: UserTokenWhereUniqueInput!, data: UserTokenUpdateInput!): UserToken
   updateUserTokens(data: [UserTokenUpdateArgs!]!): [UserToken]
   deleteUserToken(where: UserTokenWhereUniqueInput!): UserToken
   deleteUserTokens(where: [UserTokenWhereUniqueInput!]!): [UserToken]
@@ -792,18 +765,11 @@ type Mutation {
   deleteVideo(where: VideoWhereUniqueInput!): Video
   deleteVideos(where: [VideoWhereUniqueInput!]!): [Video]
   endSession: Boolean!
-  authenticateUserWithPassword(
-    email: String!
-    password: String!
-  ): UserAuthenticationWithPasswordResult
-  createInitialUser(
-    data: CreateInitialUserInput!
-  ): UserAuthenticationWithPasswordSuccess!
+  authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
+  createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
 }
 
-union UserAuthenticationWithPasswordResult =
-    UserAuthenticationWithPasswordSuccess
-  | UserAuthenticationWithPasswordFailure
+union UserAuthenticationWithPasswordResult = UserAuthenticationWithPasswordSuccess | UserAuthenticationWithPasswordFailure
 
 type UserAuthenticationWithPasswordSuccess {
   sessionToken: String!
@@ -823,91 +789,31 @@ input CreateInitialUserInput {
 
 type Query {
   upload(where: UploadWhereUniqueInput!): Upload
-  uploads(
-    where: UploadWhereInput! = {}
-    orderBy: [UploadOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadWhereUniqueInput
-  ): [Upload!]
+  uploads(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
   uploadsCount(where: UploadWhereInput! = {}): Int
   uploadLocation(where: UploadLocationWhereUniqueInput!): UploadLocation
-  uploadLocations(
-    where: UploadLocationWhereInput! = {}
-    orderBy: [UploadLocationOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadLocationWhereUniqueInput
-  ): [UploadLocation!]
+  uploadLocations(where: UploadLocationWhereInput! = {}, orderBy: [UploadLocationOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadLocationWhereUniqueInput): [UploadLocation!]
   uploadLocationsCount(where: UploadLocationWhereInput! = {}): Int
-  uploadLocationGoogleDrive(
-    where: UploadLocationGoogleDriveWhereUniqueInput!
-  ): UploadLocationGoogleDrive
-  uploadLocationGoogleDrives(
-    where: UploadLocationGoogleDriveWhereInput! = {}
-    orderBy: [UploadLocationGoogleDriveOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadLocationGoogleDriveWhereUniqueInput
-  ): [UploadLocationGoogleDrive!]
-  uploadLocationGoogleDrivesCount(
-    where: UploadLocationGoogleDriveWhereInput! = {}
-  ): Int
-  uploadLocationLocal(
-    where: UploadLocationLocalWhereUniqueInput!
-  ): UploadLocationLocal
-  uploadLocationLocals(
-    where: UploadLocationLocalWhereInput! = {}
-    orderBy: [UploadLocationLocalOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadLocationLocalWhereUniqueInput
-  ): [UploadLocationLocal!]
+  uploadLocationGoogleDrive(where: UploadLocationGoogleDriveWhereUniqueInput!): UploadLocationGoogleDrive
+  uploadLocationGoogleDrives(where: UploadLocationGoogleDriveWhereInput! = {}, orderBy: [UploadLocationGoogleDriveOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadLocationGoogleDriveWhereUniqueInput): [UploadLocationGoogleDrive!]
+  uploadLocationGoogleDrivesCount(where: UploadLocationGoogleDriveWhereInput! = {}): Int
+  uploadLocationLocal(where: UploadLocationLocalWhereUniqueInput!): UploadLocationLocal
+  uploadLocationLocals(where: UploadLocationLocalWhereInput! = {}, orderBy: [UploadLocationLocalOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadLocationLocalWhereUniqueInput): [UploadLocationLocal!]
   uploadLocationLocalsCount(where: UploadLocationLocalWhereInput! = {}): Int
   uploadLocationS3(where: UploadLocationS3WhereUniqueInput!): UploadLocationS3
-  uploadLocationS3s(
-    where: UploadLocationS3WhereInput! = {}
-    orderBy: [UploadLocationS3OrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadLocationS3WhereUniqueInput
-  ): [UploadLocationS3!]
+  uploadLocationS3s(where: UploadLocationS3WhereInput! = {}, orderBy: [UploadLocationS3OrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadLocationS3WhereUniqueInput): [UploadLocationS3!]
   uploadLocationS3sCount(where: UploadLocationS3WhereInput! = {}): Int
   uploadProject(where: UploadProjectWhereUniqueInput!): UploadProject
-  uploadProjects(
-    where: UploadProjectWhereInput! = {}
-    orderBy: [UploadProjectOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UploadProjectWhereUniqueInput
-  ): [UploadProject!]
+  uploadProjects(where: UploadProjectWhereInput! = {}, orderBy: [UploadProjectOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadProjectWhereUniqueInput): [UploadProject!]
   uploadProjectsCount(where: UploadProjectWhereInput! = {}): Int
   user(where: UserWhereUniqueInput!): User
-  users(
-    where: UserWhereInput! = {}
-    orderBy: [UserOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UserWhereUniqueInput
-  ): [User!]
+  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserWhereUniqueInput): [User!]
   usersCount(where: UserWhereInput! = {}): Int
   userToken(where: UserTokenWhereUniqueInput!): UserToken
-  userTokens(
-    where: UserTokenWhereInput! = {}
-    orderBy: [UserTokenOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: UserTokenWhereUniqueInput
-  ): [UserToken!]
+  userTokens(where: UserTokenWhereInput! = {}, orderBy: [UserTokenOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserTokenWhereUniqueInput): [UserToken!]
   userTokensCount(where: UserTokenWhereInput! = {}): Int
   video(where: VideoWhereUniqueInput!): Video
-  videos(
-    where: VideoWhereInput! = {}
-    orderBy: [VideoOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-    cursor: VideoWhereUniqueInput
-  ): [Video!]
+  videos(where: VideoWhereInput! = {}, orderBy: [VideoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: VideoWhereUniqueInput): [Video!]
   videosCount(where: VideoWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem

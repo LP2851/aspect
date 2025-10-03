@@ -13,7 +13,11 @@ export const UploadLocation = list({
       options: uploadLocationTypeOptions,
       validation: { isRequired: true },
     }),
-    project: relationship({ ref: "UploadProject.uploadLocation" }),
+    project: relationship({ ref: "UploadProject.uploadLocation", many: false }),
+
+    s3Link: relationship({ ref: "UploadLocationS3", many: false }),
+    localLink: relationship({ ref: "UploadLocationLocal", many: false }),
+    googleDrive: relationship({ ref: "UploadLocationGoogleDrive", many: false }),
   },
   ui: {
     listView: { initialColumns: ["type", "project"] },

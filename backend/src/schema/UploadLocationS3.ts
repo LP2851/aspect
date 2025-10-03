@@ -10,6 +10,7 @@ export const UploadLocationS3 = list({
   fields: {
     location: relationship({
       ref: "UploadLocation",
+      many: false,
       ui: { displayMode: "select" },
     }),
     bucket: text({ validation: { isRequired: true } }),

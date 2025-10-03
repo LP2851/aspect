@@ -10,6 +10,7 @@ export const UploadLocationGoogleDrive = list({
   fields: {
     location: relationship({
       ref: "UploadLocation",
+      many: false,
       ui: { displayMode: "select" },
     }),
     driveId: text({ validation: { isRequired: true } }),

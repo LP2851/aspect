@@ -6,11 +6,11 @@ import { useNavigate, useParams } from "react-router";
 import { type Project } from "../../../api/types/types.ts";
 import Button from "../../../components/button/Button.tsx";
 import Card from "../../../components/card/Card.tsx";
-import TextInput from "../../../components/input/text/TextInput.tsx";
-import TextAreaInput from "../../../components/input/textarea/TextAreaInput.tsx";
 import LeftSidebar from "../../../components/left-sidebar/LeftSidebar.tsx";
 import { useGetUploadProjectQuery } from "../../../generated/graphql.ts";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
+import ProjectDetailsGeneralDetails from "./general-details/ProjectDetailsGeneralDetails.tsx";
+import ProjectDetailsUploadLocation from "./file-upload-link/ProjectDetailsFileUploadLink.tsx";
 
 const ProjectDetailPage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const ProjectDetailPage = () => {
   const { projectId: id } = useParams<{ projectId: string }>();
   const [project, setProject] = useState<Project | null>(null);
 
-  const { data, loading, error } = useGetUploadProjectQuery({
+  const { data, loading, error, refetch } = useGetUploadProjectQuery({
     variables: {
       where: {
         id,
@@ -29,6 +29,11 @@ const ProjectDetailPage = () => {
   useEffect(() => {
     setProject(data?.uploadProject as Project);
   }, [loading, data?.uploadProject]);
+
+  const onSave = async () => {
+    showToast("success", "Saved changes successfully!");
+    await refetch();
+  }
 
   // const handleSave = () => {
   //   // Call API to save project changes
@@ -71,44 +76,20 @@ const ProjectDetailPage = () => {
         }
         renderContentMapping={{
           general: {
-            element: (
-              <Card>
-                <h3>General Details</h3>
-                <TextInput
-                  required={true}
-                  label="Project Name"
-                  placeholder={"Project Name"}
-                  value={project?.projectName}
-                  onChange={(e) => {
-                    if (project) {
-                      setProject({ ...project, projectName: e.target.value });
-                    }
-                  }}
-                />
-
-                <TextAreaInput
-                  label="Description"
-                  value={project?.description || ""}
-                  onChange={(e) => {
-                    if (project) {
-                      setProject({ ...project, description: e.target.value });
-                    }
-                  }}
-                />
-
-                <Button
-                  style={{ marginTop: "2rem", width: "100%" }}
-                  onClick={() => alert("Saving")}
-                >
-                  Save Changes
-                </Button>
-              </Card>
-            ),
+            element: <ProjectDetailsGeneralDetails
+              project={project}
+              setProject={setProject}
+              onSave={onSave}
+            />,
             itemName: "General Details",
           },
-          uploadLocation: {
-            itemName: "Upload Location",
-            element: <Card></Card>,
+          fileUploadLink: {
+            itemName: "File Upload Link",
+            element: <ProjectDetailsUploadLocation
+              project={project}
+              setProject={setProject}
+              onSave={onSave}
+            />,
           },
           uploadsTo: {
             itemName: "Upload To",

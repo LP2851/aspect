@@ -1,245 +1,232 @@
-import { gql } from "@apollo/client";
-import * as ApolloReactCommon from "@apollo/client/react";
-import * as ApolloReactHooks from "@apollo/client/react";
+import { gql } from '@apollo/client';
+import * as ApolloReactCommon from '@apollo/client/react';
+import * as ApolloReactHooks from '@apollo/client/react';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTime: { input: any; output: any };
-  JSON: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
 };
 
 export type AuthenticatedItem = User;
 
 export type BooleanFilter = {
-  equals?: InputMaybe<Scalars["Boolean"]["input"]>;
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<BooleanFilter>;
 };
 
 export type CreateInitialUserInput = {
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  isAdmin?: InputMaybe<Scalars["Boolean"]["input"]>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DateTimeFilter = {
-  equals?: InputMaybe<Scalars["DateTime"]["input"]>;
-  gt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  gte?: InputMaybe<Scalars["DateTime"]["input"]>;
-  in?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
-  lt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  lte?: InputMaybe<Scalars["DateTime"]["input"]>;
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   not?: InputMaybe<DateTimeFilter>;
-  notIn?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
 export type DateTimeNullableFilter = {
-  equals?: InputMaybe<Scalars["DateTime"]["input"]>;
-  gt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  gte?: InputMaybe<Scalars["DateTime"]["input"]>;
-  in?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
-  lt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  lte?: InputMaybe<Scalars["DateTime"]["input"]>;
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   not?: InputMaybe<DateTimeNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
 export type IdFilter = {
-  equals?: InputMaybe<Scalars["ID"]["input"]>;
-  gt?: InputMaybe<Scalars["ID"]["input"]>;
-  gte?: InputMaybe<Scalars["ID"]["input"]>;
-  in?: InputMaybe<Array<Scalars["ID"]["input"]>>;
-  lt?: InputMaybe<Scalars["ID"]["input"]>;
-  lte?: InputMaybe<Scalars["ID"]["input"]>;
+  equals?: InputMaybe<Scalars['ID']['input']>;
+  gt?: InputMaybe<Scalars['ID']['input']>;
+  gte?: InputMaybe<Scalars['ID']['input']>;
+  in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  lt?: InputMaybe<Scalars['ID']['input']>;
+  lte?: InputMaybe<Scalars['ID']['input']>;
   not?: InputMaybe<IdFilter>;
-  notIn?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  notIn?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 export type KeystoneAdminMeta = {
-  __typename?: "KeystoneAdminMeta";
+  __typename?: 'KeystoneAdminMeta';
   list?: Maybe<KeystoneAdminUiListMeta>;
   lists: Array<KeystoneAdminUiListMeta>;
 };
 
+
 export type KeystoneAdminMetaListArgs = {
-  key: Scalars["String"]["input"];
+  key: Scalars['String']['input'];
 };
 
 export type KeystoneAdminUiFieldGroupMeta = {
-  __typename?: "KeystoneAdminUIFieldGroupMeta";
-  description?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'KeystoneAdminUIFieldGroupMeta';
+  description?: Maybe<Scalars['String']['output']>;
   fields: Array<KeystoneAdminUiFieldMeta>;
-  label: Scalars["String"]["output"];
+  label: Scalars['String']['output'];
 };
 
 export type KeystoneAdminUiFieldMeta = {
-  __typename?: "KeystoneAdminUIFieldMeta";
+  __typename?: 'KeystoneAdminUIFieldMeta';
   createView: KeystoneAdminUiFieldMetaCreateView;
-  customViewsIndex?: Maybe<Scalars["Int"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  fieldMeta?: Maybe<Scalars["JSON"]["output"]>;
-  isFilterable: Scalars["Boolean"]["output"];
+  customViewsIndex?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  fieldMeta?: Maybe<Scalars['JSON']['output']>;
+  isFilterable: Scalars['Boolean']['output'];
   isNonNull?: Maybe<Array<KeystoneAdminUiFieldMetaIsNonNull>>;
-  isOrderable: Scalars["Boolean"]["output"];
+  isOrderable: Scalars['Boolean']['output'];
   itemView?: Maybe<KeystoneAdminUiFieldMetaItemView>;
-  label: Scalars["String"]["output"];
+  label: Scalars['String']['output'];
   listView: KeystoneAdminUiFieldMetaListView;
-  path: Scalars["String"]["output"];
+  path: Scalars['String']['output'];
   search?: Maybe<QueryMode>;
-  viewsIndex: Scalars["Int"]["output"];
+  viewsIndex: Scalars['Int']['output'];
 };
 
+
 export type KeystoneAdminUiFieldMetaItemViewArgs = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type KeystoneAdminUiFieldMetaCreateView = {
-  __typename?: "KeystoneAdminUIFieldMetaCreateView";
+  __typename?: 'KeystoneAdminUIFieldMetaCreateView';
   fieldMode: KeystoneAdminUiFieldMetaCreateViewFieldMode;
 };
 
 export enum KeystoneAdminUiFieldMetaCreateViewFieldMode {
-  Edit = "edit",
-  Hidden = "hidden",
+  Edit = 'edit',
+  Hidden = 'hidden'
 }
 
 export enum KeystoneAdminUiFieldMetaIsNonNull {
-  Create = "create",
-  Read = "read",
-  Update = "update",
+  Create = 'create',
+  Read = 'read',
+  Update = 'update'
 }
 
 export type KeystoneAdminUiFieldMetaItemView = {
-  __typename?: "KeystoneAdminUIFieldMetaItemView";
+  __typename?: 'KeystoneAdminUIFieldMetaItemView';
   fieldMode?: Maybe<KeystoneAdminUiFieldMetaItemViewFieldMode>;
   fieldPosition?: Maybe<KeystoneAdminUiFieldMetaItemViewFieldPosition>;
 };
 
 export enum KeystoneAdminUiFieldMetaItemViewFieldMode {
-  Edit = "edit",
-  Hidden = "hidden",
-  Read = "read",
+  Edit = 'edit',
+  Hidden = 'hidden',
+  Read = 'read'
 }
 
 export enum KeystoneAdminUiFieldMetaItemViewFieldPosition {
-  Form = "form",
-  Sidebar = "sidebar",
+  Form = 'form',
+  Sidebar = 'sidebar'
 }
 
 export type KeystoneAdminUiFieldMetaListView = {
-  __typename?: "KeystoneAdminUIFieldMetaListView";
+  __typename?: 'KeystoneAdminUIFieldMetaListView';
   fieldMode: KeystoneAdminUiFieldMetaListViewFieldMode;
 };
 
 export enum KeystoneAdminUiFieldMetaListViewFieldMode {
-  Hidden = "hidden",
-  Read = "read",
+  Hidden = 'hidden',
+  Read = 'read'
 }
 
 export type KeystoneAdminUiGraphQl = {
-  __typename?: "KeystoneAdminUIGraphQL";
+  __typename?: 'KeystoneAdminUIGraphQL';
   names: KeystoneAdminUiGraphQlNames;
 };
 
 export type KeystoneAdminUiGraphQlNames = {
-  __typename?: "KeystoneAdminUIGraphQLNames";
-  createInputName: Scalars["String"]["output"];
-  createManyMutationName: Scalars["String"]["output"];
-  createMutationName: Scalars["String"]["output"];
-  deleteManyMutationName: Scalars["String"]["output"];
-  deleteMutationName: Scalars["String"]["output"];
-  itemQueryName: Scalars["String"]["output"];
-  listOrderName: Scalars["String"]["output"];
-  listQueryCountName: Scalars["String"]["output"];
-  listQueryName: Scalars["String"]["output"];
-  outputTypeName: Scalars["String"]["output"];
-  relateToManyForCreateInputName: Scalars["String"]["output"];
-  relateToManyForUpdateInputName: Scalars["String"]["output"];
-  relateToOneForCreateInputName: Scalars["String"]["output"];
-  relateToOneForUpdateInputName: Scalars["String"]["output"];
-  updateInputName: Scalars["String"]["output"];
-  updateManyInputName: Scalars["String"]["output"];
-  updateManyMutationName: Scalars["String"]["output"];
-  updateMutationName: Scalars["String"]["output"];
-  whereInputName: Scalars["String"]["output"];
-  whereUniqueInputName: Scalars["String"]["output"];
+  __typename?: 'KeystoneAdminUIGraphQLNames';
+  createInputName: Scalars['String']['output'];
+  createManyMutationName: Scalars['String']['output'];
+  createMutationName: Scalars['String']['output'];
+  deleteManyMutationName: Scalars['String']['output'];
+  deleteMutationName: Scalars['String']['output'];
+  itemQueryName: Scalars['String']['output'];
+  listOrderName: Scalars['String']['output'];
+  listQueryCountName: Scalars['String']['output'];
+  listQueryName: Scalars['String']['output'];
+  outputTypeName: Scalars['String']['output'];
+  relateToManyForCreateInputName: Scalars['String']['output'];
+  relateToManyForUpdateInputName: Scalars['String']['output'];
+  relateToOneForCreateInputName: Scalars['String']['output'];
+  relateToOneForUpdateInputName: Scalars['String']['output'];
+  updateInputName: Scalars['String']['output'];
+  updateManyInputName: Scalars['String']['output'];
+  updateManyMutationName: Scalars['String']['output'];
+  updateMutationName: Scalars['String']['output'];
+  whereInputName: Scalars['String']['output'];
+  whereUniqueInputName: Scalars['String']['output'];
 };
 
 export type KeystoneAdminUiListMeta = {
-  __typename?: "KeystoneAdminUIListMeta";
-  description?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'KeystoneAdminUIListMeta';
+  description?: Maybe<Scalars['String']['output']>;
   fields: Array<KeystoneAdminUiFieldMeta>;
   graphql: KeystoneAdminUiGraphQl;
   groups: Array<KeystoneAdminUiFieldGroupMeta>;
-  hideCreate: Scalars["Boolean"]["output"];
-  hideDelete: Scalars["Boolean"]["output"];
-  initialColumns: Array<Scalars["String"]["output"]>;
-  initialSearchFields: Array<Scalars["String"]["output"]>;
+  hideCreate: Scalars['Boolean']['output'];
+  hideDelete: Scalars['Boolean']['output'];
+  initialColumns: Array<Scalars['String']['output']>;
+  initialSearchFields: Array<Scalars['String']['output']>;
   initialSort?: Maybe<KeystoneAdminUiSort>;
-  isHidden: Scalars["Boolean"]["output"];
-  isSingleton: Scalars["Boolean"]["output"];
-  itemQueryName: Scalars["String"]["output"];
-  key: Scalars["String"]["output"];
-  label: Scalars["String"]["output"];
-  labelField: Scalars["String"]["output"];
-  listQueryName: Scalars["String"]["output"];
-  pageSize: Scalars["Int"]["output"];
-  path: Scalars["String"]["output"];
-  plural: Scalars["String"]["output"];
-  singular: Scalars["String"]["output"];
+  isHidden: Scalars['Boolean']['output'];
+  isSingleton: Scalars['Boolean']['output'];
+  itemQueryName: Scalars['String']['output'];
+  key: Scalars['String']['output'];
+  label: Scalars['String']['output'];
+  labelField: Scalars['String']['output'];
+  listQueryName: Scalars['String']['output'];
+  pageSize: Scalars['Int']['output'];
+  path: Scalars['String']['output'];
+  plural: Scalars['String']['output'];
+  singular: Scalars['String']['output'];
 };
 
 export type KeystoneAdminUiSort = {
-  __typename?: "KeystoneAdminUISort";
+  __typename?: 'KeystoneAdminUISort';
   direction: KeystoneAdminUiSortDirection;
-  field: Scalars["String"]["output"];
+  field: Scalars['String']['output'];
 };
 
 export enum KeystoneAdminUiSortDirection {
-  Asc = "ASC",
-  Desc = "DESC",
+  Asc = 'ASC',
+  Desc = 'DESC'
 }
 
 export type KeystoneMeta = {
-  __typename?: "KeystoneMeta";
+  __typename?: 'KeystoneMeta';
   adminMeta: KeystoneAdminMeta;
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   authenticateUserWithPassword?: Maybe<UserAuthenticationWithPasswordResult>;
   createInitialUser: UserAuthenticationWithPasswordSuccess;
   createUpload?: Maybe<Upload>;
   createUploadLocation?: Maybe<UploadLocation>;
   createUploadLocationGoogleDrive?: Maybe<UploadLocationGoogleDrive>;
-  createUploadLocationGoogleDrives?: Maybe<
-    Array<Maybe<UploadLocationGoogleDrive>>
-  >;
+  createUploadLocationGoogleDrives?: Maybe<Array<Maybe<UploadLocationGoogleDrive>>>;
   createUploadLocationLocal?: Maybe<UploadLocationLocal>;
   createUploadLocationLocals?: Maybe<Array<Maybe<UploadLocationLocal>>>;
   createUploadLocationS3?: Maybe<UploadLocationS3>;
@@ -257,9 +244,7 @@ export type Mutation = {
   deleteUpload?: Maybe<Upload>;
   deleteUploadLocation?: Maybe<UploadLocation>;
   deleteUploadLocationGoogleDrive?: Maybe<UploadLocationGoogleDrive>;
-  deleteUploadLocationGoogleDrives?: Maybe<
-    Array<Maybe<UploadLocationGoogleDrive>>
-  >;
+  deleteUploadLocationGoogleDrives?: Maybe<Array<Maybe<UploadLocationGoogleDrive>>>;
   deleteUploadLocationLocal?: Maybe<UploadLocationLocal>;
   deleteUploadLocationLocals?: Maybe<Array<Maybe<UploadLocationLocal>>>;
   deleteUploadLocationS3?: Maybe<UploadLocationS3>;
@@ -274,13 +259,11 @@ export type Mutation = {
   deleteUsers?: Maybe<Array<Maybe<User>>>;
   deleteVideo?: Maybe<Video>;
   deleteVideos?: Maybe<Array<Maybe<Video>>>;
-  endSession: Scalars["Boolean"]["output"];
+  endSession: Scalars['Boolean']['output'];
   updateUpload?: Maybe<Upload>;
   updateUploadLocation?: Maybe<UploadLocation>;
   updateUploadLocationGoogleDrive?: Maybe<UploadLocationGoogleDrive>;
-  updateUploadLocationGoogleDrives?: Maybe<
-    Array<Maybe<UploadLocationGoogleDrive>>
-  >;
+  updateUploadLocationGoogleDrives?: Maybe<Array<Maybe<UploadLocationGoogleDrive>>>;
   updateUploadLocationLocal?: Maybe<UploadLocationLocal>;
   updateUploadLocationLocals?: Maybe<Array<Maybe<UploadLocationLocal>>>;
   updateUploadLocationS3?: Maybe<UploadLocationS3>;
@@ -297,519 +280,608 @@ export type Mutation = {
   updateVideos?: Maybe<Array<Maybe<Video>>>;
 };
 
+
 export type MutationAuthenticateUserWithPasswordArgs = {
-  email: Scalars["String"]["input"];
-  password: Scalars["String"]["input"];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
+
 
 export type MutationCreateInitialUserArgs = {
   data: CreateInitialUserInput;
 };
 
+
 export type MutationCreateUploadArgs = {
   data: UploadCreateInput;
 };
+
 
 export type MutationCreateUploadLocationArgs = {
   data: UploadLocationCreateInput;
 };
 
+
 export type MutationCreateUploadLocationGoogleDriveArgs = {
   data: UploadLocationGoogleDriveCreateInput;
 };
+
 
 export type MutationCreateUploadLocationGoogleDrivesArgs = {
   data: Array<UploadLocationGoogleDriveCreateInput>;
 };
 
+
 export type MutationCreateUploadLocationLocalArgs = {
   data: UploadLocationLocalCreateInput;
 };
+
 
 export type MutationCreateUploadLocationLocalsArgs = {
   data: Array<UploadLocationLocalCreateInput>;
 };
 
+
 export type MutationCreateUploadLocationS3Args = {
   data: UploadLocationS3CreateInput;
 };
+
 
 export type MutationCreateUploadLocationS3sArgs = {
   data: Array<UploadLocationS3CreateInput>;
 };
 
+
 export type MutationCreateUploadLocationsArgs = {
   data: Array<UploadLocationCreateInput>;
 };
+
 
 export type MutationCreateUploadProjectArgs = {
   data: UploadProjectCreateInput;
 };
 
+
 export type MutationCreateUploadProjectsArgs = {
   data: Array<UploadProjectCreateInput>;
 };
+
 
 export type MutationCreateUploadsArgs = {
   data: Array<UploadCreateInput>;
 };
 
+
 export type MutationCreateUserArgs = {
   data: UserCreateInput;
 };
+
 
 export type MutationCreateUserTokenArgs = {
   data: UserTokenCreateInput;
 };
 
+
 export type MutationCreateUserTokensArgs = {
   data: Array<UserTokenCreateInput>;
 };
+
 
 export type MutationCreateUsersArgs = {
   data: Array<UserCreateInput>;
 };
 
+
 export type MutationCreateVideoArgs = {
   data: VideoCreateInput;
 };
+
 
 export type MutationCreateVideosArgs = {
   data: Array<VideoCreateInput>;
 };
 
+
 export type MutationDeleteUploadArgs = {
   where: UploadWhereUniqueInput;
 };
+
 
 export type MutationDeleteUploadLocationArgs = {
   where: UploadLocationWhereUniqueInput;
 };
 
+
 export type MutationDeleteUploadLocationGoogleDriveArgs = {
   where: UploadLocationGoogleDriveWhereUniqueInput;
 };
+
 
 export type MutationDeleteUploadLocationGoogleDrivesArgs = {
   where: Array<UploadLocationGoogleDriveWhereUniqueInput>;
 };
 
+
 export type MutationDeleteUploadLocationLocalArgs = {
   where: UploadLocationLocalWhereUniqueInput;
 };
+
 
 export type MutationDeleteUploadLocationLocalsArgs = {
   where: Array<UploadLocationLocalWhereUniqueInput>;
 };
 
+
 export type MutationDeleteUploadLocationS3Args = {
   where: UploadLocationS3WhereUniqueInput;
 };
+
 
 export type MutationDeleteUploadLocationS3sArgs = {
   where: Array<UploadLocationS3WhereUniqueInput>;
 };
 
+
 export type MutationDeleteUploadLocationsArgs = {
   where: Array<UploadLocationWhereUniqueInput>;
 };
+
 
 export type MutationDeleteUploadProjectArgs = {
   where: UploadProjectWhereUniqueInput;
 };
 
+
 export type MutationDeleteUploadProjectsArgs = {
   where: Array<UploadProjectWhereUniqueInput>;
 };
+
 
 export type MutationDeleteUploadsArgs = {
   where: Array<UploadWhereUniqueInput>;
 };
 
+
 export type MutationDeleteUserArgs = {
   where: UserWhereUniqueInput;
 };
+
 
 export type MutationDeleteUserTokenArgs = {
   where: UserTokenWhereUniqueInput;
 };
 
+
 export type MutationDeleteUserTokensArgs = {
   where: Array<UserTokenWhereUniqueInput>;
 };
+
 
 export type MutationDeleteUsersArgs = {
   where: Array<UserWhereUniqueInput>;
 };
 
+
 export type MutationDeleteVideoArgs = {
   where: VideoWhereUniqueInput;
 };
 
+
 export type MutationDeleteVideosArgs = {
   where: Array<VideoWhereUniqueInput>;
 };
+
 
 export type MutationUpdateUploadArgs = {
   data: UploadUpdateInput;
   where: UploadWhereUniqueInput;
 };
 
+
 export type MutationUpdateUploadLocationArgs = {
   data: UploadLocationUpdateInput;
   where: UploadLocationWhereUniqueInput;
 };
+
 
 export type MutationUpdateUploadLocationGoogleDriveArgs = {
   data: UploadLocationGoogleDriveUpdateInput;
   where: UploadLocationGoogleDriveWhereUniqueInput;
 };
 
+
 export type MutationUpdateUploadLocationGoogleDrivesArgs = {
   data: Array<UploadLocationGoogleDriveUpdateArgs>;
 };
+
 
 export type MutationUpdateUploadLocationLocalArgs = {
   data: UploadLocationLocalUpdateInput;
   where: UploadLocationLocalWhereUniqueInput;
 };
 
+
 export type MutationUpdateUploadLocationLocalsArgs = {
   data: Array<UploadLocationLocalUpdateArgs>;
 };
+
 
 export type MutationUpdateUploadLocationS3Args = {
   data: UploadLocationS3UpdateInput;
   where: UploadLocationS3WhereUniqueInput;
 };
 
+
 export type MutationUpdateUploadLocationS3sArgs = {
   data: Array<UploadLocationS3UpdateArgs>;
 };
 
+
 export type MutationUpdateUploadLocationsArgs = {
   data: Array<UploadLocationUpdateArgs>;
 };
+
 
 export type MutationUpdateUploadProjectArgs = {
   data: UploadProjectUpdateInput;
   where: UploadProjectWhereUniqueInput;
 };
 
+
 export type MutationUpdateUploadProjectsArgs = {
   data: Array<UploadProjectUpdateArgs>;
 };
 
+
 export type MutationUpdateUploadsArgs = {
   data: Array<UploadUpdateArgs>;
 };
+
 
 export type MutationUpdateUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
+
 export type MutationUpdateUserTokenArgs = {
   data: UserTokenUpdateInput;
   where: UserTokenWhereUniqueInput;
 };
 
+
 export type MutationUpdateUserTokensArgs = {
   data: Array<UserTokenUpdateArgs>;
 };
 
+
 export type MutationUpdateUsersArgs = {
   data: Array<UserUpdateArgs>;
 };
+
 
 export type MutationUpdateVideoArgs = {
   data: VideoUpdateInput;
   where: VideoWhereUniqueInput;
 };
 
+
 export type MutationUpdateVideosArgs = {
   data: Array<VideoUpdateArgs>;
 };
 
 export type NestedStringFilter = {
-  contains?: InputMaybe<Scalars["String"]["input"]>;
-  endsWith?: InputMaybe<Scalars["String"]["input"]>;
-  equals?: InputMaybe<Scalars["String"]["input"]>;
-  gt?: InputMaybe<Scalars["String"]["input"]>;
-  gte?: InputMaybe<Scalars["String"]["input"]>;
-  in?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  lt?: InputMaybe<Scalars["String"]["input"]>;
-  lte?: InputMaybe<Scalars["String"]["input"]>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  endsWith?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  gt?: InputMaybe<Scalars['String']['input']>;
+  gte?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
+  lt?: InputMaybe<Scalars['String']['input']>;
+  lte?: InputMaybe<Scalars['String']['input']>;
   not?: InputMaybe<NestedStringFilter>;
-  notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  startsWith?: InputMaybe<Scalars["String"]["input"]>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum OrderDirection {
-  Asc = "asc",
-  Desc = "desc",
+  Asc = 'asc',
+  Desc = 'desc'
 }
 
 export type PasswordState = {
-  __typename?: "PasswordState";
-  isSet: Scalars["Boolean"]["output"];
+  __typename?: 'PasswordState';
+  isSet: Scalars['Boolean']['output'];
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   authenticatedItem?: Maybe<AuthenticatedItem>;
   keystone: KeystoneMeta;
   upload?: Maybe<Upload>;
   uploadLocation?: Maybe<UploadLocation>;
   uploadLocationGoogleDrive?: Maybe<UploadLocationGoogleDrive>;
   uploadLocationGoogleDrives?: Maybe<Array<UploadLocationGoogleDrive>>;
-  uploadLocationGoogleDrivesCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadLocationGoogleDrivesCount?: Maybe<Scalars['Int']['output']>;
   uploadLocationLocal?: Maybe<UploadLocationLocal>;
   uploadLocationLocals?: Maybe<Array<UploadLocationLocal>>;
-  uploadLocationLocalsCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadLocationLocalsCount?: Maybe<Scalars['Int']['output']>;
   uploadLocationS3?: Maybe<UploadLocationS3>;
   uploadLocationS3s?: Maybe<Array<UploadLocationS3>>;
-  uploadLocationS3sCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadLocationS3sCount?: Maybe<Scalars['Int']['output']>;
   uploadLocations?: Maybe<Array<UploadLocation>>;
-  uploadLocationsCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadLocationsCount?: Maybe<Scalars['Int']['output']>;
   uploadProject?: Maybe<UploadProject>;
   uploadProjects?: Maybe<Array<UploadProject>>;
-  uploadProjectsCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadProjectsCount?: Maybe<Scalars['Int']['output']>;
   uploads?: Maybe<Array<Upload>>;
-  uploadsCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadsCount?: Maybe<Scalars['Int']['output']>;
   user?: Maybe<User>;
   userToken?: Maybe<UserToken>;
   userTokens?: Maybe<Array<UserToken>>;
-  userTokensCount?: Maybe<Scalars["Int"]["output"]>;
+  userTokensCount?: Maybe<Scalars['Int']['output']>;
   users?: Maybe<Array<User>>;
-  usersCount?: Maybe<Scalars["Int"]["output"]>;
+  usersCount?: Maybe<Scalars['Int']['output']>;
   video?: Maybe<Video>;
   videos?: Maybe<Array<Video>>;
-  videosCount?: Maybe<Scalars["Int"]["output"]>;
-  youtubeAuthUrl?: Maybe<Scalars["String"]["output"]>;
+  videosCount?: Maybe<Scalars['Int']['output']>;
+  youtubeAuthUrl?: Maybe<Scalars['String']['output']>;
 };
+
 
 export type QueryUploadArgs = {
   where: UploadWhereUniqueInput;
 };
 
+
 export type QueryUploadLocationArgs = {
   where: UploadLocationWhereUniqueInput;
 };
+
 
 export type QueryUploadLocationGoogleDriveArgs = {
   where: UploadLocationGoogleDriveWhereUniqueInput;
 };
 
+
 export type QueryUploadLocationGoogleDrivesArgs = {
   cursor?: InputMaybe<UploadLocationGoogleDriveWhereUniqueInput>;
   orderBy?: Array<UploadLocationGoogleDriveOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadLocationGoogleDriveWhereInput;
 };
+
 
 export type QueryUploadLocationGoogleDrivesCountArgs = {
   where?: UploadLocationGoogleDriveWhereInput;
 };
 
+
 export type QueryUploadLocationLocalArgs = {
   where: UploadLocationLocalWhereUniqueInput;
 };
 
+
 export type QueryUploadLocationLocalsArgs = {
   cursor?: InputMaybe<UploadLocationLocalWhereUniqueInput>;
   orderBy?: Array<UploadLocationLocalOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadLocationLocalWhereInput;
 };
+
 
 export type QueryUploadLocationLocalsCountArgs = {
   where?: UploadLocationLocalWhereInput;
 };
 
+
 export type QueryUploadLocationS3Args = {
   where: UploadLocationS3WhereUniqueInput;
 };
 
+
 export type QueryUploadLocationS3sArgs = {
   cursor?: InputMaybe<UploadLocationS3WhereUniqueInput>;
   orderBy?: Array<UploadLocationS3OrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadLocationS3WhereInput;
 };
+
 
 export type QueryUploadLocationS3sCountArgs = {
   where?: UploadLocationS3WhereInput;
 };
 
+
 export type QueryUploadLocationsArgs = {
   cursor?: InputMaybe<UploadLocationWhereUniqueInput>;
   orderBy?: Array<UploadLocationOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadLocationWhereInput;
 };
+
 
 export type QueryUploadLocationsCountArgs = {
   where?: UploadLocationWhereInput;
 };
 
+
 export type QueryUploadProjectArgs = {
   where: UploadProjectWhereUniqueInput;
 };
 
+
 export type QueryUploadProjectsArgs = {
   cursor?: InputMaybe<UploadProjectWhereUniqueInput>;
   orderBy?: Array<UploadProjectOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadProjectWhereInput;
 };
+
 
 export type QueryUploadProjectsCountArgs = {
   where?: UploadProjectWhereInput;
 };
 
+
 export type QueryUploadsArgs = {
   cursor?: InputMaybe<UploadWhereUniqueInput>;
   orderBy?: Array<UploadOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadWhereInput;
 };
+
 
 export type QueryUploadsCountArgs = {
   where?: UploadWhereInput;
 };
 
+
 export type QueryUserArgs = {
   where: UserWhereUniqueInput;
 };
+
 
 export type QueryUserTokenArgs = {
   where: UserTokenWhereUniqueInput;
 };
 
+
 export type QueryUserTokensArgs = {
   cursor?: InputMaybe<UserTokenWhereUniqueInput>;
   orderBy?: Array<UserTokenOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UserTokenWhereInput;
 };
+
 
 export type QueryUserTokensCountArgs = {
   where?: UserTokenWhereInput;
 };
 
+
 export type QueryUsersArgs = {
   cursor?: InputMaybe<UserWhereUniqueInput>;
   orderBy?: Array<UserOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UserWhereInput;
 };
+
 
 export type QueryUsersCountArgs = {
   where?: UserWhereInput;
 };
 
+
 export type QueryVideoArgs = {
   where: VideoWhereUniqueInput;
 };
 
+
 export type QueryVideosArgs = {
   cursor?: InputMaybe<VideoWhereUniqueInput>;
   orderBy?: Array<VideoOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: VideoWhereInput;
 };
+
 
 export type QueryVideosCountArgs = {
   where?: VideoWhereInput;
 };
 
 export enum QueryMode {
-  Default = "default",
-  Insensitive = "insensitive",
+  Default = 'default',
+  Insensitive = 'insensitive'
 }
 
 export type StringFilter = {
-  contains?: InputMaybe<Scalars["String"]["input"]>;
-  endsWith?: InputMaybe<Scalars["String"]["input"]>;
-  equals?: InputMaybe<Scalars["String"]["input"]>;
-  gt?: InputMaybe<Scalars["String"]["input"]>;
-  gte?: InputMaybe<Scalars["String"]["input"]>;
-  in?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  lt?: InputMaybe<Scalars["String"]["input"]>;
-  lte?: InputMaybe<Scalars["String"]["input"]>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  endsWith?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  gt?: InputMaybe<Scalars['String']['input']>;
+  gte?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
+  lt?: InputMaybe<Scalars['String']['input']>;
+  lte?: InputMaybe<Scalars['String']['input']>;
   mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringFilter>;
-  notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  startsWith?: InputMaybe<Scalars["String"]["input"]>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StringNullableFilter = {
-  contains?: InputMaybe<Scalars["String"]["input"]>;
-  endsWith?: InputMaybe<Scalars["String"]["input"]>;
-  equals?: InputMaybe<Scalars["String"]["input"]>;
-  gt?: InputMaybe<Scalars["String"]["input"]>;
-  gte?: InputMaybe<Scalars["String"]["input"]>;
-  in?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  lt?: InputMaybe<Scalars["String"]["input"]>;
-  lte?: InputMaybe<Scalars["String"]["input"]>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  endsWith?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  gt?: InputMaybe<Scalars['String']['input']>;
+  gte?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
+  lt?: InputMaybe<Scalars['String']['input']>;
+  lte?: InputMaybe<Scalars['String']['input']>;
   mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<StringNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  startsWith?: InputMaybe<Scalars["String"]["input"]>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Upload = {
-  __typename?: "Upload";
-  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
-  id: Scalars["ID"]["output"];
+  __typename?: 'Upload';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
   project?: Maybe<UploadProject>;
-  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  uploadStatus?: Maybe<Scalars["String"]["output"]>;
-  uploadTo?: Maybe<Scalars["String"]["output"]>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  uploadStatus?: Maybe<Scalars['String']['output']>;
+  uploadTo?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadCreateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   project?: InputMaybe<UploadProjectRelateToOneForCreateInput>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  uploadStatus?: InputMaybe<Scalars["String"]["input"]>;
-  uploadTo?: InputMaybe<Scalars["String"]["input"]>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  uploadStatus?: InputMaybe<Scalars['String']['input']>;
+  uploadTo?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocation = {
-  __typename?: "UploadLocation";
-  id: Scalars["ID"]["output"];
+  __typename?: 'UploadLocation';
+  googleDrive?: Maybe<UploadLocationGoogleDrive>;
+  id: Scalars['ID']['output'];
+  localLink?: Maybe<UploadLocationLocal>;
   project?: Maybe<UploadProject>;
-  type?: Maybe<Scalars["String"]["output"]>;
+  s3Link?: Maybe<UploadLocationS3>;
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadLocationCreateInput = {
+  googleDrive?: InputMaybe<UploadLocationGoogleDriveRelateToOneForCreateInput>;
+  localLink?: InputMaybe<UploadLocationLocalRelateToOneForCreateInput>;
   project?: InputMaybe<UploadProjectRelateToOneForCreateInput>;
-  type?: InputMaybe<Scalars["String"]["input"]>;
+  s3Link?: InputMaybe<UploadLocationS3RelateToOneForCreateInput>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationGoogleDrive = {
-  __typename?: "UploadLocationGoogleDrive";
-  driveId?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
+  __typename?: 'UploadLocationGoogleDrive';
+  driveId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
   location?: Maybe<UploadLocation>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadLocationGoogleDriveCreateInput = {
-  driveId?: InputMaybe<Scalars["String"]["input"]>;
+  driveId?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<UploadLocationRelateToOneForCreateInput>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationGoogleDriveOrderByInput = {
@@ -818,15 +890,26 @@ export type UploadLocationGoogleDriveOrderByInput = {
   name?: InputMaybe<OrderDirection>;
 };
 
+export type UploadLocationGoogleDriveRelateToOneForCreateInput = {
+  connect?: InputMaybe<UploadLocationGoogleDriveWhereUniqueInput>;
+  create?: InputMaybe<UploadLocationGoogleDriveCreateInput>;
+};
+
+export type UploadLocationGoogleDriveRelateToOneForUpdateInput = {
+  connect?: InputMaybe<UploadLocationGoogleDriveWhereUniqueInput>;
+  create?: InputMaybe<UploadLocationGoogleDriveCreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type UploadLocationGoogleDriveUpdateArgs = {
   data: UploadLocationGoogleDriveUpdateInput;
   where: UploadLocationGoogleDriveWhereUniqueInput;
 };
 
 export type UploadLocationGoogleDriveUpdateInput = {
-  driveId?: InputMaybe<Scalars["String"]["input"]>;
+  driveId?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<UploadLocationRelateToOneForUpdateInput>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationGoogleDriveWhereInput = {
@@ -840,24 +923,35 @@ export type UploadLocationGoogleDriveWhereInput = {
 };
 
 export type UploadLocationGoogleDriveWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UploadLocationLocal = {
-  __typename?: "UploadLocationLocal";
-  id: Scalars["ID"]["output"];
+  __typename?: 'UploadLocationLocal';
+  id: Scalars['ID']['output'];
   location?: Maybe<UploadLocation>;
-  path?: Maybe<Scalars["String"]["output"]>;
+  path?: Maybe<Scalars['String']['output']>;
 };
 
 export type UploadLocationLocalCreateInput = {
   location?: InputMaybe<UploadLocationRelateToOneForCreateInput>;
-  path?: InputMaybe<Scalars["String"]["input"]>;
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationLocalOrderByInput = {
   id?: InputMaybe<OrderDirection>;
   path?: InputMaybe<OrderDirection>;
+};
+
+export type UploadLocationLocalRelateToOneForCreateInput = {
+  connect?: InputMaybe<UploadLocationLocalWhereUniqueInput>;
+  create?: InputMaybe<UploadLocationLocalCreateInput>;
+};
+
+export type UploadLocationLocalRelateToOneForUpdateInput = {
+  connect?: InputMaybe<UploadLocationLocalWhereUniqueInput>;
+  create?: InputMaybe<UploadLocationLocalCreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UploadLocationLocalUpdateArgs = {
@@ -867,7 +961,7 @@ export type UploadLocationLocalUpdateArgs = {
 
 export type UploadLocationLocalUpdateInput = {
   location?: InputMaybe<UploadLocationRelateToOneForUpdateInput>;
-  path?: InputMaybe<Scalars["String"]["input"]>;
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationLocalWhereInput = {
@@ -880,7 +974,7 @@ export type UploadLocationLocalWhereInput = {
 };
 
 export type UploadLocationLocalWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UploadLocationOrderByInput = {
@@ -896,20 +990,20 @@ export type UploadLocationRelateToOneForCreateInput = {
 export type UploadLocationRelateToOneForUpdateInput = {
   connect?: InputMaybe<UploadLocationWhereUniqueInput>;
   create?: InputMaybe<UploadLocationCreateInput>;
-  disconnect?: InputMaybe<Scalars["Boolean"]["input"]>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UploadLocationS3 = {
-  __typename?: "UploadLocationS3";
-  bucket?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
-  key?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'UploadLocationS3';
+  bucket?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  key?: Maybe<Scalars['String']['output']>;
   location?: Maybe<UploadLocation>;
 };
 
 export type UploadLocationS3CreateInput = {
-  bucket?: InputMaybe<Scalars["String"]["input"]>;
-  key?: InputMaybe<Scalars["String"]["input"]>;
+  bucket?: InputMaybe<Scalars['String']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<UploadLocationRelateToOneForCreateInput>;
 };
 
@@ -919,14 +1013,25 @@ export type UploadLocationS3OrderByInput = {
   key?: InputMaybe<OrderDirection>;
 };
 
+export type UploadLocationS3RelateToOneForCreateInput = {
+  connect?: InputMaybe<UploadLocationS3WhereUniqueInput>;
+  create?: InputMaybe<UploadLocationS3CreateInput>;
+};
+
+export type UploadLocationS3RelateToOneForUpdateInput = {
+  connect?: InputMaybe<UploadLocationS3WhereUniqueInput>;
+  create?: InputMaybe<UploadLocationS3CreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type UploadLocationS3UpdateArgs = {
   data: UploadLocationS3UpdateInput;
   where: UploadLocationS3WhereUniqueInput;
 };
 
 export type UploadLocationS3UpdateInput = {
-  bucket?: InputMaybe<Scalars["String"]["input"]>;
-  key?: InputMaybe<Scalars["String"]["input"]>;
+  bucket?: InputMaybe<Scalars['String']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<UploadLocationRelateToOneForUpdateInput>;
 };
 
@@ -941,7 +1046,7 @@ export type UploadLocationS3WhereInput = {
 };
 
 export type UploadLocationS3WhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UploadLocationUpdateArgs = {
@@ -950,21 +1055,27 @@ export type UploadLocationUpdateArgs = {
 };
 
 export type UploadLocationUpdateInput = {
+  googleDrive?: InputMaybe<UploadLocationGoogleDriveRelateToOneForUpdateInput>;
+  localLink?: InputMaybe<UploadLocationLocalRelateToOneForUpdateInput>;
   project?: InputMaybe<UploadProjectRelateToOneForUpdateInput>;
-  type?: InputMaybe<Scalars["String"]["input"]>;
+  s3Link?: InputMaybe<UploadLocationS3RelateToOneForUpdateInput>;
+  type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadLocationWhereInput = {
   AND?: InputMaybe<Array<UploadLocationWhereInput>>;
   NOT?: InputMaybe<Array<UploadLocationWhereInput>>;
   OR?: InputMaybe<Array<UploadLocationWhereInput>>;
+  googleDrive?: InputMaybe<UploadLocationGoogleDriveWhereInput>;
   id?: InputMaybe<IdFilter>;
+  localLink?: InputMaybe<UploadLocationLocalWhereInput>;
   project?: InputMaybe<UploadProjectWhereInput>;
+  s3Link?: InputMaybe<UploadLocationS3WhereInput>;
   type?: InputMaybe<StringFilter>;
 };
 
 export type UploadLocationWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   project?: InputMaybe<UploadProjectWhereUniqueInput>;
 };
 
@@ -983,39 +1094,41 @@ export type UploadOrderByInput = {
 };
 
 export type UploadProject = {
-  __typename?: "UploadProject";
-  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
-  projectName?: Maybe<Scalars["String"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  __typename?: 'UploadProject';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  projectName?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
   uploadLocation?: Maybe<UploadLocation>;
   uploadsTo?: Maybe<Array<Upload>>;
-  uploadsToCount?: Maybe<Scalars["Int"]["output"]>;
+  uploadsToCount?: Maybe<Scalars['Int']['output']>;
   user?: Maybe<User>;
 };
+
 
 export type UploadProjectUploadsToArgs = {
   cursor?: InputMaybe<UploadWhereUniqueInput>;
   orderBy?: Array<UploadOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadWhereInput;
 };
+
 
 export type UploadProjectUploadsToCountArgs = {
   where?: UploadWhereInput;
 };
 
 export type UploadProjectCreateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  deletedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  description?: InputMaybe<Scalars["String"]["input"]>;
-  projectName?: InputMaybe<Scalars["String"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  projectName?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   uploadLocation?: InputMaybe<UploadLocationRelateToOneForCreateInput>;
   uploadsTo?: InputMaybe<UploadRelateToManyForCreateInput>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
@@ -1057,7 +1170,7 @@ export type UploadProjectRelateToOneForCreateInput = {
 export type UploadProjectRelateToOneForUpdateInput = {
   connect?: InputMaybe<UploadProjectWhereUniqueInput>;
   create?: InputMaybe<UploadProjectCreateInput>;
-  disconnect?: InputMaybe<Scalars["Boolean"]["input"]>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UploadProjectUpdateArgs = {
@@ -1066,12 +1179,12 @@ export type UploadProjectUpdateArgs = {
 };
 
 export type UploadProjectUpdateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  deletedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  description?: InputMaybe<Scalars["String"]["input"]>;
-  projectName?: InputMaybe<Scalars["String"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  projectName?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   uploadLocation?: InputMaybe<UploadLocationRelateToOneForUpdateInput>;
   uploadsTo?: InputMaybe<UploadRelateToManyForUpdateInput>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
@@ -1094,7 +1207,7 @@ export type UploadProjectWhereInput = {
 };
 
 export type UploadProjectWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   uploadLocation?: InputMaybe<UploadLocationWhereUniqueInput>;
 };
 
@@ -1116,11 +1229,11 @@ export type UploadUpdateArgs = {
 };
 
 export type UploadUpdateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   project?: InputMaybe<UploadProjectRelateToOneForUpdateInput>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  uploadStatus?: InputMaybe<Scalars["String"]["input"]>;
-  uploadTo?: InputMaybe<Scalars["String"]["input"]>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  uploadStatus?: InputMaybe<Scalars['String']['input']>;
+  uploadTo?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadWhereInput = {
@@ -1136,68 +1249,70 @@ export type UploadWhereInput = {
 };
 
 export type UploadWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type User = {
-  __typename?: "User";
-  createdAt?: Maybe<Scalars["DateTime"]["output"]>;
-  email?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
-  isAdmin?: Maybe<Scalars["Boolean"]["output"]>;
-  name?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'User';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  isAdmin?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
   password?: Maybe<PasswordState>;
   projects?: Maybe<Array<UploadProject>>;
-  projectsCount?: Maybe<Scalars["Int"]["output"]>;
+  projectsCount?: Maybe<Scalars['Int']['output']>;
   tokens?: Maybe<Array<UserToken>>;
-  tokensCount?: Maybe<Scalars["Int"]["output"]>;
+  tokensCount?: Maybe<Scalars['Int']['output']>;
 };
+
 
 export type UserProjectsArgs = {
   cursor?: InputMaybe<UploadProjectWhereUniqueInput>;
   orderBy?: Array<UploadProjectOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UploadProjectWhereInput;
 };
+
 
 export type UserProjectsCountArgs = {
   where?: UploadProjectWhereInput;
 };
 
+
 export type UserTokensArgs = {
   cursor?: InputMaybe<UserTokenWhereUniqueInput>;
   orderBy?: Array<UserTokenOrderByInput>;
-  skip?: Scalars["Int"]["input"];
-  take?: InputMaybe<Scalars["Int"]["input"]>;
+  skip?: Scalars['Int']['input'];
+  take?: InputMaybe<Scalars['Int']['input']>;
   where?: UserTokenWhereInput;
 };
+
 
 export type UserTokensCountArgs = {
   where?: UserTokenWhereInput;
 };
 
 export type UserAuthenticationWithPasswordFailure = {
-  __typename?: "UserAuthenticationWithPasswordFailure";
-  message: Scalars["String"]["output"];
+  __typename?: 'UserAuthenticationWithPasswordFailure';
+  message: Scalars['String']['output'];
 };
 
-export type UserAuthenticationWithPasswordResult =
-  | UserAuthenticationWithPasswordFailure
-  | UserAuthenticationWithPasswordSuccess;
+export type UserAuthenticationWithPasswordResult = UserAuthenticationWithPasswordFailure | UserAuthenticationWithPasswordSuccess;
 
 export type UserAuthenticationWithPasswordSuccess = {
-  __typename?: "UserAuthenticationWithPasswordSuccess";
+  __typename?: 'UserAuthenticationWithPasswordSuccess';
   item: User;
-  sessionToken: Scalars["String"]["output"];
+  sessionToken: Scalars['String']['output'];
 };
 
 export type UserCreateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  isAdmin?: InputMaybe<Scalars["Boolean"]["input"]>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
   projects?: InputMaybe<UploadProjectRelateToManyForCreateInput>;
   tokens?: InputMaybe<UserTokenRelateToManyForCreateInput>;
 };
@@ -1218,26 +1333,26 @@ export type UserRelateToOneForCreateInput = {
 export type UserRelateToOneForUpdateInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   create?: InputMaybe<UserCreateInput>;
-  disconnect?: InputMaybe<Scalars["Boolean"]["input"]>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UserToken = {
-  __typename?: "UserToken";
-  accessToken?: Maybe<Scalars["String"]["output"]>;
-  expiryDate?: Maybe<Scalars["DateTime"]["output"]>;
-  id: Scalars["ID"]["output"];
-  refreshToken?: Maybe<Scalars["String"]["output"]>;
-  scopes?: Maybe<Scalars["String"]["output"]>;
-  tokenFor?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'UserToken';
+  accessToken?: Maybe<Scalars['String']['output']>;
+  expiryDate?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  refreshToken?: Maybe<Scalars['String']['output']>;
+  scopes?: Maybe<Scalars['String']['output']>;
+  tokenFor?: Maybe<Scalars['String']['output']>;
   user?: Maybe<User>;
 };
 
 export type UserTokenCreateInput = {
-  accessToken?: InputMaybe<Scalars["String"]["input"]>;
-  expiryDate?: InputMaybe<Scalars["DateTime"]["input"]>;
-  refreshToken?: InputMaybe<Scalars["String"]["input"]>;
-  scopes?: InputMaybe<Scalars["String"]["input"]>;
-  tokenFor?: InputMaybe<Scalars["String"]["input"]>;
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scopes?: InputMaybe<Scalars['String']['input']>;
+  tokenFor?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<UserRelateToOneForCreateInput>;
 };
 
@@ -1274,11 +1389,11 @@ export type UserTokenUpdateArgs = {
 };
 
 export type UserTokenUpdateInput = {
-  accessToken?: InputMaybe<Scalars["String"]["input"]>;
-  expiryDate?: InputMaybe<Scalars["DateTime"]["input"]>;
-  refreshToken?: InputMaybe<Scalars["String"]["input"]>;
-  scopes?: InputMaybe<Scalars["String"]["input"]>;
-  tokenFor?: InputMaybe<Scalars["String"]["input"]>;
+  accessToken?: InputMaybe<Scalars['String']['input']>;
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  refreshToken?: InputMaybe<Scalars['String']['input']>;
+  scopes?: InputMaybe<Scalars['String']['input']>;
+  tokenFor?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<UserRelateToOneForUpdateInput>;
 };
 
@@ -1296,7 +1411,7 @@ export type UserTokenWhereInput = {
 };
 
 export type UserTokenWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UserUpdateArgs = {
@@ -1305,11 +1420,11 @@ export type UserUpdateArgs = {
 };
 
 export type UserUpdateInput = {
-  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  isAdmin?: InputMaybe<Scalars["Boolean"]["input"]>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  isAdmin?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
   projects?: InputMaybe<UploadProjectRelateToManyForUpdateInput>;
   tokens?: InputMaybe<UserTokenRelateToManyForUpdateInput>;
 };
@@ -1328,26 +1443,26 @@ export type UserWhereInput = {
 };
 
 export type UserWhereUniqueInput = {
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type Video = {
-  __typename?: "Video";
-  description?: Maybe<Scalars["String"]["output"]>;
-  filePath?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
-  status?: Maybe<Scalars["String"]["output"]>;
-  title?: Maybe<Scalars["String"]["output"]>;
-  uploadedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  __typename?: 'Video';
+  description?: Maybe<Scalars['String']['output']>;
+  filePath?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  status?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  uploadedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type VideoCreateInput = {
-  description?: InputMaybe<Scalars["String"]["input"]>;
-  filePath?: InputMaybe<Scalars["String"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  title?: InputMaybe<Scalars["String"]["input"]>;
-  uploadedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  filePath?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  uploadedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type VideoOrderByInput = {
@@ -1365,11 +1480,11 @@ export type VideoUpdateArgs = {
 };
 
 export type VideoUpdateInput = {
-  description?: InputMaybe<Scalars["String"]["input"]>;
-  filePath?: InputMaybe<Scalars["String"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  title?: InputMaybe<Scalars["String"]["input"]>;
-  uploadedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  filePath?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  uploadedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type VideoWhereInput = {
@@ -1385,152 +1500,95 @@ export type VideoWhereInput = {
 };
 
 export type VideoWhereUniqueInput = {
-  id?: InputMaybe<Scalars["ID"]["input"]>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type LogoutMutation = { __typename?: "Mutation"; endSession: boolean };
+
+export type LogoutMutation = { __typename?: 'Mutation', endSession: boolean };
 
 export type SignInMutationVariables = Exact<{
-  email: Scalars["String"]["input"];
-  password: Scalars["String"]["input"];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
-export type SignInMutation = {
-  __typename?: "Mutation";
-  authenticateUserWithPassword?:
-    | { __typename?: "UserAuthenticationWithPasswordFailure"; message: string }
-    | {
-        __typename?: "UserAuthenticationWithPasswordSuccess";
-        sessionToken: string;
-        item: {
-          __typename?: "User";
-          id: string;
-          name?: string | null;
-          email?: string | null;
-        };
-      }
-    | null;
-};
+
+export type SignInMutation = { __typename?: 'Mutation', authenticateUserWithPassword?:
+    | { __typename?: 'UserAuthenticationWithPasswordFailure', message: string }
+    | { __typename?: 'UserAuthenticationWithPasswordSuccess', sessionToken: string, item: { __typename?: 'User', id: string, name?: string | null, email?: string | null } }
+   | null };
 
 export type CreateNewProjectMutationVariables = Exact<{
   data: UploadProjectCreateInput;
 }>;
 
-export type CreateNewProjectMutation = {
-  __typename?: "Mutation";
-  createUploadProject?: { __typename?: "UploadProject"; id: string } | null;
-};
+
+export type CreateNewProjectMutation = { __typename?: 'Mutation', createUploadProject?: { __typename?: 'UploadProject', id: string } | null };
 
 export type UpdateProjectMutationVariables = Exact<{
   where: UploadProjectWhereUniqueInput;
   data: UploadProjectUpdateInput;
 }>;
 
-export type UpdateProjectMutation = {
-  __typename?: "Mutation";
-  updateUploadProject?: { __typename?: "UploadProject"; id: string } | null;
-};
 
-export type MeQueryVariables = Exact<{ [key: string]: never }>;
+export type UpdateProjectMutation = { __typename?: 'Mutation', updateUploadProject?: { __typename?: 'UploadProject', id: string } | null };
 
-export type MeQuery = {
-  __typename?: "Query";
-  authenticatedItem?: {
-    __typename?: "User";
-    id: string;
-    name?: string | null;
-    email?: string | null;
-    isAdmin?: boolean | null;
-    tokens?: Array<{
-      __typename?: "UserToken";
-      id: string;
-      tokenFor?: string | null;
-    }> | null;
-  } | null;
-};
+export type CreateUploadLocationMutationVariables = Exact<{
+  data: UploadLocationCreateInput;
+}>;
 
-export type YouTubeAuthUrlQueryVariables = Exact<{ [key: string]: never }>;
 
-export type YouTubeAuthUrlQuery = {
-  __typename?: "Query";
-  youtubeAuthUrl?: string | null;
-};
+export type CreateUploadLocationMutation = { __typename?: 'Mutation', createUploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null } | null };
+
+export type DeleteUploadLocationMutationVariables = Exact<{
+  where: UploadLocationWhereUniqueInput;
+}>;
+
+
+export type DeleteUploadLocationMutation = { __typename?: 'Mutation', deleteUploadLocation?: { __typename?: 'UploadLocation', id: string } | null };
+
+export type UpdateUploadLocationMutationVariables = Exact<{
+  where: UploadLocationWhereUniqueInput;
+  data: UploadLocationUpdateInput;
+}>;
+
+
+export type UpdateUploadLocationMutation = { __typename?: 'Mutation', updateUploadLocation?: { __typename?: 'UploadLocation', id: string } | null };
+
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', id: string, name?: string | null, email?: string | null, isAdmin?: boolean | null, tokens?: Array<{ __typename?: 'UserToken', id: string, tokenFor?: string | null }> | null } | null };
+
+export type YouTubeAuthUrlQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type YouTubeAuthUrlQuery = { __typename?: 'Query', youtubeAuthUrl?: string | null };
 
 export type GetUploadProjectQueryVariables = Exact<{
   where: UploadProjectWhereUniqueInput;
 }>;
 
-export type GetUploadProjectQuery = {
-  __typename?: "Query";
-  uploadProject?: {
-    __typename?: "UploadProject";
-    id: string;
-    projectName?: string | null;
-    description?: string | null;
-    status?: string | null;
-    uploadsToCount?: number | null;
-    createdAt?: any | null;
-    updatedAt?: any | null;
-    deletedAt?: any | null;
-    user?: { __typename?: "User"; name?: string | null } | null;
-    uploadLocation?: {
-      __typename?: "UploadLocation";
-      id: string;
-      type?: string | null;
-    } | null;
-    uploadsTo?: Array<{
-      __typename?: "Upload";
-      id: string;
-      uploadStatus?: string | null;
-      uploadTo?: string | null;
-    }> | null;
-  } | null;
-};
+
+export type GetUploadProjectQuery = { __typename?: 'Query', uploadProject?: { __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, user?: { __typename?: 'User', name?: string | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null, localLink?: { __typename?: 'UploadLocationLocal', id: string, path?: string | null } | null, s3Link?: { __typename?: 'UploadLocationS3', id: string, key?: string | null, bucket?: string | null } | null, googleDrive?: { __typename?: 'UploadLocationGoogleDrive', id: string, name?: string | null, driveId?: string | null } | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null }> | null } | null };
 
 export type GetUploadProjectsQueryVariables = Exact<{
   where: UploadProjectWhereInput;
-  take?: InputMaybe<Scalars["Int"]["input"]>;
-  skip: Scalars["Int"]["input"];
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip: Scalars['Int']['input'];
 }>;
 
-export type GetUploadProjectsQuery = {
-  __typename?: "Query";
-  uploadProjects?: Array<{
-    __typename?: "UploadProject";
-    id: string;
-    projectName?: string | null;
-    description?: string | null;
-    status?: string | null;
-    uploadsToCount?: number | null;
-    createdAt?: any | null;
-    updatedAt?: any | null;
-    deletedAt?: any | null;
-    user?: { __typename?: "User"; name?: string | null } | null;
-    uploadLocation?: {
-      __typename?: "UploadLocation";
-      id: string;
-      type?: string | null;
-    } | null;
-    uploadsTo?: Array<{
-      __typename?: "Upload";
-      id: string;
-      uploadStatus?: string | null;
-      uploadTo?: string | null;
-    }> | null;
-  }> | null;
-};
+
+export type GetUploadProjectsQuery = { __typename?: 'Query', uploadProjects?: Array<{ __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, user?: { __typename?: 'User', name?: string | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null }> | null }> | null };
+
 
 export const LogoutDocument = gql`
-  mutation Logout {
-    endSession
-  }
-`;
-export type LogoutMutationFn = ApolloReactCommon.MutationFunction<
-  LogoutMutation,
-  LogoutMutationVariables
->;
+    mutation Logout {
+  endSession
+}
+    `;
+export type LogoutMutationFn = ApolloReactCommon.MutationFunction<LogoutMutation, LogoutMutationVariables>;
 
 /**
  * __useLogoutMutation__
@@ -1548,46 +1606,31 @@ export type LogoutMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useLogoutMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    LogoutMutation,
-    LogoutMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useMutation<LogoutMutation, LogoutMutationVariables>(
-    LogoutDocument,
-    options,
-  );
-}
-export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
-export type LogoutMutationResult =
-  ApolloReactCommon.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  LogoutMutation,
-  LogoutMutationVariables
->;
-export const SignInDocument = gql`
-  mutation SignIn($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        sessionToken
-        item {
-          id
-          name
-          email
-        }
+export function useLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
       }
-      ... on UserAuthenticationWithPasswordFailure {
-        message
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const SignInDocument = gql`
+    mutation SignIn($email: String!, $password: String!) {
+  authenticateUserWithPassword(email: $email, password: $password) {
+    ... on UserAuthenticationWithPasswordSuccess {
+      sessionToken
+      item {
+        id
+        name
+        email
       }
     }
+    ... on UserAuthenticationWithPasswordFailure {
+      message
+    }
   }
-`;
-export type SignInMutationFn = ApolloReactCommon.MutationFunction<
-  SignInMutation,
-  SignInMutationVariables
->;
+}
+    `;
+export type SignInMutationFn = ApolloReactCommon.MutationFunction<SignInMutation, SignInMutationVariables>;
 
 /**
  * __useSignInMutation__
@@ -1607,36 +1650,21 @@ export type SignInMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useSignInMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    SignInMutation,
-    SignInMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useMutation<SignInMutation, SignInMutationVariables>(
-    SignInDocument,
-    options,
-  );
-}
+export function useSignInMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignInMutation, SignInMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<SignInMutation, SignInMutationVariables>(SignInDocument, options);
+      }
 export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
-export type SignInMutationResult =
-  ApolloReactCommon.MutationResult<SignInMutation>;
-export type SignInMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  SignInMutation,
-  SignInMutationVariables
->;
+export type SignInMutationResult = ApolloReactCommon.MutationResult<SignInMutation>;
+export type SignInMutationOptions = ApolloReactCommon.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
 export const CreateNewProjectDocument = gql`
-  mutation CreateNewProject($data: UploadProjectCreateInput!) {
-    createUploadProject(data: $data) {
-      id
-    }
+    mutation CreateNewProject($data: UploadProjectCreateInput!) {
+  createUploadProject(data: $data) {
+    id
   }
-`;
-export type CreateNewProjectMutationFn = ApolloReactCommon.MutationFunction<
-  CreateNewProjectMutation,
-  CreateNewProjectMutationVariables
->;
+}
+    `;
+export type CreateNewProjectMutationFn = ApolloReactCommon.MutationFunction<CreateNewProjectMutation, CreateNewProjectMutationVariables>;
 
 /**
  * __useCreateNewProjectMutation__
@@ -1655,42 +1683,21 @@ export type CreateNewProjectMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCreateNewProjectMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateNewProjectMutation,
-    CreateNewProjectMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useMutation<
-    CreateNewProjectMutation,
-    CreateNewProjectMutationVariables
-  >(CreateNewProjectDocument, options);
-}
-export type CreateNewProjectMutationHookResult = ReturnType<
-  typeof useCreateNewProjectMutation
->;
-export type CreateNewProjectMutationResult =
-  ApolloReactCommon.MutationResult<CreateNewProjectMutation>;
-export type CreateNewProjectMutationOptions =
-  ApolloReactCommon.BaseMutationOptions<
-    CreateNewProjectMutation,
-    CreateNewProjectMutationVariables
-  >;
+export function useCreateNewProjectMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateNewProjectMutation, CreateNewProjectMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<CreateNewProjectMutation, CreateNewProjectMutationVariables>(CreateNewProjectDocument, options);
+      }
+export type CreateNewProjectMutationHookResult = ReturnType<typeof useCreateNewProjectMutation>;
+export type CreateNewProjectMutationResult = ApolloReactCommon.MutationResult<CreateNewProjectMutation>;
+export type CreateNewProjectMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateNewProjectMutation, CreateNewProjectMutationVariables>;
 export const UpdateProjectDocument = gql`
-  mutation UpdateProject(
-    $where: UploadProjectWhereUniqueInput!
-    $data: UploadProjectUpdateInput!
-  ) {
-    updateUploadProject(where: $where, data: $data) {
-      id
-    }
+    mutation UpdateProject($where: UploadProjectWhereUniqueInput!, $data: UploadProjectUpdateInput!) {
+  updateUploadProject(where: $where, data: $data) {
+    id
   }
-`;
-export type UpdateProjectMutationFn = ApolloReactCommon.MutationFunction<
-  UpdateProjectMutation,
-  UpdateProjectMutationVariables
->;
+}
+    `;
+export type UpdateProjectMutationFn = ApolloReactCommon.MutationFunction<UpdateProjectMutation, UpdateProjectMutationVariables>;
 
 /**
  * __useUpdateProjectMutation__
@@ -1710,44 +1717,130 @@ export type UpdateProjectMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useUpdateProjectMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpdateProjectMutation,
-    UpdateProjectMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useMutation<
-    UpdateProjectMutation,
-    UpdateProjectMutationVariables
-  >(UpdateProjectDocument, options);
+export function useUpdateProjectMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateProjectMutation, UpdateProjectMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<UpdateProjectMutation, UpdateProjectMutationVariables>(UpdateProjectDocument, options);
+      }
+export type UpdateProjectMutationHookResult = ReturnType<typeof useUpdateProjectMutation>;
+export type UpdateProjectMutationResult = ApolloReactCommon.MutationResult<UpdateProjectMutation>;
+export type UpdateProjectMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateProjectMutation, UpdateProjectMutationVariables>;
+export const CreateUploadLocationDocument = gql`
+    mutation CreateUploadLocation($data: UploadLocationCreateInput!) {
+  createUploadLocation(data: $data) {
+    id
+    type
+  }
 }
-export type UpdateProjectMutationHookResult = ReturnType<
-  typeof useUpdateProjectMutation
->;
-export type UpdateProjectMutationResult =
-  ApolloReactCommon.MutationResult<UpdateProjectMutation>;
-export type UpdateProjectMutationOptions =
-  ApolloReactCommon.BaseMutationOptions<
-    UpdateProjectMutation,
-    UpdateProjectMutationVariables
-  >;
+    `;
+export type CreateUploadLocationMutationFn = ApolloReactCommon.MutationFunction<CreateUploadLocationMutation, CreateUploadLocationMutationVariables>;
+
+/**
+ * __useCreateUploadLocationMutation__
+ *
+ * To run a mutation, you first call `useCreateUploadLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUploadLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUploadLocationMutation, { data, loading, error }] = useCreateUploadLocationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateUploadLocationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateUploadLocationMutation, CreateUploadLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<CreateUploadLocationMutation, CreateUploadLocationMutationVariables>(CreateUploadLocationDocument, options);
+      }
+export type CreateUploadLocationMutationHookResult = ReturnType<typeof useCreateUploadLocationMutation>;
+export type CreateUploadLocationMutationResult = ApolloReactCommon.MutationResult<CreateUploadLocationMutation>;
+export type CreateUploadLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateUploadLocationMutation, CreateUploadLocationMutationVariables>;
+export const DeleteUploadLocationDocument = gql`
+    mutation DeleteUploadLocation($where: UploadLocationWhereUniqueInput!) {
+  deleteUploadLocation(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteUploadLocationMutationFn = ApolloReactCommon.MutationFunction<DeleteUploadLocationMutation, DeleteUploadLocationMutationVariables>;
+
+/**
+ * __useDeleteUploadLocationMutation__
+ *
+ * To run a mutation, you first call `useDeleteUploadLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUploadLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUploadLocationMutation, { data, loading, error }] = useDeleteUploadLocationMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteUploadLocationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteUploadLocationMutation, DeleteUploadLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<DeleteUploadLocationMutation, DeleteUploadLocationMutationVariables>(DeleteUploadLocationDocument, options);
+      }
+export type DeleteUploadLocationMutationHookResult = ReturnType<typeof useDeleteUploadLocationMutation>;
+export type DeleteUploadLocationMutationResult = ApolloReactCommon.MutationResult<DeleteUploadLocationMutation>;
+export type DeleteUploadLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteUploadLocationMutation, DeleteUploadLocationMutationVariables>;
+export const UpdateUploadLocationDocument = gql`
+    mutation UpdateUploadLocation($where: UploadLocationWhereUniqueInput!, $data: UploadLocationUpdateInput!) {
+  updateUploadLocation(where: $where, data: $data) {
+    id
+  }
+}
+    `;
+export type UpdateUploadLocationMutationFn = ApolloReactCommon.MutationFunction<UpdateUploadLocationMutation, UpdateUploadLocationMutationVariables>;
+
+/**
+ * __useUpdateUploadLocationMutation__
+ *
+ * To run a mutation, you first call `useUpdateUploadLocationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUploadLocationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUploadLocationMutation, { data, loading, error }] = useUpdateUploadLocationMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateUploadLocationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUploadLocationMutation, UpdateUploadLocationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<UpdateUploadLocationMutation, UpdateUploadLocationMutationVariables>(UpdateUploadLocationDocument, options);
+      }
+export type UpdateUploadLocationMutationHookResult = ReturnType<typeof useUpdateUploadLocationMutation>;
+export type UpdateUploadLocationMutationResult = ApolloReactCommon.MutationResult<UpdateUploadLocationMutation>;
+export type UpdateUploadLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUploadLocationMutation, UpdateUploadLocationMutationVariables>;
 export const MeDocument = gql`
-  query Me {
-    authenticatedItem {
-      ... on User {
+    query Me {
+  authenticatedItem {
+    ... on User {
+      id
+      name
+      email
+      isAdmin
+      tokens {
         id
-        name
-        email
-        isAdmin
-        tokens {
-          id
-          tokenFor
-        }
+        tokenFor
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useMeQuery__
@@ -1764,53 +1857,27 @@ export const MeDocument = gql`
  *   },
  * });
  */
-export function useMeQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(
-    MeDocument,
-    options,
-  );
-}
-export function useMeLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    MeQuery,
-    MeQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(
-    MeDocument,
-    options,
-  );
-}
-export function useMeSuspenseQuery(
-  baseOptions?:
-    | ApolloReactHooks.SkipToken
-    | ApolloReactHooks.SuspenseQueryHookOptions<MeQuery, MeQueryVariables>,
-) {
-  const options =
-    baseOptions === ApolloReactHooks.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useSuspenseQuery<MeQuery, MeQueryVariables>(
-    MeDocument,
-    options,
-  );
-}
+export function useMeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+      }
+export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
+export function useMeSuspenseQuery(baseOptions?: ApolloReactHooks.SkipToken | ApolloReactHooks.SuspenseQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useSuspenseQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>;
-export type MeQueryResult = ApolloReactCommon.QueryResult<
-  MeQuery,
-  MeQueryVariables
->;
+export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
 export const YouTubeAuthUrlDocument = gql`
-  query YouTubeAuthUrl {
-    youtubeAuthUrl
-  }
-`;
+    query YouTubeAuthUrl {
+  youtubeAuthUrl
+}
+    `;
 
 /**
  * __useYouTubeAuthUrlQuery__
@@ -1827,86 +1894,62 @@ export const YouTubeAuthUrlDocument = gql`
  *   },
  * });
  */
-export function useYouTubeAuthUrlQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    YouTubeAuthUrlQuery,
-    YouTubeAuthUrlQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<
-    YouTubeAuthUrlQuery,
-    YouTubeAuthUrlQueryVariables
-  >(YouTubeAuthUrlDocument, options);
-}
-export function useYouTubeAuthUrlLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    YouTubeAuthUrlQuery,
-    YouTubeAuthUrlQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<
-    YouTubeAuthUrlQuery,
-    YouTubeAuthUrlQueryVariables
-  >(YouTubeAuthUrlDocument, options);
-}
-export function useYouTubeAuthUrlSuspenseQuery(
-  baseOptions?:
-    | ApolloReactHooks.SkipToken
-    | ApolloReactHooks.SuspenseQueryHookOptions<
-        YouTubeAuthUrlQuery,
-        YouTubeAuthUrlQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === ApolloReactHooks.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useSuspenseQuery<
-    YouTubeAuthUrlQuery,
-    YouTubeAuthUrlQueryVariables
-  >(YouTubeAuthUrlDocument, options);
-}
-export type YouTubeAuthUrlQueryHookResult = ReturnType<
-  typeof useYouTubeAuthUrlQuery
->;
-export type YouTubeAuthUrlLazyQueryHookResult = ReturnType<
-  typeof useYouTubeAuthUrlLazyQuery
->;
-export type YouTubeAuthUrlSuspenseQueryHookResult = ReturnType<
-  typeof useYouTubeAuthUrlSuspenseQuery
->;
-export type YouTubeAuthUrlQueryResult = ApolloReactCommon.QueryResult<
-  YouTubeAuthUrlQuery,
-  YouTubeAuthUrlQueryVariables
->;
+export function useYouTubeAuthUrlQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>(YouTubeAuthUrlDocument, options);
+      }
+export function useYouTubeAuthUrlLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>(YouTubeAuthUrlDocument, options);
+        }
+export function useYouTubeAuthUrlSuspenseQuery(baseOptions?: ApolloReactHooks.SkipToken | ApolloReactHooks.SuspenseQueryHookOptions<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>) {
+          const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useSuspenseQuery<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>(YouTubeAuthUrlDocument, options);
+        }
+export type YouTubeAuthUrlQueryHookResult = ReturnType<typeof useYouTubeAuthUrlQuery>;
+export type YouTubeAuthUrlLazyQueryHookResult = ReturnType<typeof useYouTubeAuthUrlLazyQuery>;
+export type YouTubeAuthUrlSuspenseQueryHookResult = ReturnType<typeof useYouTubeAuthUrlSuspenseQuery>;
+export type YouTubeAuthUrlQueryResult = ApolloReactCommon.QueryResult<YouTubeAuthUrlQuery, YouTubeAuthUrlQueryVariables>;
 export const GetUploadProjectDocument = gql`
-  query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
-    uploadProject(where: $where) {
-      id
-      projectName
-      description
-      user {
-        name
-      }
-      status
-      uploadLocation {
-        id
-        type
-      }
-      uploadsTo {
-        id
-        uploadStatus
-        uploadTo
-      }
-      uploadsToCount
-      createdAt
-      updatedAt
-      deletedAt
+    query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
+  uploadProject(where: $where) {
+    id
+    projectName
+    description
+    user {
+      name
     }
+    status
+    uploadLocation {
+      id
+      type
+      localLink {
+        id
+        path
+      }
+      s3Link {
+        id
+        key
+        bucket
+      }
+      googleDrive {
+        id
+        name
+        driveId
+      }
+    }
+    uploadsTo {
+      id
+      uploadStatus
+      uploadTo
+    }
+    uploadsToCount
+    createdAt
+    updatedAt
+    deletedAt
   }
-`;
+}
+    `;
 
 /**
  * __useGetUploadProjectQuery__
@@ -1924,99 +1967,53 @@ export const GetUploadProjectDocument = gql`
  *   },
  * });
  */
-export function useGetUploadProjectQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    GetUploadProjectQuery,
-    GetUploadProjectQueryVariables
-  > &
-    (
-      | { variables: GetUploadProjectQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<
-    GetUploadProjectQuery,
-    GetUploadProjectQueryVariables
-  >(GetUploadProjectDocument, options);
-}
-export function useGetUploadProjectLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetUploadProjectQuery,
-    GetUploadProjectQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<
-    GetUploadProjectQuery,
-    GetUploadProjectQueryVariables
-  >(GetUploadProjectDocument, options);
-}
-export function useGetUploadProjectSuspenseQuery(
-  baseOptions?:
-    | ApolloReactHooks.SkipToken
-    | ApolloReactHooks.SuspenseQueryHookOptions<
-        GetUploadProjectQuery,
-        GetUploadProjectQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === ApolloReactHooks.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useSuspenseQuery<
-    GetUploadProjectQuery,
-    GetUploadProjectQueryVariables
-  >(GetUploadProjectDocument, options);
-}
-export type GetUploadProjectQueryHookResult = ReturnType<
-  typeof useGetUploadProjectQuery
->;
-export type GetUploadProjectLazyQueryHookResult = ReturnType<
-  typeof useGetUploadProjectLazyQuery
->;
-export type GetUploadProjectSuspenseQueryHookResult = ReturnType<
-  typeof useGetUploadProjectSuspenseQuery
->;
-export type GetUploadProjectQueryResult = ApolloReactCommon.QueryResult<
-  GetUploadProjectQuery,
-  GetUploadProjectQueryVariables
->;
+export function useGetUploadProjectQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetUploadProjectQuery, GetUploadProjectQueryVariables> & ({ variables: GetUploadProjectQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetUploadProjectQuery, GetUploadProjectQueryVariables>(GetUploadProjectDocument, options);
+      }
+export function useGetUploadProjectLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUploadProjectQuery, GetUploadProjectQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetUploadProjectQuery, GetUploadProjectQueryVariables>(GetUploadProjectDocument, options);
+        }
+export function useGetUploadProjectSuspenseQuery(baseOptions?: ApolloReactHooks.SkipToken | ApolloReactHooks.SuspenseQueryHookOptions<GetUploadProjectQuery, GetUploadProjectQueryVariables>) {
+          const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useSuspenseQuery<GetUploadProjectQuery, GetUploadProjectQueryVariables>(GetUploadProjectDocument, options);
+        }
+export type GetUploadProjectQueryHookResult = ReturnType<typeof useGetUploadProjectQuery>;
+export type GetUploadProjectLazyQueryHookResult = ReturnType<typeof useGetUploadProjectLazyQuery>;
+export type GetUploadProjectSuspenseQueryHookResult = ReturnType<typeof useGetUploadProjectSuspenseQuery>;
+export type GetUploadProjectQueryResult = ApolloReactCommon.QueryResult<GetUploadProjectQuery, GetUploadProjectQueryVariables>;
 export const GetUploadProjectsDocument = gql`
-  query GetUploadProjects(
-    $where: UploadProjectWhereInput!
-    $take: Int
-    $skip: Int!
+    query GetUploadProjects($where: UploadProjectWhereInput!, $take: Int, $skip: Int!) {
+  uploadProjects(
+    where: $where
+    take: $take
+    skip: $skip
+    orderBy: {updatedAt: desc}
   ) {
-    uploadProjects(
-      where: $where
-      take: $take
-      skip: $skip
-      orderBy: { updatedAt: desc }
-    ) {
-      id
-      projectName
-      description
-      user {
-        name
-      }
-      status
-      uploadLocation {
-        id
-        type
-      }
-      uploadsTo {
-        id
-        uploadStatus
-        uploadTo
-      }
-      uploadsToCount
-      createdAt
-      updatedAt
-      deletedAt
+    id
+    projectName
+    description
+    user {
+      name
     }
+    status
+    uploadLocation {
+      id
+      type
+    }
+    uploadsTo {
+      id
+      uploadStatus
+      uploadTo
+    }
+    uploadsToCount
+    createdAt
+    updatedAt
+    deletedAt
   }
-`;
+}
+    `;
 
 /**
  * __useGetUploadProjectsQuery__
@@ -2036,61 +2033,19 @@ export const GetUploadProjectsDocument = gql`
  *   },
  * });
  */
-export function useGetUploadProjectsQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    GetUploadProjectsQuery,
-    GetUploadProjectsQueryVariables
-  > &
-    (
-      | { variables: GetUploadProjectsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<
-    GetUploadProjectsQuery,
-    GetUploadProjectsQueryVariables
-  >(GetUploadProjectsDocument, options);
-}
-export function useGetUploadProjectsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetUploadProjectsQuery,
-    GetUploadProjectsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<
-    GetUploadProjectsQuery,
-    GetUploadProjectsQueryVariables
-  >(GetUploadProjectsDocument, options);
-}
-export function useGetUploadProjectsSuspenseQuery(
-  baseOptions?:
-    | ApolloReactHooks.SkipToken
-    | ApolloReactHooks.SuspenseQueryHookOptions<
-        GetUploadProjectsQuery,
-        GetUploadProjectsQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === ApolloReactHooks.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useSuspenseQuery<
-    GetUploadProjectsQuery,
-    GetUploadProjectsQueryVariables
-  >(GetUploadProjectsDocument, options);
-}
-export type GetUploadProjectsQueryHookResult = ReturnType<
-  typeof useGetUploadProjectsQuery
->;
-export type GetUploadProjectsLazyQueryHookResult = ReturnType<
-  typeof useGetUploadProjectsLazyQuery
->;
-export type GetUploadProjectsSuspenseQueryHookResult = ReturnType<
-  typeof useGetUploadProjectsSuspenseQuery
->;
-export type GetUploadProjectsQueryResult = ApolloReactCommon.QueryResult<
-  GetUploadProjectsQuery,
-  GetUploadProjectsQueryVariables
->;
+export function useGetUploadProjectsQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetUploadProjectsQuery, GetUploadProjectsQueryVariables> & ({ variables: GetUploadProjectsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>(GetUploadProjectsDocument, options);
+      }
+export function useGetUploadProjectsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>(GetUploadProjectsDocument, options);
+        }
+export function useGetUploadProjectsSuspenseQuery(baseOptions?: ApolloReactHooks.SkipToken | ApolloReactHooks.SuspenseQueryHookOptions<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>) {
+          const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useSuspenseQuery<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>(GetUploadProjectsDocument, options);
+        }
+export type GetUploadProjectsQueryHookResult = ReturnType<typeof useGetUploadProjectsQuery>;
+export type GetUploadProjectsLazyQueryHookResult = ReturnType<typeof useGetUploadProjectsLazyQuery>;
+export type GetUploadProjectsSuspenseQueryHookResult = ReturnType<typeof useGetUploadProjectsSuspenseQuery>;
+export type GetUploadProjectsQueryResult = ApolloReactCommon.QueryResult<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>;

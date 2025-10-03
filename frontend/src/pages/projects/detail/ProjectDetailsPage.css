@@ -9,8 +9,22 @@
   color: var(--font-color-primary);
 }
 
-.project-detail-page h3 {
+.project-detail-page h2 {
+  margin: 0 0 10px;
+  color: var(--font-color-purple);
+  font-size: 20px;
+}
+
+.project-detail-page p.description {
   margin: 0;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
+.project-detail-page .new-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--highlight-color);
 }
 
 .sidebar-footer-item {

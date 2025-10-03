@@ -28,36 +28,49 @@ model UploadLocation {
   type                                    String
   project                                 UploadProject?              @relation("UploadLocation_project", fields: [projectId], references: [id])
   projectId                               String?                     @unique @map("project") @postgresql.Uuid
+  s3Link                                  UploadLocationS3?           @relation("UploadLocation_s3Link", fields: [s3LinkId], references: [id])
+  s3LinkId                                String?                     @map("s3Link") @postgresql.Uuid
+  localLink                               UploadLocationLocal?        @relation("UploadLocation_localLink", fields: [localLinkId], references: [id])
+  localLinkId                             String?                     @map("localLink") @postgresql.Uuid
+  googleDrive                             UploadLocationGoogleDrive?  @relation("UploadLocation_googleDrive", fields: [googleDriveId], references: [id])
+  googleDriveId                           String?                     @map("googleDrive") @postgresql.Uuid
   from_UploadLocationGoogleDrive_location UploadLocationGoogleDrive[] @relation("UploadLocationGoogleDrive_location")
   from_UploadLocationLocal_location       UploadLocationLocal[]       @relation("UploadLocationLocal_location")
   from_UploadLocationS3_location          UploadLocationS3[]          @relation("UploadLocationS3_location")
+
+  @@index([s3LinkId])
+  @@index([localLinkId])
+  @@index([googleDriveId])
 }
 
 model UploadLocationGoogleDrive {
-  id         String          @id @default(uuid()) @postgresql.Uuid
-  location   UploadLocation? @relation("UploadLocationGoogleDrive_location", fields: [locationId], references: [id])
-  locationId String?         @map("location") @postgresql.Uuid
-  driveId    String          @default("")
-  name       String          @default("")
+  id                              String           @id @default(uuid()) @postgresql.Uuid
+  location                        UploadLocation?  @relation("UploadLocationGoogleDrive_location", fields: [locationId], references: [id])
+  locationId                      String?          @map("location") @postgresql.Uuid
+  driveId                         String           @default("")
+  name                            String           @default("")
+  from_UploadLocation_googleDrive UploadLocation[] @relation("UploadLocation_googleDrive")
 
   @@index([locationId])
 }
 
 model UploadLocationLocal {
-  id         String          @id @default(uuid()) @postgresql.Uuid
-  location   UploadLocation? @relation("UploadLocationLocal_location", fields: [locationId], references: [id])
-  locationId String?         @map("location") @postgresql.Uuid
-  path       String          @default("")
+  id                            String           @id @default(uuid()) @postgresql.Uuid
+  location                      UploadLocation?  @relation("UploadLocationLocal_location", fields: [locationId], references: [id])
+  locationId                    String?          @map("location") @postgresql.Uuid
+  path                          String           @default("")
+  from_UploadLocation_localLink UploadLocation[] @relation("UploadLocation_localLink")
 
   @@index([locationId])
 }
 
 model UploadLocationS3 {
-  id         String          @id @default(uuid()) @postgresql.Uuid
-  location   UploadLocation? @relation("UploadLocationS3_location", fields: [locationId], references: [id])
-  locationId String?         @map("location") @postgresql.Uuid
-  bucket     String          @default("")
-  key        String          @default("")
+  id                         String           @id @default(uuid()) @postgresql.Uuid
+  location                   UploadLocation?  @relation("UploadLocationS3_location", fields: [locationId], references: [id])
+  locationId                 String?          @map("location") @postgresql.Uuid
+  bucket                     String           @default("")
+  key                        String           @default("")
+  from_UploadLocation_s3Link UploadLocation[] @relation("UploadLocation_s3Link")
 
   @@index([locationId])
 }
