@@ -1,6 +1,9 @@
 import { type FC, type FormEvent, useEffect, useState } from "react";
 
-import { useCreateUploadMutation } from "../../../generated/graphql.ts";
+import {
+  useCreateUploadMutation,
+  useUpdateUploadMutation,
+} from "../../../generated/graphql.ts";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
 import Button from "../../button/Button.tsx";
 import DateTimeInput from "../../input/datetime/DateTimeInput.tsx";
@@ -14,7 +17,11 @@ interface CreateTaskModalProps {
   isLoading?: boolean;
   projectId: string;
   isCreate: boolean;
-  task?: any[];
+  task?: {
+    id: string;
+    uploadTo?: string | null;
+    scheduledFor?: string | null;
+  } | null;
 }
 
 const CreateTaskModal: FC<CreateTaskModalProps> = ({
@@ -23,14 +30,33 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
   onSubmit,
   isLoading = false,
   projectId,
+  isCreate,
+  task,
 }) => {
   const { showToast } = useToast();
-  const [scheduledFor, setScheduledFor] = useState<Date | null>();
-  const [taskType, setTaskType] = useState<string | undefined>();
+  const [scheduledFor, setScheduledFor] = useState<Date | null>(null);
+  const [taskType, setTaskType] = useState<string | undefined>("UPLOAD");
   const [uploadPlatform, setUploadPlatform] = useState<string | undefined>();
-  const [errors, setErrors] = useState<{ scheduledFor?: string }>();
+  const [errors, setErrors] = useState<{ scheduledFor?: string }>({});
 
   const [createNewUploadTask] = useCreateUploadMutation();
+  const [updateUploadTask] = useUpdateUploadMutation();
+
+  useEffect(() => {
+    if (!isOpen) {
+      setScheduledFor(null);
+      setTaskType("UPLOAD");
+      setUploadPlatform(undefined);
+      setErrors({});
+      return;
+    }
+
+    if (!isCreate && task) {
+      setScheduledFor(task.scheduledFor ? new Date(task.scheduledFor) : null);
+      setUploadPlatform(task.uploadTo ?? undefined);
+      setTaskType("UPLOAD");
+    }
+  }, [isOpen, isCreate, task]);
 
   const validateForm = () => {
     const newErrors: { scheduledFor?: string } = {};
@@ -40,35 +66,15 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setScheduledFor(null);
-      setTaskType(undefined);
-      setUploadPlatform(undefined);
-      setErrors({});
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (scheduledFor) {
-      validateForm();
-    }
-  }, [scheduledFor, validateForm]);
 
   const onCreateNewUploadTask = async () => {
     try {
       const { data } = await createNewUploadTask({
         variables: {
           data: {
-            project: {
-              connect: {
-                id: projectId,
-              },
-            },
+            project: { connect: { id: projectId } },
             uploadTo: uploadPlatform,
             uploadStatus: "PENDING_RELEASE",
             scheduledFor: scheduledFor?.toISOString(),
@@ -82,48 +88,66 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
     }
   };
 
+  const onUpdateUploadTask = async () => {
+    if (!task?.id) return false;
+
+    try {
+      const { data } = await updateUploadTask({
+        variables: {
+          where: { id: task.id },
+          data: {
+            uploadTo: uploadPlatform,
+            scheduledFor: scheduledFor?.toISOString(),
+          },
+        },
+      });
+      return !!data?.updateUpload?.id;
+    } catch (err: any) {
+      showToast("error", "Failed to update task: " + err.message);
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
-    if (!validateForm()) {
-      return;
-    }
+    const result = isCreate
+      ? await onCreateNewUploadTask()
+      : await onUpdateUploadTask();
 
-    let result = false;
+    if (!result) return;
 
-    if (taskType === "UPLOAD") {
-      result = await onCreateNewUploadTask();
-    }
-
-    if (!result) {
-      return;
-    }
-
-    setTimeout(() => {
-      showToast("success", "Successfully created new task");
-    }, 5000);
-
+    showToast(
+      "success",
+      isCreate ? "Task created successfully" : "Task updated successfully",
+    );
     onClose();
     onSubmit();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Create New Task">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={isCreate ? "Create New Task" : "Edit Task"}
+    >
       <form onSubmit={handleSubmit} className="create-project-form">
         <div className="form-group">
           <DateTimeInput
             label="Scheduled For"
             error={errors?.scheduledFor}
-            required={true}
+            required
+            value={scheduledFor ? scheduledFor.toISOString().slice(0, 16) : ""}
             onChange={(e) => setScheduledFor(new Date(e.target.value))}
           />
 
           <Select
             id="task-type"
-            required={true}
+            required
             label="Task Type"
             defaultOption="Select a task type"
-            defaultValue={undefined}
+            value={taskType}
             options={[{ label: "Upload", value: "UPLOAD" }]}
             onChange={(e) => {
               const val = e.target.value;
@@ -135,10 +159,10 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
           {taskType === "UPLOAD" && (
             <Select
               id="upload-platform"
-              required={true}
+              required
               label="Upload Platform"
               defaultOption="Select an upload platform"
-              defaultValue={undefined}
+              value={uploadPlatform}
               options={[
                 { label: "TikTok", value: "TIK_TOK" },
                 { label: "YouTube", value: "YOUTUBE" },
@@ -150,8 +174,15 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
             />
           )}
         </div>
+
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Creating..." : "Create Project"}
+          {isLoading
+            ? isCreate
+              ? "Creating..."
+              : "Updating..."
+            : isCreate
+              ? "Create Task"
+              : "Save Changes"}
         </Button>
       </form>
     </Modal>

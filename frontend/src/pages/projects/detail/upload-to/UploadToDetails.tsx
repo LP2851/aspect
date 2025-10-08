@@ -32,6 +32,7 @@ const UploadToDetails = ({
   const [tasks, setTasks] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreatingTask, setIsCreatingTask] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<any | null>(null);
 
   const [deleteUploadTask] = useDeleteUploadMutation();
   const [updateUploadTask] = useUpdateUploadMutation();
@@ -122,7 +123,11 @@ const UploadToDetails = ({
       <p className="description">List of tasks for this upload project</p>
       <Button
         style={{ marginTop: "1rem", width: "100%" }}
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          setIsModalOpen(true);
+          setIsCreatingTask(true);
+          setSelectedTask(null);
+        }}
       >
         Create new upload task
       </Button>
@@ -131,7 +136,11 @@ const UploadToDetails = ({
         tasks.map((task: any) => (
           <TaskItem
             uploadTask={task}
-            onConfigure={() => {}}
+            onConfigure={() => {
+              setSelectedTask(task);
+              setIsCreatingTask(false);
+              setIsModalOpen(true);
+            }}
             onCancel={onRemoveTask}
             onSave={() => {}}
             onRetry={onRetryTask}
@@ -143,10 +152,12 @@ const UploadToDetails = ({
         onClose={() => {
           setIsModalOpen(false);
           setIsCreatingTask(false);
+          setSelectedTask(null);
         }}
         isCreate={isCreatingTask}
         onSubmit={onSave}
         projectId={project.id}
+        task={selectedTask}
       />
     </Card>
   );
