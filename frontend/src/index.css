@@ -31,6 +31,7 @@
   --border-color-dark-red: rgb(255 0 0 / 30%);
   --border: 1px solid var(--border-color);
   --border-green-bold: 2px solid var(--border-color-green);
+  --border-red-bold: 2px solid var(--border-color-red);
   --border-dark-red: 1px solid var(--border-color-dark-red);
   --font-family: "WDXL Lubrifont TC", sans-serif;
   --fancy-gradient-purple: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);

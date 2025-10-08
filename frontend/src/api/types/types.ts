@@ -60,7 +60,7 @@ export interface UploadLocation {
 }
 
 export const enum UploadPlatform {
-  TIK_TOK = "TIK TOK",
+  TIK_TOK = "TIK_TOK",
   YOUTUBE = "YOUTUBE",
   INSTAGRAM = "INSTAGRAM",
   FACEBOOK = "FACEBOOK",
@@ -68,7 +68,7 @@ export const enum UploadPlatform {
 }
 
 export const enum UploadStatus {
-  PENDING_RELEASE = "PENDING RELEASE",
+  PENDING_RELEASE = "PENDING_RELEASE",
   QUEUED = "QUEUED",
   UPLOADING = "UPLOADING",
   COMPLETED = "COMPLETED",

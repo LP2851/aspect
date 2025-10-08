@@ -1,0 +1,5 @@
+mutation DeleteUpload($where: UploadWhereUniqueInput!) {
+  deleteUpload(where: $where) {
+    id
+  }
+}

@@ -3,6 +3,7 @@ import "./ProjectsPage.css";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router";
 
+import { useAuth } from "../../../auth/AuthProvider.tsx";
 import CreateProjectModal from "../../../components/modal/create-project-modal/CreateProjectModal.tsx";
 import PaginationControls from "../../../components/pagination-controls/PaginationControls.tsx";
 import Spacer from "../../../components/spacer/Spacer.tsx";
@@ -17,6 +18,7 @@ import ProjectsTable from "./table/ProjectsTable.tsx";
 const ITEMS_PER_PAGE = 10;
 
 const ProjectsPage = () => {
+  const { user } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
 
@@ -50,6 +52,11 @@ const ProjectsPage = () => {
           data: {
             projectName: projectData.name,
             description: projectData.description,
+            user: {
+              connect: {
+                id: user?.id,
+              },
+            },
           },
         },
       }).then((res) => {

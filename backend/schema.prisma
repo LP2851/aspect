@@ -11,12 +11,27 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Audit {
+  id            String    @id @default(uuid()) @postgresql.Uuid
+  type          String
+  tableName     String    @default("")
+  recordId      String    @default("")
+  changeSubType String?
+  changes       Json?
+  createdBy     User?     @relation("Audit_createdBy", fields: [createdById], references: [id])
+  createdById   String?   @map("createdBy") @postgresql.Uuid
+  createdAt     DateTime? @default(now())
+
+  @@index([createdById])
+}
+
 model Upload {
   id           String         @id @default(uuid()) @postgresql.Uuid
   uploadTo     String
   uploadStatus String?        @default("PENDING_RELEASE")
   project      UploadProject? @relation("Upload_project", fields: [projectId], references: [id])
   projectId    String?        @map("project") @postgresql.Uuid
+  scheduledFor DateTime?
   createdAt    DateTime?      @default(now())
   updatedAt    DateTime?
 
@@ -92,14 +107,15 @@ model UploadProject {
 }
 
 model User {
-  id        String          @id @default(uuid()) @postgresql.Uuid
-  name      String          @default("")
-  email     String          @unique @default("")
-  password  String
-  projects  UploadProject[] @relation("UploadProject_user")
-  isAdmin   Boolean         @default(false)
-  tokens    UserToken[]     @relation("UserToken_user")
-  createdAt DateTime?       @default(now())
+  id                   String          @id @default(uuid()) @postgresql.Uuid
+  name                 String          @default("")
+  email                String          @unique @default("")
+  password             String
+  projects             UploadProject[] @relation("UploadProject_user")
+  isAdmin              Boolean         @default(false)
+  tokens               UserToken[]     @relation("UserToken_user")
+  createdAt            DateTime?       @default(now())
+  from_Audit_createdBy Audit[]         @relation("Audit_createdBy")
 }
 
 model UserToken {

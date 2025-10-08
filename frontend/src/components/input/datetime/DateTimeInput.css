@@ -1,0 +1,45 @@
+.datetime-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.datetime-input {
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+  outline: none;
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-bg);
+  padding: 10px 12px;
+  width: 100%;
+  color: var(--input-color);
+  font-family: inherit;
+  font-size: var(--input-font-size);
+
+  &:focus {
+    border-color: var(--input-focus-border-color);
+    background-color: var(--input-focus-bg);
+  }
+
+  &:disabled {
+    opacity: var(--input-disabled-opacity);
+    border-color: var(--input-disabled-border-color);
+    background-color: var(--input-disabled-bg);
+    cursor: not-allowed;
+    color: var(--input-disabled-color);
+  }
+
+  &.error {
+    border-color: var(--border-color-red);
+  }
+}
+
+.datetime-input::placeholder {
+  color: var(--input-placeholder-color);
+}
+
+.datetime-input-error {
+  color: var(--color-red);
+  font-size: var(--input-error-message-font-size);
+}

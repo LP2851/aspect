@@ -2,7 +2,7 @@ import { allowAll } from "@keystone-6/core/access";
 import { relationship, select, text, timestamp } from "@keystone-6/core/fields";
 import { encrypt } from "../utils/encrypt";
 import { list } from "@keystone-6/core";
-import { uploadPlatformOptions } from "./helpers/options";
+import { UPLOAD_PLATFORM_OPTIONS } from "./helpers/options";
 
 export const UserToken = list({
   access: allowAll,
@@ -13,7 +13,7 @@ export const UserToken = list({
     user: relationship({ ref: "User.tokens" }),
 
     tokenFor: select({
-      options: uploadPlatformOptions,
+      options: UPLOAD_PLATFORM_OPTIONS,
       validation: { isRequired: true },
     }),
 

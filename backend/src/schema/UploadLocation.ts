@@ -1,7 +1,7 @@
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import { relationship, select } from "@keystone-6/core/fields";
-import { uploadLocationTypeOptions } from "./helpers/options";
+import { UPLOAD_LOCATION_TYPE_OPTIONS } from "./helpers/options";
 
 export const UploadLocation = list({
   access: allowAll,
@@ -10,7 +10,7 @@ export const UploadLocation = list({
   },
   fields: {
     type: select({
-      options: uploadLocationTypeOptions,
+      options: UPLOAD_LOCATION_TYPE_OPTIONS,
       validation: { isRequired: true },
     }),
     project: relationship({ ref: "UploadProject.uploadLocation", many: false }),

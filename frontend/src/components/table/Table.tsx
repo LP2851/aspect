@@ -5,11 +5,12 @@ import { memo, type ReactNode } from "react";
 interface TableProps {
   headers: string[];
   children: ReactNode;
+  style?: any;
 }
 
-const Table = ({ headers, children }: TableProps) => {
+const Table = ({ headers, children, style }: TableProps) => {
   return (
-    <table className="app-table">
+    <table className="app-table" style={style}>
       <thead>
         <tr>
           {headers.map((header) => (

@@ -1,3 +1,4 @@
+import { Audit } from "./Audit";
 import { Upload } from "./Upload";
 import { UploadLocation } from "./UploadLocation";
 import { UploadLocationGoogleDrive } from "./UploadLocationGoogleDrive";
@@ -9,6 +10,7 @@ import { UserToken } from "./UserToken";
 import { Video } from "./Video";
 
 export default {
+  Audit,
   Upload,
   UploadLocation,
   UploadLocationGoogleDrive,

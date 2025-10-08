@@ -10,30 +10,12 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 
-import {
-  type Upload,
-  UploadPlatform,
-  UploadStatus,
-} from "../../../../api/types/types.ts";
+import { type Upload, UploadPlatform } from "../../../../api/types/types.ts";
 import Table from "../../../../components/table/Table.tsx";
 import { Tag } from "../../../../components/tag/Tag.tsx";
+import { getTagColorForStatus } from "../../../../utils/tags.ts";
 
 const iconStyle = { paddingRight: "8px", height: "24px" };
-
-const getTagColorForStatus = (status: UploadStatus) => {
-  switch (status) {
-    case UploadStatus.PENDING_RELEASE:
-      return "gray";
-    case UploadStatus.QUEUED:
-      return "blue";
-    case UploadStatus.UPLOADING:
-      return "purple";
-    case UploadStatus.COMPLETED:
-      return "green";
-    case UploadStatus.FAILED:
-      return "red";
-  }
-};
 
 const getUploadToIcons = (uploads: Upload[]) => {
   return uploads.map((uploadTo) => {

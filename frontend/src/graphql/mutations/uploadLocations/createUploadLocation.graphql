@@ -1,6 +1,6 @@
 mutation CreateUploadLocation($data: UploadLocationCreateInput!) {
-    createUploadLocation(data: $data) {
-        id
-        type
-    }
+  createUploadLocation(data: $data) {
+    id
+    type
+  }
 }

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router";
 
 import { useAuth } from "../../auth/AuthProvider.tsx";
 import AccountLinks from "./account-links/AccountLinks.tsx";
+import UserStats from "./user-stats/UserStats.tsx";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
@@ -26,8 +27,8 @@ const ProfilePage = () => {
 
   const renderContent = () => {
     switch (selectedSection) {
-      case "generate-info":
-        return <div>Generate Info Section (Placeholder)</div>;
+      case "stats-for-nerds":
+        return <UserStats user={user} />;
       case "account-links":
         return <AccountLinks />;
       case "logout":
@@ -57,8 +58,8 @@ const ProfilePage = () => {
       <aside className="profile-page-sidebar">
         <ul className="sidebar-menu">
           <li onClick={() => setSelectedSection("profile")}>Profile</li>
-          <li onClick={() => setSelectedSection("generate-info")}>
-            Generate Info
+          <li onClick={() => setSelectedSection("stats-for-nerds")}>
+            Stats For Nerds
           </li>
           <li onClick={() => setSelectedSection("account-links")}>
             Account Links

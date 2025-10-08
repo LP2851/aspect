@@ -1,0 +1,54 @@
+query UserStatisticsReport($userId: ID!) {
+  userActiveProjectsCount: uploadProjectsCount(
+    where: {
+      AND: { user: { id: { equals: $userId } }, deletedAt: { equals: null } }
+    }
+  )
+
+  createdProjectsCount: auditsCount(
+    where: {
+      AND: {
+        tableName: { equals: "UploadProject" }
+        type: { equals: "CREATE" }
+        createdBy: { id: { equals: $userId } }
+      }
+    }
+  )
+
+  activeTasksCount: uploadsCount(
+    where: {
+      AND: [
+        {
+          project: { user: { id: { equals: $userId } } }
+          uploadStatus: { notIn: ["FAILED", "COMPLETED"] }
+        }
+      ]
+    }
+  )
+
+  failedTasksCount: uploadsCount(
+    where: {
+      AND: [
+        {
+          project: { user: { id: { equals: $userId } } }
+          uploadStatus: { equals: "FAILED" }
+        }
+      ]
+    }
+  )
+
+  completedTasksCount: uploadsCount(
+    where: {
+      AND: [
+        {
+          project: { user: { id: { equals: $userId } } }
+          uploadStatus: { equals: "COMPLETED" }
+        }
+      ]
+    }
+  )
+
+  totalTasksCount: uploadsCount(
+    where: { AND: [{ project: { user: { id: { equals: $userId } } } }] }
+  )
+}

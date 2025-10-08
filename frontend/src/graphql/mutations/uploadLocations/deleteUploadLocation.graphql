@@ -1,5 +1,5 @@
 mutation DeleteUploadLocation($where: UploadLocationWhereUniqueInput!) {
-    deleteUploadLocation(where: $where) {
-        id
-    }
+  deleteUploadLocation(where: $where) {
+    id
+  }
 }

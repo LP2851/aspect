@@ -1,7 +1,9 @@
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import { relationship, select, text, timestamp } from "@keystone-6/core/fields";
-import { projectStatusOptions } from "./helpers/options";
+import { PROJECT_STATUS_OPTIONS } from "./helpers/options";
+import {createAudit, generateChanges, specificChangeToSubTypeMapping} from "./Audit";
+import {hooksAfterOperation, hooksBeforeOperation} from "./helpers/hooks";
 
 export const UploadProject = list({
   access: allowAll,
@@ -38,7 +40,7 @@ export const UploadProject = list({
     description: text({ ui: { displayMode: "textarea" } }),
     user: relationship({ ref: "User.projects", ui: { displayMode: "select" } }),
     status: select({
-      options: projectStatusOptions,
+      options: PROJECT_STATUS_OPTIONS,
       defaultValue: "CREATED",
       validation: { isRequired: true },
     }),
@@ -58,5 +60,9 @@ export const UploadProject = list({
     listView: {
       initialColumns: ["projectName", "status", "createdAt"],
     },
+  },
+  hooks: {
+    ...hooksBeforeOperation,
+    ...hooksAfterOperation,
   },
 });

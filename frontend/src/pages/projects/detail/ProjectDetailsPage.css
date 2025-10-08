@@ -23,12 +23,17 @@
 
 .project-detail-page .new-section {
   margin-top: 2rem;
-  padding-top: 2rem;
   border-top: 1px solid var(--highlight-color);
+  padding-top: 2rem;
 }
 
 .sidebar-footer-item {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.card-height-setting {
+  height: auto;
+  max-height: 75vh;
 }

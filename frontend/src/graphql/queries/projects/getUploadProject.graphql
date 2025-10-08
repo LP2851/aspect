@@ -29,6 +29,7 @@ query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
       id
       uploadStatus
       uploadTo
+      scheduledFor
     }
     uploadsToCount
     createdAt

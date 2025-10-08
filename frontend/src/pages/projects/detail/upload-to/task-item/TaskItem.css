@@ -1,0 +1,40 @@
+.task-item {
+  transition: outline-color 0.6s ease-in-out;
+  margin-top: 2rem;
+  outline: 2px solid transparent;
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 60%);
+  background-color: var(--bg-tertiary);
+  padding: 1rem;
+}
+
+.task-item.highlighted {
+  outline: 2px solid var(--highlight-color);
+}
+
+.task-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-item-header-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.task-item-body {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.task-item-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+
+  & > button {
+    flex: 1;
+  }
+}
