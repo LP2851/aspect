@@ -25,6 +25,32 @@ model Audit {
   @@index([createdById])
 }
 
+model ManagedAccount {
+  id                         String               @id @default(uuid()) @postgresql.Uuid
+  name                       String               @default("")
+  description                String               @default("")
+  managedAccountLinks        ManagedAccountLink[] @relation("ManagedAccountLink_managedAccount")
+  user                       User?                @relation("ManagedAccount_user", fields: [userId], references: [id])
+  userId                     String?              @map("user") @postgresql.Uuid
+  from_UploadProject_account UploadProject[]      @relation("UploadProject_account")
+
+  @@index([userId])
+}
+
+model ManagedAccountLink {
+  id               String          @id @default(uuid()) @postgresql.Uuid
+  accountName      String          @default("")
+  managedAccount   ManagedAccount? @relation("ManagedAccountLink_managedAccount", fields: [managedAccountId], references: [id])
+  managedAccountId String?         @map("managedAccount") @postgresql.Uuid
+  tokenFor         String
+  accessToken      String          @default("")
+  refreshToken     String          @default("")
+  expiryDate       DateTime
+  scopes           String          @default("")
+
+  @@index([managedAccountId])
+}
+
 model Upload {
   id           String         @id @default(uuid()) @postgresql.Uuid
   uploadTo     String
@@ -94,8 +120,8 @@ model UploadProject {
   id             String          @id @default(uuid()) @postgresql.Uuid
   projectName    String          @default("")
   description    String          @default("")
-  user           User?           @relation("UploadProject_user", fields: [userId], references: [id])
-  userId         String?         @map("user") @postgresql.Uuid
+  account        ManagedAccount? @relation("UploadProject_account", fields: [accountId], references: [id])
+  accountId      String?         @map("account") @postgresql.Uuid
   status         String          @default("CREATED")
   uploadLocation UploadLocation? @relation("UploadLocation_project")
   uploadsTo      Upload[]        @relation("Upload_project")
@@ -103,19 +129,19 @@ model UploadProject {
   updatedAt      DateTime?       @default(now()) @updatedAt
   deletedAt      DateTime?
 
-  @@index([userId])
+  @@index([accountId])
 }
 
 model User {
-  id                   String          @id @default(uuid()) @postgresql.Uuid
-  name                 String          @default("")
-  email                String          @unique @default("")
+  id                   String           @id @default(uuid()) @postgresql.Uuid
+  name                 String           @default("")
+  email                String           @unique @default("")
   password             String
-  projects             UploadProject[] @relation("UploadProject_user")
-  isAdmin              Boolean         @default(false)
-  tokens               UserToken[]     @relation("UserToken_user")
-  createdAt            DateTime?       @default(now())
-  from_Audit_createdBy Audit[]         @relation("Audit_createdBy")
+  isAdmin              Boolean          @default(false)
+  tokens               UserToken[]      @relation("UserToken_user")
+  managedAccounts      ManagedAccount[] @relation("ManagedAccount_user")
+  createdAt            DateTime?        @default(now())
+  from_Audit_createdBy Audit[]          @relation("Audit_createdBy")
 }
 
 model UserToken {

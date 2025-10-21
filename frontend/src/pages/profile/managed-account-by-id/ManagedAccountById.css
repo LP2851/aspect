@@ -1,0 +1,68 @@
+.managed-account-info-section {
+  margin: 0 auto;
+  padding-right: 1rem;
+  max-height: 75vh;
+}
+
+.managed-account-info-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--font-color-purple);
+  font-size: 20px;
+}
+
+.managed-account-info-card {
+  margin-bottom: 1rem;
+}
+
+.managed-account-info-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  /*border-bottom: 1px solid var(--highlight-color);*/
+  color: var(--highlight-color);
+}
+
+.btn-wrapper {
+  margin-top: 2rem;
+}
+
+.managed-account-info-section-description {
+  margin-bottom: 20px;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
+.section-description {
+  margin: 0;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
+.platform-accounts-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--highlight-color);
+}
+
+.platform-account-item {
+  margin-top: 1rem;
+  background-color: var(--bg-primary);
+  transition: border-color 0.3s ease;
+}
+
+.platform-account-item:hover {
+  border-color: var(--highlight-color);
+}
+
+.platform-account-item h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 18px;
+}
+
+.platform-account-item-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1rem;
+}

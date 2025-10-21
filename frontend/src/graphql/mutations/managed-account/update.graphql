@@ -1,0 +1,5 @@
+mutation UpdateManagedAccount($where: ManagedAccountWhereUniqueInput!, $data: ManagedAccountUpdateInput!) {
+  updateManagedAccount(where: $where, data: $data) {
+    id
+  }
+}

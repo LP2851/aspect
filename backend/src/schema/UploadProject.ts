@@ -38,7 +38,7 @@ export const UploadProject = list({
   fields: {
     projectName: text({ validation: { isRequired: true } }),
     description: text({ ui: { displayMode: "textarea" } }),
-    user: relationship({ ref: "User.projects", ui: { displayMode: "select" } }),
+    account: relationship({ ref: "ManagedAccount", ui: { displayMode: "select" } }),
     status: select({
       options: PROJECT_STATUS_OPTIONS,
       defaultValue: "CREATED",

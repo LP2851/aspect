@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../../auth/AuthProvider.tsx";
 import AccountLinks from "./account-links/AccountLinks.tsx";
 import UserStats from "./user-stats/UserStats.tsx";
+import ManagedAccounts from "./managed-accounts/ManagedAccounts.tsx";
+import ManagedAccountById from "./managed-account-by-id/ManagedAccountById.tsx";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
@@ -13,13 +15,11 @@ const ProfilePage = () => {
   const location = useLocation();
   const [selectedSection, setSelectedSection] = useState("profile");
 
-  // Auto-select account-links section for OAuth redirects
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const success = urlParams.get("success");
     const error = urlParams.get("error");
 
-    // If there are OAuth-related parameters, automatically select account-links section
     if (success || error) {
       setSelectedSection("account-links");
     }
@@ -31,10 +31,15 @@ const ProfilePage = () => {
         return <UserStats user={user} />;
       case "account-links":
         return <AccountLinks />;
+      case "managed-accounts":
+        return <ManagedAccounts />;
       case "logout":
         logout().then(() => navigate("/login"));
         return null;
       default:
+        if (selectedSection.startsWith("managed-account_")) {
+          return <ManagedAccountById managedAccountId={selectedSection.split("_")[1]} />
+        }
         return (
           <div className="user-details">
             <p>
@@ -58,11 +63,23 @@ const ProfilePage = () => {
       <aside className="profile-page-sidebar">
         <ul className="sidebar-menu">
           <li onClick={() => setSelectedSection("profile")}>Profile</li>
-          <li onClick={() => setSelectedSection("stats-for-nerds")}>
-            Stats For Nerds
+          <li onClick={() => setSelectedSection("managed-accounts")}>
+            Managed Accounts
           </li>
+          { user?.managedAccounts && (
+            <ul className="sidebar-menu-sublist">
+              { user?.managedAccounts.map((account) => (
+                <li onClick={() => setSelectedSection("managed-account_" + account.id)}>
+                  {account.name}
+                </li>
+              ))}
+            </ul>
+          )}
           <li onClick={() => setSelectedSection("account-links")}>
             Account Links
+          </li>
+          <li onClick={() => setSelectedSection("stats-for-nerds")}>
+            Stats For Nerds
           </li>
           <li onClick={() => setSelectedSection("logout")}>Logout</li>
         </ul>

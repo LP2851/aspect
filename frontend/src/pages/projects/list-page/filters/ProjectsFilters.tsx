@@ -1,13 +1,19 @@
 import "./ProjectsFilters.css";
 
-import { memo, useCallback, useState } from "react";
+import {memo, useCallback, useEffect, useState} from "react";
 import { FaFilter } from "react-icons/fa";
 
 import CheckboxList from "../../../../components/input/checkbox-list/CheckboxList.tsx";
 import TextInput from "../../../../components/input/text/TextInput.tsx";
 import { isFeatureFiltersEnabled } from "../../../../utils/features.ts";
+import {useGetManagedAccountsQuery} from "../../../../generated/graphql.ts";
+import {useParams} from "react-router";
+import {useAuth} from "../../../../auth/AuthProvider.tsx";
 
 const ProjectsFilters = () => {
+  const { user } = useAuth();
+  const { managedAccounts } = useParams<{ managedAccounts: string }>();
+
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([
     "youtube",
     "tiktok",
@@ -16,10 +22,36 @@ const ProjectsFilters = () => {
     "x",
   ]);
   const [isMinimized, setIsMinimized] = useState<boolean>(true);
+  const [accounts, setAccounts] = useState<string[]>([]);
+
+  const { data } = useGetManagedAccountsQuery({
+    variables: {
+      where: {
+        user: {
+          id: {
+            equals: user?.id,
+          },
+        },
+      },
+      skip: 0,
+      take: 100,
+    },
+  });
+
+  useEffect(() => {
+    if (managedAccounts) {
+      setSelectedPlatforms([...managedAccounts.split(",")]);
+    } else {
+      setAccounts(data?.managedAccounts?.map((ma) => ma.id) ?? []);
+    }
+  }, [data]);
 
   const handlePlatformChange = useCallback((checkedValues: string[]) => {
     setSelectedPlatforms(checkedValues);
-    console.log("Selected platforms:", checkedValues);
+  }, []);
+
+  const handleAccountsChange = useCallback((checkedValues: string[]) => {
+    setAccounts(checkedValues);
   }, []);
 
   const toggleMinimized = useCallback(() => {
@@ -47,9 +79,23 @@ const ProjectsFilters = () => {
       {!isMinimized && (
         <div className="projects-filters">
           <div className="projects-filters-container-inner">
-            {/*<h3>Search</h3>*/}
-            {/*<input type="text" placeholder="Search..." />*/}
-            {/*<TextInput placeholder="Search..." label="Search" />*/}
+            { !!data && !!data.managedAccounts &&
+                <CheckboxList
+                    id="managed-accounts"
+                    label="Managed Account"
+                    checkboxes={data.managedAccounts.map((ma) => ({
+                      id: ma.id,
+                      label: ma.name || "",
+                      value: ma.id,
+                      name: ma.name || "",
+                      checked: accounts.includes(ma.id),
+                    })) ?? []}
+                    onChange={handleAccountsChange}
+                />
+            }
+          </div>
+
+          <div className="projects-filters-container-inner">
             <CheckboxList
               id="upload-platforms"
               label="Upload Platforms"

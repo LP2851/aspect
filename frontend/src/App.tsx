@@ -10,6 +10,8 @@ import ProfilePage from "./pages/profile/ProfilePage.tsx";
 import ProjectDetailPage from "./pages/projects/detail/ProjectDetailsPage.tsx";
 import ProjectEditorPageV2 from "./pages/projects/editor2/ProjectEditorPageV2.tsx";
 import ProjectsPage from "./pages/projects/list-page/ProjectsPage.tsx";
+import ManagedAccountsPage from "./pages/managed-accounts/ManagedAccountsPage.tsx";
+import ProfilePageTest from "./pages/profile/ProfilePageTest.tsx";
 
 function App() {
   const location = useLocation();
@@ -25,6 +27,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/managed-accounts"
+            element={
+              <PrivateRoute>
+                <ManagedAccountsPage />
               </PrivateRoute>
             }
           />
@@ -58,6 +68,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/test-profile"
+            element={
+              <PrivateRoute>
+                <ProfilePageTest />
               </PrivateRoute>
             }
           />

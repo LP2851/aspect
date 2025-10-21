@@ -40,8 +40,7 @@ const ProjectDetailsFileUploadLink = ({
 
     if (type === "LOCAL") setLocalLink(project.uploadLocation?.localLink);
     if (type === "S3") setS3Link(project.uploadLocation?.s3Link);
-    if (type === "G_DRIVE")
-      setGoogleDriveLink(project.uploadLocation?.googleDriveLink);
+    if (type === "G_DRIVE") setGoogleDriveLink(project.uploadLocation?.googleDriveLink);
   }, [project]);
 
   const selectOptions = [

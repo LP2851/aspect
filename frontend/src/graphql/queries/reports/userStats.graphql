@@ -1,7 +1,7 @@
 query UserStatisticsReport($userId: ID!) {
   userActiveProjectsCount: uploadProjectsCount(
     where: {
-      AND: { user: { id: { equals: $userId } }, deletedAt: { equals: null } }
+      AND: { account: {user: { id: { equals: $userId } } }, deletedAt: { equals: null } }
     }
   )
 
@@ -19,7 +19,7 @@ query UserStatisticsReport($userId: ID!) {
     where: {
       AND: [
         {
-          project: { user: { id: { equals: $userId } } }
+          project: { account: { user: { id: { equals: $userId } } } }
           uploadStatus: { notIn: ["FAILED", "COMPLETED"] }
         }
       ]
@@ -30,7 +30,7 @@ query UserStatisticsReport($userId: ID!) {
     where: {
       AND: [
         {
-          project: { user: { id: { equals: $userId } } }
+          project: { account: { user: { id: { equals: $userId } } } }
           uploadStatus: { equals: "FAILED" }
         }
       ]
@@ -41,7 +41,7 @@ query UserStatisticsReport($userId: ID!) {
     where: {
       AND: [
         {
-          project: { user: { id: { equals: $userId } } }
+          project: { account: {user: { id: { equals: $userId } } } }
           uploadStatus: { equals: "COMPLETED" }
         }
       ]
@@ -49,6 +49,6 @@ query UserStatisticsReport($userId: ID!) {
   )
 
   totalTasksCount: uploadsCount(
-    where: { AND: [{ project: { user: { id: { equals: $userId } } } }] }
+    where: { AND: [{ project: { account: { user: { id: { equals: $userId } } } } }] }
   )
 }

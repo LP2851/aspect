@@ -82,6 +82,7 @@ const ProjectsTable = ({ projects, onCreateNew }: ProjectsTableProps) => {
       headers={[
         "Project name",
         "Description",
+        "Account",
         "Upload source",
         "Upload status",
         "Last updated at",
@@ -89,7 +90,7 @@ const ProjectsTable = ({ projects, onCreateNew }: ProjectsTableProps) => {
       ]}
     >
       <tr>
-        <td colSpan={6}>
+        <td colSpan={7}>
           <button onClick={onCreateNew} className="app-table-top-button">
             Create New Project
           </button>
@@ -98,7 +99,8 @@ const ProjectsTable = ({ projects, onCreateNew }: ProjectsTableProps) => {
       {projects.map((project) => (
         <tr key={project.id}>
           <td>{project.projectName}</td>
-          <td>{project.description}</td>
+          <td style={{maxWidth: "calc(100% / 7)"}}>{project.description}</td>
+          <td>{project.account.name}</td>
           <td>
             {project.uploadLocation?.type ? (
               <Tag

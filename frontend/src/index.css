@@ -59,7 +59,8 @@
   --sidebar-li-active-color: black;
 
   /* Inputs */
-  --input-border: 1px solid #555;
+  --input-border-color: #555;
+  --input-border: 1px solid var(--input-border-color);
   --input-border-radius: 8px;
   --input-bg: var(--bg-primary);
   --input-color: var(--font-color-primary);

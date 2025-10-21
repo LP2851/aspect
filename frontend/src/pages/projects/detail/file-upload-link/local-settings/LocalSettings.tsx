@@ -1,6 +1,8 @@
 import { memo } from "react";
 
 import TextInput from "../../../../../components/input/text/TextInput.tsx";
+import FileDropzone from "../../../../../components/input/dropzone/FileDropzone.tsx";
+import Label from "../../../../../components/input/label/Label.tsx";
 
 interface LocalSettingsProps {
   localLink: any;
@@ -22,6 +24,20 @@ const LocalSettings = ({ localLink, setLocalLink }: LocalSettingsProps) => {
         onChange={(e) => {
           setLocalLink({ ...localLink, path: e.target.value });
         }}
+      />
+
+      <Label
+        id="fileInput"
+        message="File Upload"
+        required={true}
+      />
+
+      <FileDropzone
+        onDrop={() => {}}
+        label="Click or drag an MP4 file here to upload"
+        accept="video/mp4"
+        multiple={false}
+        disabled={false}
       />
     </div>
   );

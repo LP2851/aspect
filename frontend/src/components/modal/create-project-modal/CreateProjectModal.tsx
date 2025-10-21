@@ -6,12 +6,15 @@ import Button from "../../button/Button.tsx";
 import TextInput from "../../input/text/TextInput.tsx";
 import TextAreaInput from "../../input/textarea/TextAreaInput.tsx";
 import Modal from "../Modal.tsx";
+import Select from "../../input/select/Select.tsx";
+import {useParams} from "react-router";
 
 interface CreateProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (projectData: { name: string; description: string }) => void;
+  onSubmit: (projectData: { name: string; description: string; account: string }) => void;
   isLoading?: boolean;
+  managedAccounts: any[];
 }
 
 const CreateProjectModal: FC<CreateProjectModalProps> = ({
@@ -19,9 +22,15 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
   onClose,
   onSubmit,
   isLoading = false,
+  managedAccounts
 }) => {
+  const { managedAccounts: selectedAccount } = useParams<{ managedAccounts: string }>();
+
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
+  const [account, setAccount] = useState(managedAccounts.length === 1
+    ? managedAccounts[0].id
+    : (selectedAccount ?? ""));
   const [errors, setErrors] = useState<{ name?: string; description?: string }>(
     {},
   );
@@ -31,12 +40,13 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
     if (!isOpen) {
       setProjectName("");
       setDescription("");
+      setAccount("");
       setErrors({});
     }
   }, [isOpen]);
 
   const validateForm = () => {
-    const newErrors: { name?: string; description?: string } = {};
+    const newErrors: { name?: string; description?: string; account?: string; } = {};
 
     if (!projectName.trim()) {
       newErrors.name = "Project name is required";
@@ -44,6 +54,10 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
 
     if (!description.trim()) {
       newErrors.description = "Description is required";
+    }
+
+    if (!account.trim()) {
+      newErrors.account = "Target account must be selected";
     }
 
     setErrors(newErrors);
@@ -60,12 +74,14 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
     onSubmit({
       name: projectName.trim(),
       description: description.trim(),
+      account: account.trim(),
     });
   };
 
   const handleClose = () => {
     setProjectName("");
     setDescription("");
+    setAccount("");
     setErrors({});
     onClose();
   };
@@ -93,6 +109,23 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
             rows={4}
             error={errors.description}
             required
+          />
+        </div>
+
+        <div className="form-group">
+          <Select
+            label="Account"
+            id="account"
+            key="account"
+            value={account}
+            onChange={(e) => setAccount(e.target.value)}
+            required={true}
+            options={managedAccounts.map(acc => {
+              return {
+                value: acc.id,
+                label: acc.name,
+              };
+            })}
           />
         </div>
 

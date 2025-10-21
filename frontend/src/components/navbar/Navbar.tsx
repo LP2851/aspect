@@ -1,7 +1,7 @@
 import "./Navbar.css";
 
 import { memo } from "react";
-import { FaClipboardList, FaUser } from "react-icons/fa";
+import {FaClipboardList, FaUser, FaUsers} from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router";
 
@@ -19,6 +19,9 @@ const Navbar = () => {
     <div className="navbar">
       <a href="/" className="title-gradient">
         aspect
+      </a>
+      <a className="nav-item border-left border-right" href="/managed-accounts">
+        <FaUsers className="nav-icon" /> Managed Accounts
       </a>
       <a className="nav-item border-left border-right" href="/projects">
         <FaClipboardList className="nav-icon" /> Projects

@@ -3,8 +3,12 @@ query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
     id
     projectName
     description
-    user {
+    account {
+      id
       name
+      user {
+       id
+      }
     }
     status
     uploadLocation {

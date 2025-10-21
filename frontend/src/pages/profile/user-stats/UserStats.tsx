@@ -13,7 +13,6 @@ const UserStats = ({ user }: UserStatsProps) => {
   const userId = user?.id || "";
 
   const { data } = useUserStatisticsReportQuery({
-    // pollInterval: 10000, // Poll every 10 seconds
     variables: {
       userId,
     },

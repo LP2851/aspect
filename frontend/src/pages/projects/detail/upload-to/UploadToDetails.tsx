@@ -88,8 +88,7 @@ const UploadToDetails = ({
       {tasks?.length > 0 && (
         <Table
           style={{ fontSize: "small" }}
-          headers={["Upload Platform", "Upload Status"]}
-        >
+          headers={["Upload Platform", "Upload Status"]}>
           {project.uploadsTo &&
             project.uploadsTo.map((task: any) => (
               <tr
@@ -101,8 +100,7 @@ const UploadToDetails = ({
                     el.classList.add("highlighted");
                     setTimeout(() => el.classList.remove("highlighted"), 5000);
                   }
-                }}
-              >
+                }}>
                 <td>{getPlatformAsText(task.uploadTo)}</td>
                 <td>
                   <Tag
@@ -127,8 +125,7 @@ const UploadToDetails = ({
           setIsModalOpen(true);
           setIsCreatingTask(true);
           setSelectedTask(null);
-        }}
-      >
+        }}>
         Create new upload task
       </Button>
 

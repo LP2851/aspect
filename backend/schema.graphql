@@ -152,6 +152,159 @@ input UserRelateToOneForCreateInput {
   connect: UserWhereUniqueInput
 }
 
+type ManagedAccount {
+  id: ID!
+  name: String
+  description: String
+  managedAccountLinks(where: ManagedAccountLinkWhereInput! = {}, orderBy: [ManagedAccountLinkOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ManagedAccountLinkWhereUniqueInput): [ManagedAccountLink!]
+  managedAccountLinksCount(where: ManagedAccountLinkWhereInput! = {}): Int
+  user: User
+}
+
+input ManagedAccountWhereUniqueInput {
+  id: ID
+}
+
+input ManagedAccountWhereInput {
+  AND: [ManagedAccountWhereInput!]
+  OR: [ManagedAccountWhereInput!]
+  NOT: [ManagedAccountWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  description: StringFilter
+  managedAccountLinks: ManagedAccountLinkManyRelationFilter
+  user: UserWhereInput
+}
+
+input ManagedAccountLinkManyRelationFilter {
+  every: ManagedAccountLinkWhereInput
+  some: ManagedAccountLinkWhereInput
+  none: ManagedAccountLinkWhereInput
+}
+
+input ManagedAccountOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  description: OrderDirection
+}
+
+input ManagedAccountUpdateInput {
+  name: String
+  description: String
+  managedAccountLinks: ManagedAccountLinkRelateToManyForUpdateInput
+  user: UserRelateToOneForUpdateInput
+}
+
+input ManagedAccountLinkRelateToManyForUpdateInput {
+  disconnect: [ManagedAccountLinkWhereUniqueInput!]
+  set: [ManagedAccountLinkWhereUniqueInput!]
+  create: [ManagedAccountLinkCreateInput!]
+  connect: [ManagedAccountLinkWhereUniqueInput!]
+}
+
+input ManagedAccountUpdateArgs {
+  where: ManagedAccountWhereUniqueInput!
+  data: ManagedAccountUpdateInput!
+}
+
+input ManagedAccountCreateInput {
+  name: String
+  description: String
+  managedAccountLinks: ManagedAccountLinkRelateToManyForCreateInput
+  user: UserRelateToOneForCreateInput
+}
+
+input ManagedAccountLinkRelateToManyForCreateInput {
+  create: [ManagedAccountLinkCreateInput!]
+  connect: [ManagedAccountLinkWhereUniqueInput!]
+}
+
+type ManagedAccountLink {
+  id: ID!
+  accountName: String
+  managedAccount: ManagedAccount
+  tokenFor: String
+  accessToken: String
+  refreshToken: String
+  expiryDate: DateTime
+  scopes: String
+}
+
+input ManagedAccountLinkWhereUniqueInput {
+  id: ID
+}
+
+input ManagedAccountLinkWhereInput {
+  AND: [ManagedAccountLinkWhereInput!]
+  OR: [ManagedAccountLinkWhereInput!]
+  NOT: [ManagedAccountLinkWhereInput!]
+  id: IDFilter
+  accountName: StringFilter
+  managedAccount: ManagedAccountWhereInput
+  tokenFor: StringFilter
+  accessToken: StringFilter
+  refreshToken: StringFilter
+  expiryDate: DateTimeFilter
+  scopes: StringFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeFilter
+}
+
+input ManagedAccountLinkOrderByInput {
+  id: OrderDirection
+  accountName: OrderDirection
+  tokenFor: OrderDirection
+  accessToken: OrderDirection
+  refreshToken: OrderDirection
+  expiryDate: OrderDirection
+  scopes: OrderDirection
+}
+
+input ManagedAccountLinkUpdateInput {
+  accountName: String
+  managedAccount: ManagedAccountRelateToOneForUpdateInput
+  tokenFor: String
+  accessToken: String
+  refreshToken: String
+  expiryDate: DateTime
+  scopes: String
+}
+
+input ManagedAccountRelateToOneForUpdateInput {
+  create: ManagedAccountCreateInput
+  connect: ManagedAccountWhereUniqueInput
+  disconnect: Boolean
+}
+
+input ManagedAccountLinkUpdateArgs {
+  where: ManagedAccountLinkWhereUniqueInput!
+  data: ManagedAccountLinkUpdateInput!
+}
+
+input ManagedAccountLinkCreateInput {
+  accountName: String
+  managedAccount: ManagedAccountRelateToOneForCreateInput
+  tokenFor: String
+  accessToken: String
+  refreshToken: String
+  expiryDate: DateTime
+  scopes: String
+}
+
+input ManagedAccountRelateToOneForCreateInput {
+  create: ManagedAccountCreateInput
+  connect: ManagedAccountWhereUniqueInput
+}
+
 type Upload {
   id: ID!
   uploadTo: String
@@ -449,7 +602,7 @@ type UploadProject {
   id: ID!
   projectName: String
   description: String
-  user: User
+  account: ManagedAccount
   status: String
   uploadLocation: UploadLocation
   uploadsTo(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
@@ -471,7 +624,7 @@ input UploadProjectWhereInput {
   id: IDFilter
   projectName: StringFilter
   description: StringFilter
-  user: UserWhereInput
+  account: ManagedAccountWhereInput
   status: StringFilter
   uploadLocation: UploadLocationWhereInput
   uploadsTo: UploadManyRelationFilter
@@ -499,7 +652,7 @@ input UploadProjectOrderByInput {
 input UploadProjectUpdateInput {
   projectName: String
   description: String
-  user: UserRelateToOneForUpdateInput
+  account: ManagedAccountRelateToOneForUpdateInput
   status: String
   uploadLocation: UploadLocationRelateToOneForUpdateInput
   uploadsTo: UploadRelateToManyForUpdateInput
@@ -523,7 +676,7 @@ input UploadProjectUpdateArgs {
 input UploadProjectCreateInput {
   projectName: String
   description: String
-  user: UserRelateToOneForCreateInput
+  account: ManagedAccountRelateToOneForCreateInput
   status: String
   uploadLocation: UploadLocationRelateToOneForCreateInput
   uploadsTo: UploadRelateToManyForCreateInput
@@ -542,11 +695,11 @@ type User {
   name: String
   email: String
   password: PasswordState
-  projects(where: UploadProjectWhereInput! = {}, orderBy: [UploadProjectOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadProjectWhereUniqueInput): [UploadProject!]
-  projectsCount(where: UploadProjectWhereInput! = {}): Int
   isAdmin: Boolean
   tokens(where: UserTokenWhereInput! = {}, orderBy: [UserTokenOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserTokenWhereUniqueInput): [UserToken!]
   tokensCount(where: UserTokenWhereInput! = {}): Int
+  managedAccounts(where: ManagedAccountWhereInput! = {}, orderBy: [ManagedAccountOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ManagedAccountWhereUniqueInput): [ManagedAccount!]
+  managedAccountsCount(where: ManagedAccountWhereInput! = {}): Int
   createdAt: DateTime
 }
 
@@ -566,16 +719,10 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   email: StringFilter
-  projects: UploadProjectManyRelationFilter
   isAdmin: BooleanFilter
   tokens: UserTokenManyRelationFilter
+  managedAccounts: ManagedAccountManyRelationFilter
   createdAt: DateTimeNullableFilter
-}
-
-input UploadProjectManyRelationFilter {
-  every: UploadProjectWhereInput
-  some: UploadProjectWhereInput
-  none: UploadProjectWhereInput
 }
 
 input BooleanFilter {
@@ -587,6 +734,12 @@ input UserTokenManyRelationFilter {
   every: UserTokenWhereInput
   some: UserTokenWhereInput
   none: UserTokenWhereInput
+}
+
+input ManagedAccountManyRelationFilter {
+  every: ManagedAccountWhereInput
+  some: ManagedAccountWhereInput
+  none: ManagedAccountWhereInput
 }
 
 input UserOrderByInput {
@@ -601,17 +754,10 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  projects: UploadProjectRelateToManyForUpdateInput
   isAdmin: Boolean
   tokens: UserTokenRelateToManyForUpdateInput
+  managedAccounts: ManagedAccountRelateToManyForUpdateInput
   createdAt: DateTime
-}
-
-input UploadProjectRelateToManyForUpdateInput {
-  disconnect: [UploadProjectWhereUniqueInput!]
-  set: [UploadProjectWhereUniqueInput!]
-  create: [UploadProjectCreateInput!]
-  connect: [UploadProjectWhereUniqueInput!]
 }
 
 input UserTokenRelateToManyForUpdateInput {
@@ -619,6 +765,13 @@ input UserTokenRelateToManyForUpdateInput {
   set: [UserTokenWhereUniqueInput!]
   create: [UserTokenCreateInput!]
   connect: [UserTokenWhereUniqueInput!]
+}
+
+input ManagedAccountRelateToManyForUpdateInput {
+  disconnect: [ManagedAccountWhereUniqueInput!]
+  set: [ManagedAccountWhereUniqueInput!]
+  create: [ManagedAccountCreateInput!]
+  connect: [ManagedAccountWhereUniqueInput!]
 }
 
 input UserUpdateArgs {
@@ -630,20 +783,20 @@ input UserCreateInput {
   name: String
   email: String
   password: String
-  projects: UploadProjectRelateToManyForCreateInput
   isAdmin: Boolean
   tokens: UserTokenRelateToManyForCreateInput
+  managedAccounts: ManagedAccountRelateToManyForCreateInput
   createdAt: DateTime
-}
-
-input UploadProjectRelateToManyForCreateInput {
-  create: [UploadProjectCreateInput!]
-  connect: [UploadProjectWhereUniqueInput!]
 }
 
 input UserTokenRelateToManyForCreateInput {
   create: [UserTokenCreateInput!]
   connect: [UserTokenWhereUniqueInput!]
+}
+
+input ManagedAccountRelateToManyForCreateInput {
+  create: [ManagedAccountCreateInput!]
+  connect: [ManagedAccountWhereUniqueInput!]
 }
 
 type UserToken {
@@ -671,17 +824,6 @@ input UserTokenWhereInput {
   refreshToken: StringFilter
   expiryDate: DateTimeFilter
   scopes: StringFilter
-}
-
-input DateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeFilter
 }
 
 input UserTokenOrderByInput {
@@ -783,6 +925,18 @@ type Mutation {
   updateAudits(data: [AuditUpdateArgs!]!): [Audit]
   deleteAudit(where: AuditWhereUniqueInput!): Audit
   deleteAudits(where: [AuditWhereUniqueInput!]!): [Audit]
+  createManagedAccount(data: ManagedAccountCreateInput!): ManagedAccount
+  createManagedAccounts(data: [ManagedAccountCreateInput!]!): [ManagedAccount]
+  updateManagedAccount(where: ManagedAccountWhereUniqueInput!, data: ManagedAccountUpdateInput!): ManagedAccount
+  updateManagedAccounts(data: [ManagedAccountUpdateArgs!]!): [ManagedAccount]
+  deleteManagedAccount(where: ManagedAccountWhereUniqueInput!): ManagedAccount
+  deleteManagedAccounts(where: [ManagedAccountWhereUniqueInput!]!): [ManagedAccount]
+  createManagedAccountLink(data: ManagedAccountLinkCreateInput!): ManagedAccountLink
+  createManagedAccountLinks(data: [ManagedAccountLinkCreateInput!]!): [ManagedAccountLink]
+  updateManagedAccountLink(where: ManagedAccountLinkWhereUniqueInput!, data: ManagedAccountLinkUpdateInput!): ManagedAccountLink
+  updateManagedAccountLinks(data: [ManagedAccountLinkUpdateArgs!]!): [ManagedAccountLink]
+  deleteManagedAccountLink(where: ManagedAccountLinkWhereUniqueInput!): ManagedAccountLink
+  deleteManagedAccountLinks(where: [ManagedAccountLinkWhereUniqueInput!]!): [ManagedAccountLink]
   createUpload(data: UploadCreateInput!): Upload
   createUploads(data: [UploadCreateInput!]!): [Upload]
   updateUpload(where: UploadWhereUniqueInput!, data: UploadUpdateInput!): Upload
@@ -864,6 +1018,12 @@ type Query {
   audit(where: AuditWhereUniqueInput!): Audit
   audits(where: AuditWhereInput! = {}, orderBy: [AuditOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: AuditWhereUniqueInput): [Audit!]
   auditsCount(where: AuditWhereInput! = {}): Int
+  managedAccount(where: ManagedAccountWhereUniqueInput!): ManagedAccount
+  managedAccounts(where: ManagedAccountWhereInput! = {}, orderBy: [ManagedAccountOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ManagedAccountWhereUniqueInput): [ManagedAccount!]
+  managedAccountsCount(where: ManagedAccountWhereInput! = {}): Int
+  managedAccountLink(where: ManagedAccountLinkWhereUniqueInput!): ManagedAccountLink
+  managedAccountLinks(where: ManagedAccountLinkWhereInput! = {}, orderBy: [ManagedAccountLinkOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ManagedAccountLinkWhereUniqueInput): [ManagedAccountLink!]
+  managedAccountLinksCount(where: ManagedAccountLinkWhereInput! = {}): Int
   upload(where: UploadWhereUniqueInput!): Upload
   uploads(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
   uploadsCount(where: UploadWhereInput! = {}): Int

@@ -4,7 +4,7 @@ import {json, relationship, select, text, timestamp} from "@keystone-6/core/fiel
 import {AUDIT_CHANGE_SUB_TYPES, AUDIT_TYPES_OPTIONS} from "./helpers/options";
 import {KeystoneContext} from "@keystone-6/core/types";
 
-const IGNORED_KEYS = ["id", "createdAt", "updatedAt", "deletedAt", "password"];
+const IGNORED_KEYS = ["id", "createdAt", "updatedAt", "deletedAt", "password", "refreshToken", "accessToken", "scopes", "expiryDate"];
 
 export const createAudit = async (
   cxt: KeystoneContext,

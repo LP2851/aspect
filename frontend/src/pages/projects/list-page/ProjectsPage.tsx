@@ -1,19 +1,19 @@
 import "./ProjectsPage.css";
 
 import { memo, useState } from "react";
-import { useNavigate } from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 
-import { useAuth } from "../../../auth/AuthProvider.tsx";
 import CreateProjectModal from "../../../components/modal/create-project-modal/CreateProjectModal.tsx";
 import PaginationControls from "../../../components/pagination-controls/PaginationControls.tsx";
 import Spacer from "../../../components/spacer/Spacer.tsx";
 import {
-  useCreateNewProjectMutation,
+  useCreateNewProjectMutation, useGetManagedAccountsQuery,
   useGetUploadProjectsQuery,
 } from "../../../generated/graphql";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
 import ProjectsFilters from "./filters/ProjectsFilters.tsx";
 import ProjectsTable from "./table/ProjectsTable.tsx";
+import {useAuth} from "../../../auth/AuthProvider.tsx";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -22,6 +22,9 @@ const ProjectsPage = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+  const managedAccounts = searchParams.get("managedAccounts") || undefined;
+
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
@@ -29,9 +32,27 @@ const ProjectsPage = () => {
   const { data, loading, error, refetch } = useGetUploadProjectsQuery({
     pollInterval: 10000, // Poll every 10 seconds
     variables: {
-      where: {},
+      where: {
+        account: {
+          id: { equals: managedAccounts },
+        },
+      },
       skip: (currentPage - 1) * ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE,
+    },
+  });
+
+  const { data: managedAccountsData } = useGetManagedAccountsQuery({
+    variables: {
+      where: {
+        user: {
+          id: {
+            equals: user?.id,
+          },
+        },
+      },
+      skip: 0,
+      take: 100,
     },
   });
 
@@ -44,6 +65,7 @@ const ProjectsPage = () => {
   const handleCreateProject = async (projectData: {
     name: string;
     description: string;
+    account: string;
   }) => {
     setIsCreatingProject(true);
     try {
@@ -52,9 +74,9 @@ const ProjectsPage = () => {
           data: {
             projectName: projectData.name,
             description: projectData.description,
-            user: {
+            account: {
               connect: {
-                id: user?.id,
+                id: projectData.account,
               },
             },
           },
@@ -108,6 +130,7 @@ const ProjectsPage = () => {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleCreateProject}
           isLoading={isCreatingProject}
+          managedAccounts={managedAccountsData?.managedAccounts || []}
         />
       </div>
     </div>

@@ -12,8 +12,12 @@ query GetUploadProjects(
     id
     projectName
     description
-    user {
+    account {
+      id
       name
+      user {
+        id
+      }
     }
     status
     uploadLocation {

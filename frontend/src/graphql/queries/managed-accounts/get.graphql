@@ -1,0 +1,16 @@
+query GetManagedAccount($where: ManagedAccountWhereUniqueInput!) {
+  managedAccount(where: $where) {
+    id
+    name
+    description
+    user {
+      id
+    }
+    managedAccountLinks {
+      id
+      accountName
+      tokenFor
+    }
+    managedAccountLinksCount
+  }
+}

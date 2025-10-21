@@ -1,0 +1,5 @@
+mutation CreateManagedAccount($data: ManagedAccountCreateInput!) {
+  createManagedAccount(data: $data) {
+    id
+  }
+}

@@ -9,6 +9,10 @@ query Me {
         id
         tokenFor
       }
+      managedAccounts {
+        id
+        name
+      }
     }
   }
 }

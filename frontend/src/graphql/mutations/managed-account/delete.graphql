@@ -1,0 +1,5 @@
+mutation DeleteManagedAccount($where: ManagedAccountWhereUniqueInput!) {
+  deleteManagedAccount(where: $where) {
+    id
+  }
+}
