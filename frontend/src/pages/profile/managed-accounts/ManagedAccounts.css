@@ -11,6 +11,12 @@
   font-size: 20px;
 }
 
+.managed-accounts-section p {
+  margin-bottom: 20px;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
 .managed-account-settings-card {
   margin-bottom: 1rem;
   transition: border-color 0.3s ease-in-out;

@@ -1,16 +1,9 @@
 import type {ReactNode} from "react";
 import "./LeftSidebar.css";
-
-interface Mapping {
-  key: string;
-  // element: ReactNode;
-  itemName: string;
-
-  subElementMapping?: Mapping[];
-}
+import type { SidebarContentMapping } from "../types";
 
 interface LeftSidebarProps {
-  renderContentMapping?: Mapping[];
+  renderContentMapping?: SidebarContentMapping[];
   sidebarFooter?: ReactNode;
 
   onSelectElement: (key: string) => void;
@@ -26,8 +19,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           {renderContentMapping &&
             renderContentMapping.map((mapping) => {
               return (
-                <>
-                  <li key={mapping.key} onClick={() => onSelectElement(mapping.key)}>
+                <div key={mapping.key}>
+                  <li onClick={() => onSelectElement(mapping.key)}>
                     {mapping.itemName}
                   </li>
                   {mapping.subElementMapping && (
@@ -39,7 +32,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
                       ))}
                     </ul>
                   )}
-                </>
+                </div>
               );
             })}
         </ul>

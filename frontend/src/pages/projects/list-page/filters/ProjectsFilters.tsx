@@ -7,12 +7,12 @@ import CheckboxList from "../../../../components/input/checkbox-list/CheckboxLis
 import TextInput from "../../../../components/input/text/TextInput.tsx";
 import { isFeatureFiltersEnabled } from "../../../../utils/features.ts";
 import {useGetManagedAccountsQuery} from "../../../../generated/graphql.ts";
-import {useParams} from "react-router";
+import {useSearchParams} from "react-router";
 import {useAuth} from "../../../../auth/AuthProvider.tsx";
 
 const ProjectsFilters = () => {
   const { user } = useAuth();
-  const { managedAccounts } = useParams<{ managedAccounts: string }>();
+  const [params] = useSearchParams();
 
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([
     "youtube",
@@ -39,8 +39,9 @@ const ProjectsFilters = () => {
   });
 
   useEffect(() => {
+    const managedAccounts = params.get("managedAccounts") || "";
     if (managedAccounts) {
-      setSelectedPlatforms([...managedAccounts.split(",")]);
+      setAccounts([...managedAccounts.split(",")]);
     } else {
       setAccounts(data?.managedAccounts?.map((ma) => ma.id) ?? []);
     }

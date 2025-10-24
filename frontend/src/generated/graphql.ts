@@ -2047,6 +2047,7 @@ export type GetUploadProjectsQuery = { __typename?: 'Query', uploadProjects?: Ar
 
 export type UserStatisticsReportQueryVariables = Exact<{
   userId: Scalars['ID']['input'];
+  managedAccountInput: ManagedAccountWhereInput;
 }>;
 
 
@@ -2837,24 +2838,24 @@ export type GetUploadProjectsLazyQueryHookResult = ReturnType<typeof useGetUploa
 export type GetUploadProjectsSuspenseQueryHookResult = ReturnType<typeof useGetUploadProjectsSuspenseQuery>;
 export type GetUploadProjectsQueryResult = ApolloReactCommon.QueryResult<GetUploadProjectsQuery, GetUploadProjectsQueryVariables>;
 export const UserStatisticsReportDocument = gql`
-    query UserStatisticsReport($userId: ID!) {
+    query UserStatisticsReport($userId: ID!, $managedAccountInput: ManagedAccountWhereInput!) {
   userActiveProjectsCount: uploadProjectsCount(
-    where: {AND: {account: {user: {id: {equals: $userId}}}, deletedAt: {equals: null}}}
+    where: {AND: {account: $managedAccountInput, deletedAt: {equals: null}}}
   )
   createdProjectsCount: auditsCount(
     where: {AND: {tableName: {equals: "UploadProject"}, type: {equals: "CREATE"}, createdBy: {id: {equals: $userId}}}}
   )
   activeTasksCount: uploadsCount(
-    where: {AND: [{project: {account: {user: {id: {equals: $userId}}}}, uploadStatus: {notIn: ["FAILED", "COMPLETED"]}}]}
+    where: {AND: [{project: {account: $managedAccountInput}, uploadStatus: {notIn: ["FAILED", "COMPLETED"]}}]}
   )
   failedTasksCount: uploadsCount(
-    where: {AND: [{project: {account: {user: {id: {equals: $userId}}}}, uploadStatus: {equals: "FAILED"}}]}
+    where: {AND: [{project: {account: $managedAccountInput}, uploadStatus: {equals: "FAILED"}}]}
   )
   completedTasksCount: uploadsCount(
-    where: {AND: [{project: {account: {user: {id: {equals: $userId}}}}, uploadStatus: {equals: "COMPLETED"}}]}
+    where: {AND: [{project: {account: $managedAccountInput}, uploadStatus: {equals: "COMPLETED"}}]}
   )
   totalTasksCount: uploadsCount(
-    where: {AND: [{project: {account: {user: {id: {equals: $userId}}}}}]}
+    where: {AND: [{project: {account: $managedAccountInput}}]}
   )
 }
     `;
@@ -2872,6 +2873,7 @@ export const UserStatisticsReportDocument = gql`
  * const { data, loading, error } = useUserStatisticsReportQuery({
  *   variables: {
  *      userId: // value for 'userId'
+ *      managedAccountInput: // value for 'managedAccountInput'
  *   },
  * });
  */

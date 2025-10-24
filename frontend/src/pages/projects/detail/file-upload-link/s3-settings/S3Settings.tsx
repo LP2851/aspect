@@ -11,7 +11,7 @@ const S3Settings = ({ s3Link, setS3Link }: S3SettingsProps) => {
   return (
     <div>
       <h2 className="new-section">AWS S3 Storage Settings</h2>
-      <p className="description">Settings for S3 storage settings</p>
+      <p className="section-description">Settings for S3 storage settings</p>
 
       <TextInput
         key="s3Link.bucket"

@@ -24,3 +24,22 @@
   color: var(--font-color-purple);
   font-size: 24px;
 }
+
+.new-section {
+  margin-top: 2rem !important;
+  border-top: 1px solid var(--highlight-color);
+  padding-top: 2rem;
+}
+
+.section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--font-color-purple);
+  font-size: 20px;
+}
+
+.section-description {
+  margin: 0;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}

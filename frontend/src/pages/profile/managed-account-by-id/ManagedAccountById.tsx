@@ -57,8 +57,6 @@ const ManagedAccountById = ({ managedAccountId }: ManagedAccountByIdProps) => {
     return <p>Loading...</p>;
   }
 
-  console.log(account);
-
   return (
     <div className="managed-account-info-section scroll-container">
       <h2>Managed Account: {account.name}</h2>

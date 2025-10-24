@@ -6,12 +6,11 @@ import Navbar from "./components/navbar/Navbar.tsx";
 import LoginPage from "./pages/auth/LoginPage.tsx";
 import PrivateRoute from "./pages/helpers/PrivateRoute.tsx";
 import Home from "./pages/home/Home.tsx";
-import ProfilePage from "./pages/profile/ProfilePage.tsx";
-import ProjectDetailPage from "./pages/projects/detail/ProjectDetailsPage.tsx";
 import ProjectEditorPageV2 from "./pages/projects/editor2/ProjectEditorPageV2.tsx";
 import ProjectsPage from "./pages/projects/list-page/ProjectsPage.tsx";
 import ManagedAccountsPage from "./pages/managed-accounts/ManagedAccountsPage.tsx";
-import ProfilePageTest from "./pages/profile/ProfilePageTest.tsx";
+import ProfilePage from "./pages/profile/ProfilePage.tsx";
+import ProjectDetailsPage from "./pages/projects/detail/ProjectDetailsPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -43,7 +42,7 @@ function App() {
             element={
               <PrivateRoute>
                 {/*<ProjectEditorPage files={[]} />*/}
-                <ProjectDetailPage />
+                <ProjectDetailsPage />
               </PrivateRoute>
             }
           />
@@ -71,14 +70,14 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/test-profile"
-            element={
-              <PrivateRoute>
-                <ProfilePageTest />
-              </PrivateRoute>
-            }
-          />
+          {/*<Route*/}
+          {/*  path="/test-profile"*/}
+          {/*  element={*/}
+          {/*    <PrivateRoute>*/}
+          {/*      <ProfilePage />*/}
+          {/*    </PrivateRoute>*/}
+          {/*  }*/}
+          {/*/>*/}
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>

@@ -4,6 +4,8 @@ import {
   type User,
   useUserStatisticsReportQuery,
 } from "../../../generated/graphql.ts";
+import Select from "../../../components/input/select/Select.tsx";
+import {useState} from "react";
 
 interface UserStatsProps {
   user: User | null;
@@ -12,15 +14,41 @@ interface UserStatsProps {
 const UserStats = ({ user }: UserStatsProps) => {
   const userId = user?.id || "";
 
+  const [selectedAccount, setSelectedAccount] = useState<string>("");
+
   const { data } = useUserStatisticsReportQuery({
     variables: {
       userId,
+      managedAccountInput: {
+        id: (selectedAccount ? { equals: selectedAccount } : undefined),
+        user: { id: { equals: userId } },
+      },
     },
   });
 
   return (
     <div className="account-links-section">
-      <h2>Projects</h2>
+      <div className="stats-header-section">
+        <h2>Projects</h2>
+
+        <Select
+          id="account-select"
+          label="Select Account"
+          value={selectedAccount}
+          defaultOption="All Accounts"
+          defaultValue=""
+          onChange={(e) => setSelectedAccount(e.target.value)}
+          required={false}
+          options={[
+            ...(user?.managedAccounts?.map(acc => {
+              return {
+                label: acc.name || "",
+                value: acc.id || "",
+              }
+            }) || []),
+          ]} />
+      </div>
+
       <div className="stats-section">
         <div className="basic-stat-item">
           <h3>Total Active Projects</h3>

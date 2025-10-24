@@ -43,10 +43,12 @@ const ManagedAccountsPage = () => {
               <div className="managed-account-card-body" onClick={() => {navigate("/projects?managedAccounts=" + account.id)}}>
                 <div className="managed-account-card-header">
                   <h2>{account.name}</h2>
-                  <FaCogs className="managed-account-card-icon-cogs" onClick={() => {alert("Coming soon!")}}/>
+                  <FaCogs className="managed-account-card-icon-cogs" onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/profile?element=managed-account_" + account.id);
+                  }} />
                 </div>
                 <p>{account.description}</p>
-
 
                 <div>
                   { account.managedAccountLinks?.map((link) => (

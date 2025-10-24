@@ -1,95 +1,70 @@
-import "./ProfilePage.css";
-
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
-
-import { useAuth } from "../../auth/AuthProvider.tsx";
+import {useAuth} from "../../auth/AuthProvider.tsx";
+import {useNavigate} from "react-router";
 import AccountLinks from "./account-links/AccountLinks.tsx";
 import UserStats from "./user-stats/UserStats.tsx";
 import ManagedAccounts from "./managed-accounts/ManagedAccounts.tsx";
 import ManagedAccountById from "./managed-account-by-id/ManagedAccountById.tsx";
+import PageWithLeftSidebar from "../../components/page-with-left-sidebar/PageWithLeftSidebar.tsx";
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [selectedSection, setSelectedSection] = useState("profile");
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const success = urlParams.get("success");
-    const error = urlParams.get("error");
-
-    if (success || error) {
-      setSelectedSection("account-links");
-    }
-  }, [location.search]);
-
-  const renderContent = () => {
-    switch (selectedSection) {
-      case "stats-for-nerds":
-        return <UserStats user={user} />;
-      case "account-links":
-        return <AccountLinks />;
-      case "managed-accounts":
-        return <ManagedAccounts />;
-      case "logout":
-        logout().then(() => navigate("/login"));
-        return null;
-      default:
-        if (selectedSection.startsWith("managed-account_")) {
-          return <ManagedAccountById managedAccountId={selectedSection.split("_")[1]} />
-        }
-        return (
-          <div className="user-details">
+  const contentMapping = [
+    {
+      key: "profile",
+      element: (
+        <div className="user-details">
+          <p>
+            <strong>Name:</strong> {user?.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {user?.email}
+          </p>
+          {user?.isAdmin && (
             <p>
-              <strong>Name:</strong> {user?.name}
+              <strong>Is Admin:</strong> True
             </p>
-            <p>
-              <strong>Email:</strong> {user?.email}
-            </p>
-            {user?.isAdmin && (
-              <p>
-                <strong>Is Admin:</strong> True
-              </p>
-            )}
-          </div>
-        );
-    }
-  };
-
-  return (
-    <div className="profile-page-container">
-      <aside className="profile-page-sidebar">
-        <ul className="sidebar-menu">
-          <li onClick={() => setSelectedSection("profile")}>Profile</li>
-          <li onClick={() => setSelectedSection("managed-accounts")}>
-            Managed Accounts
-          </li>
-          { user?.managedAccounts && (
-            <ul className="sidebar-menu-sublist">
-              { user?.managedAccounts.map((account) => (
-                <li onClick={() => setSelectedSection("managed-account_" + account.id)}>
-                  {account.name}
-                </li>
-              ))}
-            </ul>
           )}
-          <li onClick={() => setSelectedSection("account-links")}>
-            Account Links
-          </li>
-          <li onClick={() => setSelectedSection("stats-for-nerds")}>
-            Stats For Nerds
-          </li>
-          <li onClick={() => setSelectedSection("logout")}>Logout</li>
-        </ul>
-      </aside>
-      <main className="main-content">
-        <h1>Profile</h1>
-        {renderContent()}
-      </main>
-    </div>
-  );
-};
+        </div>
+      ),
+      itemName: "Profile"
+    },
+    {
+      key: "managed-accounts",
+      element: <ManagedAccounts />,
+      itemName: "Managed Accounts",
+      subElementMapping: user?.managedAccounts?.map((account) => {
+        return {
+          key: "managed-account_" + account.id,
+          element: <ManagedAccountById managedAccountId={account.id} />,
+          itemName: account.name,
+        };
+      }) || [],
+    },
+    {
+      key: "account-links",
+      element: <AccountLinks />,
+      itemName: "(OLD) Account Links"
+    },
+    {
+      key: "stats",
+      element: <UserStats user={user} />,
+      itemName: "Stats For Nerds"
+    },
+    {
+      key: "logout",
+      func: () => logout().then(() => navigate("/login")),
+      itemName: "Logout"
+    },
+  ];
+
+  // @ts-ignore
+  return <PageWithLeftSidebar contentMapping={contentMapping}
+                              defaultKey="profile"
+                              title="Profile"
+                              path="/profile" />
+}
 
 export default ProfilePage;

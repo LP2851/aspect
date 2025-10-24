@@ -35,7 +35,7 @@ const ProjectDetailsFileUploadLink = ({
   const [deleteUploadLocation] = useDeleteUploadLocationMutation();
 
   useEffect(() => {
-    const type = project.uploadLocation?.type;
+    const type = project?.uploadLocation?.type;
     setLocationType(type);
 
     if (type === "LOCAL") setLocalLink(project.uploadLocation?.localLink);
@@ -124,9 +124,9 @@ const ProjectDetailsFileUploadLink = ({
   };
 
   return (
-    <Card className="scroll-container card-height-setting">
+    <Card className="section scroll-container card-height-setting">
       <h2>File Upload Link</h2>
-      <p className="description">Upload location for files for this project</p>
+      <p className="section-description">Upload location for files for this project</p>
 
       <Select
         id="uploadLocation"
@@ -135,6 +135,7 @@ const ProjectDetailsFileUploadLink = ({
         value={locationType ?? ""}
         defaultOption="Select an option"
         defaultValue=""
+        required={true}
         options={selectOptions}
         onChange={(e) => setLocationType(e.target.value || undefined)}
       />

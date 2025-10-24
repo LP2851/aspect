@@ -114,6 +114,7 @@ const ManagedAccounts = () => {
   return (
     <div className="managed-accounts-section scroll-container">
       <h2>Managed Accounts</h2>
+      <p>Add and update accounts managed by this profile</p>
 
       <Button style={{ width: "100%", marginBottom: "2rem" }} onClick={() => openModal(true)}>Add New Account</Button>
         { data?.managedAccounts?.map((account) => (

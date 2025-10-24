@@ -13,8 +13,6 @@
   box-shadow: 0 4px 20px rgb(0 0 0 / 60%);
   background-color: var(--bg-secondary);
   padding: 1rem;
-
-  /* text-align: center; */
 }
 
 .basic-stat-item h3 {
@@ -35,4 +33,17 @@
 
 .basic-stat-item p.red {
   color: var(--color-red);
+}
+
+.stats-header-section {
+  display: flex;
+  align-items: center;
+
+  h2 {
+    margin-right: 60%;
+  }
+
+  label {
+    margin-right: 1rem;
+  }
 }

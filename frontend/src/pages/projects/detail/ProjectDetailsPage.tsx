@@ -1,19 +1,16 @@
+import {memo, useEffect, useState} from "react";
+import {useParams} from "react-router";
+import {useToast} from "../../../providers/toast/ToastProvider.tsx";
+import {useGetUploadProjectQuery} from "../../../generated/graphql.ts";
+import type {Project} from "../../../api/types/types.ts";
+import PageWithLeftSidebar from "../../../components/page-with-left-sidebar/PageWithLeftSidebar.tsx";
+import ProjectDetailsGeneralDetails from "./general-details/ProjectDetailsGeneralDetails.tsx";
+import ProjectDetailsUploadLocation from "./file-upload-link/ProjectDetailsFileUploadLink.tsx";
+import UploadToDetails from "./upload-to/UploadToDetails.tsx";
 import "./ProjectDetailsPage.css";
 
-import { memo, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-
-import { type Project } from "../../../api/types/types.ts";
-import Button from "../../../components/button/Button.tsx";
-import LeftSidebar from "../../../components/left-sidebar/LeftSidebar.tsx";
-import { useGetUploadProjectQuery } from "../../../generated/graphql.ts";
-import { useToast } from "../../../providers/toast/ToastProvider.tsx";
-import ProjectDetailsUploadLocation from "./file-upload-link/ProjectDetailsFileUploadLink.tsx";
-import ProjectDetailsGeneralDetails from "./general-details/ProjectDetailsGeneralDetails.tsx";
-import UploadToDetails from "./upload-to/UploadToDetails.tsx";
-
-const ProjectDetailPage = () => {
-  const navigate = useNavigate();
+const ProjectDetailsPage = () => {
+  // const navigate = useNavigate();
   const { showToast } = useToast();
   const { projectId: id } = useParams<{ projectId: string }>();
   const [project, setProject] = useState<any | null>(null);
@@ -40,80 +37,52 @@ const ProjectDetailPage = () => {
     await refetch();
   };
 
-  // const handleSave = () => {
-  //   // Call API to save project changes
-  //   fetch(`/api/projects/${id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(project),
-  //   });
-  // };
-
   if (loading && !project) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  return (
-    <div className="project-detail-page">
-      <LeftSidebar
-        header={"Project: " + project?.projectName}
-        sidebarFooter={
-          <div className="sidebar-footer-item">
-            <Button
-              variant="danger"
-              onClick={() => {
-                navigate("/projects");
-                showToast(
-                  "error",
-                  "Cancelled changes to project: " + project?.projectName,
-                );
-              }}
-            >
-              Cancel Changes
-            </Button>
-            <Button
-              onClick={() =>
-                showToast("success", "Saved changes successfully!")
-              }
-            >
-              Save All Changes
-            </Button>
-          </div>
-        }
-        renderContentMapping={{
-          general: {
-            element: (
-              <ProjectDetailsGeneralDetails
-                project={project}
-                setProject={setProject}
-                onSave={onSave}
-              />
-            ),
-            itemName: "General Details",
-          },
-          fileUploadLink: {
-            itemName: "File Upload Link",
-            element: (
-              <ProjectDetailsUploadLocation
-                project={project}
-                setProject={setProject}
-                onSave={onSave}
-              />
-            ),
-          },
-          uploadTasks: {
-            itemName: "Upload Tasks",
-            element: (
-              <UploadToDetails
-                project={project}
-                onSave={onSave}
-                refresh={refresh}
-              />
-            ),
-          },
-        }}
-      />
-    </div>
-  );
-};
+  const renderContentMapping = [
+    {
+      key: "general",
+      itemName: "General Details",
+      element: (
+        <ProjectDetailsGeneralDetails
+          project={project}
+          setProject={setProject}
+          onSave={onSave}
+        />
+      ),
+    },
+    {
+      key: "file-upload-link",
+      itemName: "File Upload Link",
+      element: (
+        <ProjectDetailsUploadLocation
+          project={project}
+          setProject={setProject}
+          onSave={onSave}
+        />
+      ),
+    },
+    {
+      key: "upload-tasks",
+      itemName: "Upload Tasks",
+      element: (
+        <UploadToDetails
+          project={project}
+          onSave={onSave}
+          refresh={refresh}
+        />
+      ),
+    },
+  ];
 
-export default memo(ProjectDetailPage);
+  return (
+    // @ts-ignore
+    <PageWithLeftSidebar contentMapping={renderContentMapping}
+                         title={"Project: " + project?.projectName}
+                         defaultKey="general"
+                         path={"/projects/" + id} />
+  );
+}
+
+export default memo(ProjectDetailsPage);

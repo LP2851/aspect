@@ -5,7 +5,7 @@ import Card from "../../../../components/card/Card.tsx";
 import DetailItem from "../../../../components/detail-item/DetailItem.tsx";
 import TextInput from "../../../../components/input/text/TextInput.tsx";
 import TextAreaInput from "../../../../components/input/textarea/TextAreaInput.tsx";
-import {useGetManagedAccountsQuery} from "../../../../generated/graphql.ts";
+import {useGetManagedAccountsQuery, useUpdateProjectMutation} from "../../../../generated/graphql.ts";
 import {useAuth} from "../../../../auth/AuthProvider.tsx";
 import Select from "../../../../components/input/select/Select.tsx";
 
@@ -35,10 +35,30 @@ const ProjectDetailsGeneralDetails = ({
     },
   });
 
+  const [updateProject] = useUpdateProjectMutation();
+
+  const onSaveProject = async () => {
+    try {
+      await updateProject({
+        variables: {
+          where: {id: project.id},
+          data: {
+            projectName: project.projectName,
+            description: project.description,
+            account: {connect: {id: project.account.id}},
+          }
+        },
+      });
+      onSave();
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   return (
-    <Card className="scroll-container card-height-setting">
+    <Card className="section scroll-container card-height-setting">
       <h2>General</h2>
-      <p className="description">General details about the project</p>
+      <p className="section-description">General details about the project</p>
       <TextInput
         required={true}
         label="Project Name"
@@ -74,17 +94,17 @@ const ProjectDetailsGeneralDetails = ({
         })) || []}
         onChange={(e) => {
           if (project) {
-            setProject({ ...project, account: { connect:{ id: e.target.value } } });
+            setProject({ ...project, account: { id: e.target.value } });
           }
         }}
       />
 
-      <Button style={{ marginTop: "2rem", width: "100%" }} onClick={onSave}>
+      <Button style={{ marginTop: "2rem", width: "100%" }} onClick={onSaveProject}>
         Save Changes
       </Button>
 
       <h2 className="new-section">Overview</h2>
-      <p className="description">
+      <p className="section-description">
         Overview of the project status and what remains to be completed
       </p>
 

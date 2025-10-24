@@ -14,7 +14,7 @@ const GoogleDriveSettings = ({
   return (
     <div>
       <h2 className="new-section">Google Drive Storage Settings</h2>
-      <p className="description">Settings for Google Drive storage settings</p>
+      <p className="section-description">Settings for Google Drive storage settings</p>
 
       <TextInput
         key="googleDriveLink.name"

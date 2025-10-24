@@ -13,7 +13,7 @@ const LocalSettings = ({ localLink, setLocalLink }: LocalSettingsProps) => {
   return (
     <div>
       <h2 className="new-section">Local File Storage Settings</h2>
-      <p className="description">Settings for local file storage settings</p>
+      <p className="section-description">Settings for local file storage settings</p>
 
       <TextInput
         key="localLink.path"

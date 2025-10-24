@@ -38,7 +38,7 @@ const UploadToDetails = ({
   const [updateUploadTask] = useUpdateUploadMutation();
 
   useEffect(() => {
-    setTasks(project.uploadsTo || []);
+    setTasks(project?.uploadsTo ?? []);
   }, [project]);
 
   const onRemoveTask = async (taskId: string) => {
@@ -74,14 +74,14 @@ const UploadToDetails = ({
   };
 
   return (
-    <Card className="scroll-container card-height-setting">
+    <Card className="section scroll-container card-height-setting">
       <h2>Upload Tasks</h2>
-      <p className="description">
+      <p className="section-description">
         Settings for distribution of project across platforms
       </p>
 
       <h2 className="new-section">Overview</h2>
-      <p className="description">
+      <p className="section-description">
         Information about selected tasks and basic details
       </p>
 
@@ -118,7 +118,7 @@ const UploadToDetails = ({
       )}
 
       <h2 className="new-section">Configured Tasks</h2>
-      <p className="description">List of tasks for this upload project</p>
+      <p className="section-description">List of tasks for this upload project</p>
       <Button
         style={{ marginTop: "1rem", width: "100%" }}
         onClick={() => {
@@ -153,7 +153,7 @@ const UploadToDetails = ({
         }}
         isCreate={isCreatingTask}
         onSubmit={onSave}
-        projectId={project.id}
+        projectId={project?.id}
         task={selectedTask}
       />
     </Card>

@@ -7,7 +7,7 @@ import TextInput from "../../input/text/TextInput.tsx";
 import TextAreaInput from "../../input/textarea/TextAreaInput.tsx";
 import Modal from "../Modal.tsx";
 import Select from "../../input/select/Select.tsx";
-import {useParams} from "react-router";
+import {useSearchParams} from "react-router";
 
 interface CreateProjectModalProps {
   isOpen: boolean;
@@ -24,13 +24,11 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
   isLoading = false,
   managedAccounts
 }) => {
-  const { managedAccounts: selectedAccount } = useParams<{ managedAccounts: string }>();
+  const [params] = useSearchParams();
 
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
-  const [account, setAccount] = useState(managedAccounts.length === 1
-    ? managedAccounts[0].id
-    : (selectedAccount ?? ""));
+  const [account, setAccount] = useState("");
   const [errors, setErrors] = useState<{ name?: string; description?: string }>(
     {},
   );
@@ -40,7 +38,12 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
     if (!isOpen) {
       setProjectName("");
       setDescription("");
-      setAccount("");
+      setAccount(
+        (managedAccounts.length === 1
+          ? managedAccounts[0].id
+          : (params.get("managedAccounts") ?? ""))
+        || ""
+      );
       setErrors({});
     }
   }, [isOpen]);
@@ -81,7 +84,12 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
   const handleClose = () => {
     setProjectName("");
     setDescription("");
-    setAccount("");
+    setAccount(
+      managedAccounts.length === 1
+        ? managedAccounts[0].id
+        : (params.get("managedAccounts") ?? "")
+      || ""
+    );
     setErrors({});
     onClose();
   };
