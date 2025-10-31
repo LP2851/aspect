@@ -70,4 +70,4 @@ const PageWithLeftSidebar = (props: PageWithLeftSidebarProps) => {
   );
 }
 
-export default PageWithLeftSidebar
+export default PageWithLeftSidebar;

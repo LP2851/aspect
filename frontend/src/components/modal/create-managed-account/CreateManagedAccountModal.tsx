@@ -90,6 +90,7 @@ const CreateManagedAccountModal = ({
       <form className="create-managed-account-modal-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <TextInput
+            id="account-name"
             label="Account Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -101,6 +102,7 @@ const CreateManagedAccountModal = ({
 
         <div className="form-group">
           <TextAreaInput
+            id="description"
             label="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

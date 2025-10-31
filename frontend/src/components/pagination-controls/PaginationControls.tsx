@@ -20,6 +20,7 @@ const PaginationControls = ({
     <div className="pagination-controls">
       <button
         className="pagination-button-prev"
+        aria-label="Previous Page"
         onClick={() => onClickPrev(-1)}
         disabled={currentPage === 1}
       >
@@ -28,6 +29,7 @@ const PaginationControls = ({
       <span className="pagination-label">Page {currentPage}</span>
       <button
         className="pagination-button-next"
+        aria-label="Next Page"
         onClick={() => onClickNext(1)}
         disabled={totalItems < itemsPerPage}
       >

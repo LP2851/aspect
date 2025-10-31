@@ -25,6 +25,16 @@ repos:
         additional_dependencies: [prettier]
         files: ^frontend/
 
+  - repo: local
+    hooks:
+      - id: vitest-tests
+        name: Run Vitest before push
+        entry: npm run test -- --run
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [ pre-push ]
+        working_directory: frontend
 
   # Backend Checks
   # ESLint TypeScript/JavaScript

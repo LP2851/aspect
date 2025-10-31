@@ -1,7 +1,7 @@
 import { type FC, type FormEvent, useEffect, useState } from "react";
 
 import {
-  useCreateUploadMutation,
+  useCreateUploadMutation, useGetManagedAccountsQuery, useGetUploadProjectQuery,
   useUpdateUploadMutation,
 } from "../../../generated/graphql.ts";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
@@ -24,6 +24,14 @@ interface CreateTaskModalProps {
   } | null;
 }
 
+const PLATFORMS = [
+  { label: "TikTok", value: "TIK_TOK" },
+  { label: "YouTube", value: "YOUTUBE" },
+  { label: "Instagram", value: "INSTAGRAM" },
+  { label: "Facebook", value: "FACEBOOK" },
+  { label: "X", value: "X" },
+];
+
 const CreateTaskModal: FC<CreateTaskModalProps> = ({
   isOpen,
   onClose,
@@ -38,6 +46,25 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const [taskType, setTaskType] = useState<string | undefined>("UPLOAD");
   const [uploadPlatform, setUploadPlatform] = useState<string | undefined>();
   const [errors, setErrors] = useState<{ scheduledFor?: string }>({});
+
+  const { data: project } = useGetUploadProjectQuery({
+    variables: {
+      where: { id: projectId },
+    },
+  });
+  const managedAccountId = project?.uploadProject?.account?.id ?? "";
+
+  const { data } = useGetManagedAccountsQuery({
+    variables: {
+      where: { id: { equals: managedAccountId } },
+      skip: 0,
+      take: 100,
+    },
+  });
+
+  const platforms = PLATFORMS.filter(p =>
+    data?.managedAccounts?.some(ma => ma.id === managedAccountId
+      && ma.managedAccountLinks?.some(l => l.tokenFor === p.value)));
 
   const [createNewUploadTask] = useCreateUploadMutation();
   const [updateUploadTask] = useUpdateUploadMutation();
@@ -130,8 +157,7 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={isCreate ? "Create New Task" : "Edit Task"}
-    >
+      title={isCreate ? "Create New Task" : "Edit Task"}>
       <form onSubmit={handleSubmit} className="create-project-form">
         <div className="form-group">
           <DateTimeInput
@@ -161,15 +187,10 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
               id="upload-platform"
               required
               label="Upload Platform"
+              description="If a platform is not available, connect it to your account via the profile page."
               defaultOption="Select an upload platform"
               value={uploadPlatform}
-              options={[
-                { label: "TikTok", value: "TIK_TOK" },
-                { label: "YouTube", value: "YOUTUBE" },
-                { label: "Instagram", value: "INSTAGRAM" },
-                { label: "Facebook", value: "FACEBOOK" },
-                { label: "X", value: "X" },
-              ]}
+              options={platforms}
               onChange={(e) => setUploadPlatform(e.target.value)}
             />
           )}
@@ -182,7 +203,8 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
               : "Updating..."
             : isCreate
               ? "Create Task"
-              : "Save Changes"}
+              : "Save Changes"
+          }
         </Button>
       </form>
     </Modal>

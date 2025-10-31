@@ -29,7 +29,7 @@ const Navbar = () => {
       <a className="nav-item pushed-right border-left" href="/profile">
         <FaUser className="nav-icon" /> Profile
       </a>
-      <a className="nav-item border-left" onClick={handleLogout}>
+      <a className="nav-item border-left" aria-label="Logout" onClick={handleLogout}>
         <FiLogOut />
       </a>
     </div>

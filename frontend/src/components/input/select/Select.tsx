@@ -7,6 +7,7 @@ import Label from "../label/Label.tsx";
 const Select = ({
   id,
   label,
+  description,
   options,
   value,
   onChange,
@@ -16,6 +17,7 @@ const Select = ({
 }: {
   id: string;
   label?: string;
+  description?: string;
   options?: { value: string; label: string }[];
   value?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
@@ -25,8 +27,9 @@ const Select = ({
 }) => (
   <>
     {label && <Label id={id} message={label} required={required} />}
+    {description && <p className="input-description">{description}</p>}
 
-    <select id={id} className="select-input" value={value} onChange={onChange}>
+    <select id={id} className="select-input" value={value} onChange={onChange} required={required}>
       {defaultOption && <option value={defaultValue}>{defaultOption}</option>}
 
       {options &&

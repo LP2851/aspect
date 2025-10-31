@@ -1,19 +1,24 @@
-name: Lint recently changed Frontend files
+name: Frontend - Build, Lint and Test
 
 on:
   pull_request:
     branches:
       - master
-  push:
     paths:
-      - ../../frontend/src/**
+      - 'frontend/**'
+  push:
     branches:
       - master
-
+    paths:
+      - 'frontend/**'
 
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - name: Checkout repository
@@ -25,10 +30,13 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: cd frontend && npm install
+        run: npm install
 
       - name: Build React app
-        run: cd frontend && npm run build
+        run: npm run build
 
       - name: Run linter
-        run: cd frontend && npm run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --run
