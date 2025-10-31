@@ -83,7 +83,19 @@ npm run graphql
 ```
 
 ### Running the tests
-TODO add jest and playwright
+To run tests for the frontend, we use [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
+The tests can be run with the following command:
+```aiignore
+npm run test
+```
+
+In this repo, the test coverage must be above 85%. 
+You can run the tests with coverage with the following command:
+```aiignore
+npm run test:coverage
+```
+
+**TODO add playwright**
 
 ### Code style
 We use [ESLint](https://eslint.org/) for linting and [Prettier](https://prettier.io/) for code formatting
