@@ -75,6 +75,15 @@ export const enum UploadStatus {
   FAILED = "FAILED",
 }
 
+export const enum ProjectType {
+  TEXT = "TEXT",
+  IMAGE = "IMAGE",
+  VIDEO = "VIDEO",
+  MULTI_MEDIA = "MULTI_MEDIA",
+  // AUDIO = "AUDIO",
+  // DOCUMENT = "DOCUMENT",
+}
+
 export interface Upload {
   id: string;
   uploadTo: UploadPlatform;

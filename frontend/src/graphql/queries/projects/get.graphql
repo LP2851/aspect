@@ -10,6 +10,8 @@ query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
        id
       }
     }
+    projectType
+    textContent
     status
     uploadLocation {
       id

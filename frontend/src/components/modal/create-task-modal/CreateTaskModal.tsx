@@ -1,7 +1,9 @@
 import { type FC, type FormEvent, useEffect, useState } from "react";
 
 import {
-  useCreateUploadMutation, useGetManagedAccountsQuery, useGetUploadProjectQuery,
+  useCreateUploadMutation,
+  useGetManagedAccountsQuery,
+  useGetUploadProjectQuery,
   useUpdateUploadMutation,
 } from "../../../generated/graphql.ts";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
@@ -52,6 +54,7 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
       where: { id: projectId },
     },
   });
+
   const managedAccountId = project?.uploadProject?.account?.id ?? "";
 
   const { data } = useGetManagedAccountsQuery({
@@ -62,9 +65,15 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
     },
   });
 
-  const platforms = PLATFORMS.filter(p =>
-    data?.managedAccounts?.some(ma => ma.id === managedAccountId
-      && ma.managedAccountLinks?.some(l => l.tokenFor === p.value)));
+  const platforms = PLATFORMS.filter((p) =>
+    data?.managedAccounts?.some(
+      (ma) =>
+        ma.id === managedAccountId &&
+        ma.managedAccountLinks?.some((l) => l.tokenFor === p.value),
+    ),
+  ).filter(
+    (p) => project?.uploadProject?.projectType !== "TEXT" || p.value === "X",
+  );
 
   const [createNewUploadTask] = useCreateUploadMutation();
   const [updateUploadTask] = useUpdateUploadMutation();
@@ -157,7 +166,8 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={isCreate ? "Create New Task" : "Edit Task"}>
+      title={isCreate ? "Create New Task" : "Edit Task"}
+    >
       <form onSubmit={handleSubmit} className="create-project-form">
         <div className="form-group">
           <DateTimeInput
@@ -203,8 +213,7 @@ const CreateTaskModal: FC<CreateTaskModalProps> = ({
               : "Updating..."
             : isCreate
               ? "Create Task"
-              : "Save Changes"
-          }
+              : "Save Changes"}
         </Button>
       </form>
     </Modal>

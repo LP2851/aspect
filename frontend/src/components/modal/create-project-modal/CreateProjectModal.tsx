@@ -7,12 +7,17 @@ import TextInput from "../../input/text/TextInput.tsx";
 import TextAreaInput from "../../input/textarea/TextAreaInput.tsx";
 import Modal from "../Modal.tsx";
 import Select from "../../input/select/Select.tsx";
-import {useSearchParams} from "react-router";
+import { useSearchParams } from "react-router";
 
 interface CreateProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (projectData: { name: string; description: string; account: string }) => void;
+  onSubmit: (projectData: {
+    name: string;
+    description: string;
+    account: string;
+    projectType: string;
+  }) => void;
   isLoading?: boolean;
   managedAccounts: any[];
 }
@@ -22,12 +27,13 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
   onClose,
   onSubmit,
   isLoading = false,
-  managedAccounts
+  managedAccounts,
 }) => {
   const [params] = useSearchParams();
 
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
+  const [projectType, setProjectType] = useState("");
   const [account, setAccount] = useState("");
   const [errors, setErrors] = useState<{ name?: string; description?: string }>(
     {},
@@ -38,18 +44,23 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
     if (!isOpen) {
       setProjectName("");
       setDescription("");
+      setProjectType("");
       setAccount(
         (managedAccounts.length === 1
           ? managedAccounts[0].id
-          : (params.get("managedAccounts") ?? ""))
-        || ""
+          : (params.get("managedAccounts") ?? "")) ?? "",
       );
       setErrors({});
     }
   }, [isOpen]);
 
   const validateForm = () => {
-    const newErrors: { name?: string; description?: string; account?: string; } = {};
+    const newErrors: {
+      name?: string;
+      description?: string;
+      account?: string;
+      projectType?: string;
+    } = {};
 
     if (!projectName.trim()) {
       newErrors.name = "Project name is required";
@@ -61,6 +72,10 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
 
     if (!account.trim()) {
       newErrors.account = "Target account must be selected";
+    }
+
+    if (!projectType.trim()) {
+      newErrors.projectType = "Type must be selected";
     }
 
     setErrors(newErrors);
@@ -78,17 +93,18 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
       name: projectName.trim(),
       description: description.trim(),
       account: account.trim(),
+      projectType: projectType.trim(),
     });
   };
 
   const handleClose = () => {
     setProjectName("");
     setDescription("");
+    setProjectType("");
     setAccount(
       managedAccounts.length === 1
         ? managedAccounts[0].id
-        : (params.get("managedAccounts") ?? "")
-      || ""
+        : (params.get("managedAccounts") ?? "" ?? ""),
     );
     setErrors({});
     onClose();
@@ -122,13 +138,34 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({
 
         <div className="form-group">
           <Select
+            label="Project Type"
+            id="type"
+            key="type"
+            value={projectType}
+            defaultOption="Select a project type"
+            defaultValue=""
+            onChange={(e) => setProjectType(e.target.value)}
+            required={true}
+            options={[
+              { value: "TEXT", label: "Text" },
+              { value: "IMAGE", label: "Image" },
+              { value: "VIDEO", label: "Video" },
+              { value: "MULTI_MEDIA", label: "Multi-Media" },
+            ]}
+          />
+        </div>
+
+        <div className="form-group">
+          <Select
             label="Account"
             id="account"
             key="account"
+            defaultOption="Select an account"
+            defaultValue=""
             value={account}
             onChange={(e) => setAccount(e.target.value)}
             required={true}
-            options={managedAccounts.map(acc => {
+            options={managedAccounts.map((acc) => {
               return {
                 value: acc.id,
                 label: acc.name,

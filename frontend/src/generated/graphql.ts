@@ -1520,7 +1520,9 @@ export type UploadProject = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   projectName?: Maybe<Scalars['String']['output']>;
+  projectType?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
+  textContent?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   uploadLocation?: Maybe<UploadLocation>;
   uploadsTo?: Maybe<Array<Upload>>;
@@ -1547,7 +1549,9 @@ export type UploadProjectCreateInput = {
   deletedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   projectName?: InputMaybe<Scalars['String']['input']>;
+  projectType?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+  textContent?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   uploadLocation?: InputMaybe<UploadLocationRelateToOneForCreateInput>;
   uploadsTo?: InputMaybe<UploadRelateToManyForCreateInput>;
@@ -1559,7 +1563,9 @@ export type UploadProjectOrderByInput = {
   description?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   projectName?: InputMaybe<OrderDirection>;
+  projectType?: InputMaybe<OrderDirection>;
   status?: InputMaybe<OrderDirection>;
+  textContent?: InputMaybe<OrderDirection>;
   updatedAt?: InputMaybe<OrderDirection>;
 };
 
@@ -1585,7 +1591,9 @@ export type UploadProjectUpdateInput = {
   deletedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   projectName?: InputMaybe<Scalars['String']['input']>;
+  projectType?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
+  textContent?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   uploadLocation?: InputMaybe<UploadLocationRelateToOneForUpdateInput>;
   uploadsTo?: InputMaybe<UploadRelateToManyForUpdateInput>;
@@ -1601,7 +1609,9 @@ export type UploadProjectWhereInput = {
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   projectName?: InputMaybe<StringFilter>;
+  projectType?: InputMaybe<StringFilter>;
   status?: InputMaybe<StringFilter>;
+  textContent?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
   uploadLocation?: InputMaybe<UploadLocationWhereInput>;
   uploadsTo?: InputMaybe<UploadManyRelationFilter>;
@@ -2034,7 +2044,7 @@ export type GetUploadProjectQueryVariables = Exact<{
 }>;
 
 
-export type GetUploadProjectQuery = { __typename?: 'Query', uploadProject?: { __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, account?: { __typename?: 'ManagedAccount', id: string, name?: string | null, user?: { __typename?: 'User', id: string } | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null, localLink?: { __typename?: 'UploadLocationLocal', id: string, path?: string | null } | null, s3Link?: { __typename?: 'UploadLocationS3', id: string, key?: string | null, bucket?: string | null } | null, googleDrive?: { __typename?: 'UploadLocationGoogleDrive', id: string, name?: string | null, driveId?: string | null } | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null, scheduledFor?: any | null }> | null } | null };
+export type GetUploadProjectQuery = { __typename?: 'Query', uploadProject?: { __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, projectType?: string | null, textContent?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, account?: { __typename?: 'ManagedAccount', id: string, name?: string | null, user?: { __typename?: 'User', id: string } | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null, localLink?: { __typename?: 'UploadLocationLocal', id: string, path?: string | null } | null, s3Link?: { __typename?: 'UploadLocationS3', id: string, key?: string | null, bucket?: string | null } | null, googleDrive?: { __typename?: 'UploadLocationGoogleDrive', id: string, name?: string | null, driveId?: string | null } | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null, scheduledFor?: any | null }> | null } | null };
 
 export type GetUploadProjectsQueryVariables = Exact<{
   where: UploadProjectWhereInput;
@@ -2043,7 +2053,7 @@ export type GetUploadProjectsQueryVariables = Exact<{
 }>;
 
 
-export type GetUploadProjectsQuery = { __typename?: 'Query', uploadProjects?: Array<{ __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, account?: { __typename?: 'ManagedAccount', id: string, name?: string | null, user?: { __typename?: 'User', id: string } | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null }> | null }> | null };
+export type GetUploadProjectsQuery = { __typename?: 'Query', uploadProjects?: Array<{ __typename?: 'UploadProject', id: string, projectName?: string | null, description?: string | null, projectType?: string | null, textContent?: string | null, status?: string | null, uploadsToCount?: number | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, account?: { __typename?: 'ManagedAccount', id: string, name?: string | null, user?: { __typename?: 'User', id: string } | null } | null, uploadLocation?: { __typename?: 'UploadLocation', id: string, type?: string | null } | null, uploadsTo?: Array<{ __typename?: 'Upload', id: string, uploadStatus?: string | null, uploadTo?: string | null }> | null }> | null };
 
 export type UserStatisticsReportQueryVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -2702,6 +2712,8 @@ export const GetUploadProjectDocument = gql`
         id
       }
     }
+    projectType
+    textContent
     status
     uploadLocation {
       id
@@ -2785,6 +2797,8 @@ export const GetUploadProjectsDocument = gql`
         id
       }
     }
+    projectType
+    textContent
     status
     uploadLocation {
       id

@@ -1,19 +1,20 @@
 import "./ProjectsPage.css";
 
 import { memo, useState } from "react";
-import {useNavigate, useSearchParams} from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 import CreateProjectModal from "../../../components/modal/create-project-modal/CreateProjectModal.tsx";
 import PaginationControls from "../../../components/pagination-controls/PaginationControls.tsx";
 import Spacer from "../../../components/spacer/Spacer.tsx";
 import {
-  useCreateNewProjectMutation, useGetManagedAccountsQuery,
+  useCreateNewProjectMutation,
+  useGetManagedAccountsQuery,
   useGetUploadProjectsQuery,
 } from "../../../generated/graphql";
 import { useToast } from "../../../providers/toast/ToastProvider.tsx";
 import ProjectsFilters from "./filters/ProjectsFilters.tsx";
 import ProjectsTable from "./table/ProjectsTable.tsx";
-import {useAuth} from "../../../auth/AuthProvider.tsx";
+import { useAuth } from "../../../auth/AuthProvider.tsx";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -66,6 +67,7 @@ const ProjectsPage = () => {
     name: string;
     description: string;
     account: string;
+    projectType: string;
   }) => {
     setIsCreatingProject(true);
     try {
@@ -74,6 +76,7 @@ const ProjectsPage = () => {
           data: {
             projectName: projectData.name,
             description: projectData.description,
+            projectType: projectData.projectType,
             account: {
               connect: {
                 id: projectData.account,

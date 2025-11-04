@@ -1,5 +1,5 @@
-import {useAuth} from "../../auth/AuthProvider.tsx";
-import {useNavigate} from "react-router";
+import { useAuth } from "../../auth/AuthProvider.tsx";
+import { useNavigate } from "react-router";
 import AccountLinks from "./account-links/AccountLinks.tsx";
 import UserStats from "./user-stats/UserStats.tsx";
 import ManagedAccounts from "./managed-accounts/ManagedAccounts.tsx";
@@ -29,42 +29,53 @@ const ProfilePage = () => {
           )}
         </div>
       ),
-      itemName: "Profile"
+      itemName: "Profile",
+      hidden: false,
     },
     {
       key: "managed-accounts",
       element: <ManagedAccounts />,
       itemName: "Managed Accounts",
-      subElementMapping: user?.managedAccounts?.map((account) => {
-        return {
-          key: "managed-account_" + account.id,
-          element: <ManagedAccountById managedAccountId={account.id} />,
-          itemName: account.name,
-        };
-      }) || [],
+      subElementMapping:
+        user?.managedAccounts?.map((account) => {
+          return {
+            key: "managed-account_" + account.id,
+            element: <ManagedAccountById managedAccountId={account.id} />,
+            itemName: account.name,
+            hidden: false,
+          };
+        }) || [],
+      hidden: false,
     },
     {
       key: "account-links",
       element: <AccountLinks />,
-      itemName: "(OLD) Account Links"
+      itemName: "(OLD) Account Links",
+      hidden: false,
     },
     {
       key: "stats",
       element: <UserStats user={user} />,
-      itemName: "Stats For Nerds"
+      itemName: "Stats For Nerds",
+      hidden: false,
     },
     {
       key: "logout",
       func: () => logout().then(() => navigate("/login")),
-      itemName: "Logout"
+      itemName: "Logout",
+      hidden: false,
     },
   ];
 
-  // @ts-ignore
-  return <PageWithLeftSidebar contentMapping={contentMapping}
-                              defaultKey="profile"
-                              title="Profile"
-                              path="/profile" />
-}
+  return (
+    <PageWithLeftSidebar
+      // @ts-ignore
+      contentMapping={contentMapping}
+      defaultKey="profile"
+      title="Profile"
+      path="/profile"
+    />
+  );
+};
 
 export default ProfilePage;

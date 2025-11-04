@@ -602,11 +602,13 @@ type UploadProject {
   id: ID!
   projectName: String
   description: String
+  projectType: String
   account: ManagedAccount
   status: String
   uploadLocation: UploadLocation
   uploadsTo(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
   uploadsToCount(where: UploadWhereInput! = {}): Int
+  textContent: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
@@ -624,10 +626,12 @@ input UploadProjectWhereInput {
   id: IDFilter
   projectName: StringFilter
   description: StringFilter
+  projectType: StringFilter
   account: ManagedAccountWhereInput
   status: StringFilter
   uploadLocation: UploadLocationWhereInput
   uploadsTo: UploadManyRelationFilter
+  textContent: StringFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
   deletedAt: DateTimeNullableFilter
@@ -643,7 +647,9 @@ input UploadProjectOrderByInput {
   id: OrderDirection
   projectName: OrderDirection
   description: OrderDirection
+  projectType: OrderDirection
   status: OrderDirection
+  textContent: OrderDirection
   createdAt: OrderDirection
   updatedAt: OrderDirection
   deletedAt: OrderDirection
@@ -652,10 +658,12 @@ input UploadProjectOrderByInput {
 input UploadProjectUpdateInput {
   projectName: String
   description: String
+  projectType: String
   account: ManagedAccountRelateToOneForUpdateInput
   status: String
   uploadLocation: UploadLocationRelateToOneForUpdateInput
   uploadsTo: UploadRelateToManyForUpdateInput
+  textContent: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
@@ -676,10 +684,12 @@ input UploadProjectUpdateArgs {
 input UploadProjectCreateInput {
   projectName: String
   description: String
+  projectType: String
   account: ManagedAccountRelateToOneForCreateInput
   status: String
   uploadLocation: UploadLocationRelateToOneForCreateInput
   uploadsTo: UploadRelateToManyForCreateInput
+  textContent: String
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime

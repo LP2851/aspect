@@ -1,4 +1,8 @@
-import { UploadPlatform, UploadStatus } from "../api/types/types.ts";
+import {
+  ProjectType,
+  UploadPlatform,
+  UploadStatus,
+} from "../api/types/types.ts";
 
 export const getStatusAsText = (status: UploadStatus) => {
   switch (status) {
@@ -27,5 +31,18 @@ export const getPlatformAsText = (platform: UploadPlatform) => {
       return "TikTok";
     case UploadPlatform.X:
       return "X";
+  }
+};
+
+export const getProjectTypeAsText = (type: string) => {
+  switch (type) {
+    case ProjectType.TEXT:
+      return "Text";
+    case ProjectType.IMAGE:
+      return "Image";
+    case ProjectType.VIDEO:
+      return "Video";
+    case ProjectType.MULTI_MEDIA:
+      return "Multi-Media";
   }
 };

@@ -1,7 +1,7 @@
 import "./PageWithLeftSidebar.css";
 import LeftSidebar from "./left-sidebar/LeftSidebar.tsx";
-import {type ReactNode, useEffect} from "react";
-import {useLocation, useNavigate} from "react-router";
+import { type ReactNode, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
 import type { SidebarContentMapping } from "./types";
 
 interface PageWithLeftSidebarProps {
@@ -12,8 +12,9 @@ interface PageWithLeftSidebarProps {
 }
 
 const renderContent = (mappings: SidebarContentMapping[]): ReactNode => {
-  const pathKey = new URLSearchParams(window.location.search).get("element") || "";
-  for (const mapping of mappings) {
+  const pathKey =
+    new URLSearchParams(window.location.search).get("element") || "";
+  for (const mapping of mappings.filter((mapping) => !mapping.hidden)) {
     if (pathKey === mapping.key) {
       if (mapping.element) {
         return mapping.element;
@@ -25,7 +26,9 @@ const renderContent = (mappings: SidebarContentMapping[]): ReactNode => {
       return <></>;
     }
     if (mapping.subElementMapping) {
-      for (const subMapping of mapping.subElementMapping) {
+      for (const subMapping of mapping.subElementMapping.filter(
+        (mapping) => !mapping.hidden,
+      )) {
         if (pathKey === subMapping.key) {
           if (subMapping.element) {
             return subMapping.element;
@@ -41,7 +44,7 @@ const renderContent = (mappings: SidebarContentMapping[]): ReactNode => {
   }
 
   return <></>;
-}
+};
 
 const PageWithLeftSidebar = (props: PageWithLeftSidebarProps) => {
   const { title, contentMapping, defaultKey, path } = props;
@@ -59,7 +62,9 @@ const PageWithLeftSidebar = (props: PageWithLeftSidebarProps) => {
   return (
     <div className="page-with-left-sidebar-container">
       <LeftSidebar
-        onSelectElement={(key) => {navigate(path + "?element=" + key)}}
+        onSelectElement={(key) => {
+          navigate(path + "?element=" + key);
+        }}
         renderContentMapping={contentMapping}
       />
       <main className="page-content">
@@ -68,6 +73,6 @@ const PageWithLeftSidebar = (props: PageWithLeftSidebarProps) => {
       </main>
     </div>
   );
-}
+};
 
 export default PageWithLeftSidebar;

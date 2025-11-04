@@ -19,6 +19,8 @@ query GetUploadProjects(
         id
       }
     }
+    projectType
+    textContent
     status
     uploadLocation {
       id

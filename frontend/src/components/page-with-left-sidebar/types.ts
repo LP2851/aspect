@@ -6,4 +6,5 @@ export interface SidebarContentMapping {
   func?: () => void;
   itemName: string;
   subElementMapping?: SidebarContentMapping[];
+  hidden: boolean;
 }

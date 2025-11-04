@@ -1,4 +1,4 @@
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 import "./LeftSidebar.css";
 import type { SidebarContentMapping } from "../types";
 
@@ -12,12 +12,16 @@ interface LeftSidebarProps {
 const LeftSidebar = (props: LeftSidebarProps) => {
   const { renderContentMapping, sidebarFooter, onSelectElement } = props;
 
+  const filteredMappings = renderContentMapping?.filter(
+    (mapping) => !mapping.hidden,
+  );
+
   return (
     <>
       <aside className="left-sidebar">
         <ul className="sidebar-menu">
-          {renderContentMapping &&
-            renderContentMapping.map((mapping) => {
+          {filteredMappings &&
+            filteredMappings.map((mapping) => {
               return (
                 <div key={mapping.key}>
                   <li onClick={() => onSelectElement(mapping.key)}>
@@ -26,7 +30,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
                   {mapping.subElementMapping && (
                     <ul className="sidebar-menu-sublist">
                       {mapping.subElementMapping.map((subMapping) => (
-                        <li key={subMapping.key} onClick={() => onSelectElement(subMapping.key)}>
+                        <li
+                          key={subMapping.key}
+                          onClick={() => onSelectElement(subMapping.key)}
+                        >
                           {subMapping.itemName}
                         </li>
                       ))}

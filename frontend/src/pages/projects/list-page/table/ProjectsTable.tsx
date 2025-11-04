@@ -1,7 +1,14 @@
 import "./ProjectsTable.css";
 
 import { memo } from "react";
-import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaImage,
+  FaInstagram,
+  FaTiktok,
+  FaVideo,
+  FaYoutube,
+} from "react-icons/fa";
 import {
   FaEye,
   FaFileCircleCheck,
@@ -10,12 +17,55 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 
-import { type Upload, UploadPlatform } from "../../../../api/types/types.ts";
+import {
+  ProjectType,
+  type Upload,
+  UploadPlatform,
+} from "../../../../api/types/types.ts";
 import Table from "../../../../components/table/Table.tsx";
 import { Tag } from "../../../../components/tag/Tag.tsx";
 import { getTagColorForStatus } from "../../../../utils/tags.ts";
+import { BsCardText } from "react-icons/bs";
+import { TbBoxMultipleFilled } from "react-icons/tb";
 
 const iconStyle = { paddingRight: "8px", height: "24px" };
+
+const getTypeTag = (type: string) => {
+  switch (type) {
+    case ProjectType.TEXT:
+      return (
+        <Tag
+          label="TEXT"
+          color="green"
+          children={<BsCardText style={iconStyle} />}
+        />
+      );
+    case ProjectType.IMAGE:
+      return (
+        <Tag
+          label="IMAGE"
+          color="yellow"
+          children={<FaImage style={iconStyle} />}
+        />
+      );
+    case ProjectType.VIDEO:
+      return (
+        <Tag
+          label="VIDEO"
+          color="blue"
+          children={<FaVideo style={iconStyle} />}
+        />
+      );
+    case ProjectType.MULTI_MEDIA:
+      return (
+        <Tag
+          label="MULTI-MEDIA"
+          color="purple"
+          children={<TbBoxMultipleFilled style={iconStyle} />}
+        />
+      );
+  }
+};
 
 const getUploadToIcons = (uploads: Upload[]) => {
   return uploads.map((uploadTo) => {
@@ -77,20 +127,21 @@ interface ProjectsTableProps {
 const ProjectsTable = ({ projects, onCreateNew }: ProjectsTableProps) => {
   const navigate = useNavigate();
 
+  const columns = [
+    "Project name",
+    "Description",
+    "Account",
+    "Project type",
+    "Upload source",
+    "Upload status",
+    "Last updated at",
+    "Actions",
+  ];
+
   return (
-    <Table
-      headers={[
-        "Project name",
-        "Description",
-        "Account",
-        "Upload source",
-        "Upload status",
-        "Last updated at",
-        "Actions",
-      ]}
-    >
+    <Table headers={columns}>
       <tr>
-        <td colSpan={7}>
+        <td colSpan={columns.length}>
           <button onClick={onCreateNew} className="app-table-top-button">
             Create New Project
           </button>
@@ -99,8 +150,9 @@ const ProjectsTable = ({ projects, onCreateNew }: ProjectsTableProps) => {
       {projects.map((project) => (
         <tr key={project.id}>
           <td>{project.projectName}</td>
-          <td style={{maxWidth: "calc(100% / 7)"}}>{project.description}</td>
+          <td style={{ maxWidth: "calc(100% / 7)" }}>{project.description}</td>
           <td>{project.account.name}</td>
+          <td>{getTypeTag(project.projectType)}</td>
           <td>
             {project.uploadLocation?.type ? (
               <Tag

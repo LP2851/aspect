@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-content">
         <div className="modal-header">
-          <h2>{title}</h2>
+          <h2 style={{ margin: 0 }}>{title}</h2>
           <button className="modal-close" onClick={onClose}>
             ×
           </button>

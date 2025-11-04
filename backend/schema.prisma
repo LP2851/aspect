@@ -120,11 +120,13 @@ model UploadProject {
   id             String          @id @default(uuid()) @postgresql.Uuid
   projectName    String          @default("")
   description    String          @default("")
+  projectType    String          @default("MULTI_MEDIA")
   account        ManagedAccount? @relation("UploadProject_account", fields: [accountId], references: [id])
   accountId      String?         @map("account") @postgresql.Uuid
   status         String          @default("CREATED")
   uploadLocation UploadLocation? @relation("UploadLocation_project")
   uploadsTo      Upload[]        @relation("Upload_project")
+  textContent    String          @default("")
   createdAt      DateTime?       @default(now())
   updatedAt      DateTime?       @default(now()) @updatedAt
   deletedAt      DateTime?
