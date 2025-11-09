@@ -10,7 +10,7 @@ const FileUploadMessage = (props: FileUploadMessageProps) => {
 
   return (
     <>
-      {!project?.uploadLocation && project.projectType !== "TEXT" && (
+      {!project?.uploadLocation && project?.projectType !== "TEXT" && (
         <DetailItem
           isPositive={false}
           headerText="File Upload Link"
@@ -19,7 +19,7 @@ const FileUploadMessage = (props: FileUploadMessageProps) => {
         />
       )}
 
-      {project?.uploadLocation && project.projectType !== "TEXT" && (
+      {project?.uploadLocation && project?.projectType !== "TEXT" && (
         <DetailItem
           isPositive={true}
           headerText="File Upload Link"

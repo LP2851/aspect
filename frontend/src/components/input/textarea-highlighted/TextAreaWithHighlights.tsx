@@ -33,6 +33,7 @@ const TextAreaWithHighlights = (props: TextAreaWithHighlightsProps) => {
     return input
       .replace(/(@\w+)/g, '<span class="mention">$1</span>')
       .replace(/(#\w+)/g, '<span class="hashtag">$1</span>')
+      .replace(/(\/\/\w+)/g, '<span class="hashtag">$1</span>')
       .replace(/(\$\w+)/g, '<span class="stock">$1</span>');
   };
 

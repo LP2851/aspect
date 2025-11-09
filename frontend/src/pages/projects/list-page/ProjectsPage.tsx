@@ -24,20 +24,47 @@ const ProjectsPage = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
-  const managedAccounts = searchParams.get("managedAccounts") || undefined;
+  const managedAccounts = searchParams.get("managedAccounts");
+  const selectedPlatforms = searchParams.get("platforms");
+  const selectedTypes = searchParams.get("types");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
 
+  const buildWhereClause = () => {
+    const where: any = {};
+
+    if (managedAccounts) {
+      const accountIds = managedAccounts.split(",");
+      where.account = {
+        id: { in: accountIds },
+      };
+    }
+
+    if (selectedTypes) {
+      const types = selectedTypes.split(",");
+      where.projectType = {
+        in: types.map((type) => type.toUpperCase().replace("-", "_")),
+      };
+    }
+
+    if (selectedPlatforms) {
+      const platforms = selectedPlatforms.split(",");
+      where.uploadsTo = {
+        some: {
+          uploadTo: { in: platforms.map((platform) => platform.toUpperCase()) },
+        },
+      };
+    }
+
+    return where;
+  };
+
   const { data, loading, error, refetch } = useGetUploadProjectsQuery({
     pollInterval: 10000, // Poll every 10 seconds
     variables: {
-      where: {
-        account: {
-          id: { equals: managedAccounts },
-        },
-      },
+      where: buildWhereClause(),
       skip: (currentPage - 1) * ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE,
     },

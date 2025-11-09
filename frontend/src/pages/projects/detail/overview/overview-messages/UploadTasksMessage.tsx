@@ -8,29 +8,52 @@ interface UploadTasksMessageProps {
 const UploadTasksMessage = (props: UploadTasksMessageProps) => {
   const { project } = props;
 
-  return (
-    <>
-      {project?.uploadLocation &&
-        project?.uploadsTo.filter(
-          (uploadTask: any) => uploadTask.uploadStatus === "FAILED",
-        ).length > 0 && (
-          <DetailItem
-            isPositive={false}
-            headerText="Upload Tasks"
-            statusText="Failed"
-            descriptionText={`You have ${project?.uploadsTo.filter((uploadTask: any) => uploadTask.uploadStatus === "FAILED").length} failed upload tasks configured for this project.`}
-          />
-        )}
+  const uploads = project?.uploadsTo ?? [];
+  const failedCount = uploads.filter(
+    (u: any) => u.uploadStatus === "FAILED",
+  ).length;
 
-      {project?.uploadsTo && project?.uploadsTo.length > 0 && (
-        <DetailItem
-          isPositive={true}
-          headerText="Upload Tasks"
-          statusText={`${project?.uploadsTo.length} Tasks`}
-          descriptionText={`You have ${project?.uploadsTo.length} upload tasks configured for this project.`}
-        />
-      )}
-    </>
+  const completedCount = uploads.filter(
+    (u: any) => u.uploadStatus === "COMPLETED",
+  ).length;
+
+  if (!uploads.length) return null;
+
+  if (failedCount > 0) {
+    return (
+      <DetailItem
+        isPositive={false}
+        headerText="Upload Tasks"
+        statusText="Failed"
+        descriptionText={`You have ${failedCount} failed upload task${
+          failedCount > 1 ? "s" : ""
+        } configured for this project.`}
+      />
+    );
+  }
+
+  if (completedCount === uploads.length) {
+    return (
+      <DetailItem
+        isPositive={true}
+        headerText="Upload Tasks"
+        statusText="All Complete"
+        descriptionText={`You have ${completedCount} completed upload task${
+          completedCount > 1 ? "s" : ""
+        } configured for this project.`}
+      />
+    );
+  }
+
+  return (
+    <DetailItem
+      isPositive={true}
+      headerText="Upload Tasks"
+      statusText={`${uploads.length} Tasks`}
+      descriptionText={`You have ${uploads.length} upload task${
+        uploads.length > 1 ? "s" : ""
+      } configured for this project.`}
+    />
   );
 };
 

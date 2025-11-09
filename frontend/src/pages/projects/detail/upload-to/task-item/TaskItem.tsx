@@ -3,7 +3,7 @@ import "./TaskItem.css";
 import { memo } from "react";
 
 import Button from "../../../../../components/button/Button.tsx";
-import { Tag } from "../../../../../components/tag/Tag.tsx";
+import Tag from "../../../../../components/tag/Tag.tsx";
 import {
   getPlatformAsText,
   getStatusAsText,
@@ -26,7 +26,8 @@ const TaskItem = ({
 }: TaskItemProps) => {
   const platformName = getPlatformAsText(platform);
   const statusText = getStatusAsText(status).toUpperCase();
-  const isConfigurable = status === "PENDING_RELEASE" || status === "FAILED";
+  const isPendingRelease = status === "PENDING_RELEASE";
+  const isConfigurable = isPendingRelease || status === "FAILED";
 
   return (
     <div className="task-item" id={id}>
@@ -34,12 +35,24 @@ const TaskItem = ({
         <span className="task-item-header-item" style={{ marginRight: "auto" }}>
           Upload to {platformName}
         </span>
-        <span className="task-item-header-item">
+        <span
+          className="task-item-header-item"
+          style={{ marginRight: "calc(8px - 0.25rem)" }}
+        >
           <Tag label={statusText} color={getTagColorForStatus(status)} />
         </span>
-        <span className="task-item-header-item" style={{ marginLeft: "auto" }}>
-          <Button disabled={!isConfigurable} onClick={onConfigure}>
+        <span className="task-item-header-item">
+          <Button
+            disabled={!isConfigurable}
+            onClick={onConfigure}
+            variant="secondary"
+            style={{ marginRight: "8px" }}
+          >
             Configure
+          </Button>
+
+          <Button disabled={!isPendingRelease} onClick={() => onRetry(id)}>
+            Run Now
           </Button>
         </span>
       </div>

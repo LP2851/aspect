@@ -17,6 +17,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  Empty: { input: any; output: any; }
   JSON: { input: any; output: any; }
 };
 
@@ -511,6 +512,7 @@ export type Mutation = {
   deleteVideo?: Maybe<Video>;
   deleteVideos?: Maybe<Array<Maybe<Video>>>;
   endSession: Scalars['Boolean']['output'];
+  triggerTask?: Maybe<Scalars['Empty']['output']>;
   updateAudit?: Maybe<Audit>;
   updateAudits?: Maybe<Array<Maybe<Audit>>>;
   updateManagedAccount?: Maybe<ManagedAccount>;

@@ -8,13 +8,17 @@ import { UploadProject } from "./UploadProject";
 import { User } from "./User";
 import { UserToken } from "./UserToken";
 import { Video } from "./Video";
-import {ManagedAccount} from "./ManagedAccount";
-import {ManagedAccountLink} from "./ManagedAccountLink";
+import { ManagedAccount } from "./ManagedAccount";
+import { ManagedAccountLink } from "./ManagedAccountLink";
+import { TaskType } from "./TaskType";
+import { Task } from "./Task";
 
 export default {
   Audit,
   ManagedAccount,
   ManagedAccountLink,
+  Task,
+  TaskType,
   Upload,
   UploadLocation,
   UploadLocationGoogleDrive,

@@ -1,6 +1,5 @@
 import { useAuth } from "../../auth/AuthProvider.tsx";
 import { useNavigate } from "react-router";
-import AccountLinks from "./account-links/AccountLinks.tsx";
 import UserStats from "./user-stats/UserStats.tsx";
 import ManagedAccounts from "./managed-accounts/ManagedAccounts.tsx";
 import ManagedAccountById from "./managed-account-by-id/ManagedAccountById.tsx";
@@ -47,12 +46,12 @@ const ProfilePage = () => {
         }) || [],
       hidden: false,
     },
-    {
-      key: "account-links",
-      element: <AccountLinks />,
-      itemName: "(OLD) Account Links",
-      hidden: false,
-    },
+    // {
+    //   key: "account-links",
+    //   element: <AccountLinks />,
+    //   itemName: "(OLD) Account Links",
+    //   hidden: false,
+    // },
     {
       key: "stats",
       element: <UserStats user={user} />,

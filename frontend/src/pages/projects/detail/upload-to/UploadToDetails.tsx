@@ -4,7 +4,7 @@ import Button from "../../../../components/button/Button.tsx";
 import Card from "../../../../components/card/Card.tsx";
 import CreateTaskModal from "../../../../components/modal/create-task-modal/CreateTaskModal.tsx";
 import Table from "../../../../components/table/Table.tsx";
-import { Tag } from "../../../../components/tag/Tag.tsx";
+import Tag from "../../../../components/tag/Tag.tsx";
 import {
   useDeleteUploadMutation,
   useUpdateUploadMutation,
@@ -88,7 +88,8 @@ const UploadToDetails = ({
       {tasks?.length > 0 && (
         <Table
           style={{ fontSize: "small" }}
-          headers={["Upload Platform", "Upload Status"]}>
+          headers={["Upload Platform", "Upload Status"]}
+        >
           {project.uploadsTo &&
             project.uploadsTo.map((task: any) => (
               <tr
@@ -100,7 +101,8 @@ const UploadToDetails = ({
                     el.classList.add("highlighted");
                     setTimeout(() => el.classList.remove("highlighted"), 5000);
                   }
-                }}>
+                }}
+              >
                 <td>{getPlatformAsText(task.uploadTo)}</td>
                 <td>
                   <Tag
@@ -118,14 +120,17 @@ const UploadToDetails = ({
       )}
 
       <h2 className="new-section">Configured Tasks</h2>
-      <p className="section-description">List of tasks for this upload project</p>
+      <p className="section-description">
+        List of tasks for this upload project
+      </p>
       <Button
         style={{ marginTop: "1rem", width: "100%" }}
         onClick={() => {
           setIsModalOpen(true);
           setIsCreatingTask(true);
           setSelectedTask(null);
-        }}>
+        }}
+      >
         Create new upload task
       </Button>
 

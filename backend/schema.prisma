@@ -51,6 +51,36 @@ model ManagedAccountLink {
   @@index([managedAccountId])
 }
 
+model Task {
+  id           String         @id @default(uuid()) @postgresql.Uuid
+  type         TaskType?      @relation("Task_type", fields: [typeId], references: [id])
+  typeId       String?        @map("type") @postgresql.Uuid
+  status       String
+  priority     Int            @default(0)
+  startedAt    DateTime?
+  completedAt  DateTime?
+  metadata     Json?
+  errorMessage String         @default("")
+  project      UploadProject? @relation("Task_project", fields: [projectId], references: [id])
+  projectId    String?        @map("project") @postgresql.Uuid
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?
+
+  @@index([typeId])
+  @@index([projectId])
+}
+
+model TaskType {
+  id             String  @id @default(uuid()) @postgresql.Uuid
+  name           String  @unique @default("")
+  description    String  @default("")
+  type           String
+  handler        String  @default("")
+  isEnabled      Boolean @default(false)
+  maxRetries     Int     @default(1)
+  from_Task_type Task[]  @relation("Task_type")
+}
+
 model Upload {
   id           String         @id @default(uuid()) @postgresql.Uuid
   uploadTo     String
@@ -117,19 +147,20 @@ model UploadLocationS3 {
 }
 
 model UploadProject {
-  id             String          @id @default(uuid()) @postgresql.Uuid
-  projectName    String          @default("")
-  description    String          @default("")
-  projectType    String          @default("MULTI_MEDIA")
-  account        ManagedAccount? @relation("UploadProject_account", fields: [accountId], references: [id])
-  accountId      String?         @map("account") @postgresql.Uuid
-  status         String          @default("CREATED")
-  uploadLocation UploadLocation? @relation("UploadLocation_project")
-  uploadsTo      Upload[]        @relation("Upload_project")
-  textContent    String          @default("")
-  createdAt      DateTime?       @default(now())
-  updatedAt      DateTime?       @default(now()) @updatedAt
-  deletedAt      DateTime?
+  id                String          @id @default(uuid()) @postgresql.Uuid
+  projectName       String          @default("")
+  description       String          @default("")
+  projectType       String          @default("MULTI_MEDIA")
+  account           ManagedAccount? @relation("UploadProject_account", fields: [accountId], references: [id])
+  accountId         String?         @map("account") @postgresql.Uuid
+  status            String          @default("CREATED")
+  uploadLocation    UploadLocation? @relation("UploadLocation_project")
+  uploadsTo         Upload[]        @relation("Upload_project")
+  textContent       String          @default("")
+  createdAt         DateTime?       @default(now())
+  updatedAt         DateTime?       @default(now()) @updatedAt
+  deletedAt         DateTime?
+  from_Task_project Task[]          @relation("Task_project")
 
   @@index([accountId])
 }

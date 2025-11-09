@@ -16,6 +16,8 @@ import { lists } from "./schema";
 import { withAuth, session } from "./auth";
 import { google } from "googleapis";
 
+import onConnect from "./src/hooks/onConnect";
+
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
@@ -28,6 +30,7 @@ export default withAuth(
     db: {
       provider: "postgresql",
       url: process.env.DATABASE_URL || "",
+      onConnect,
     },
     lists,
     session,
@@ -68,6 +71,35 @@ export default withAuth(
               },
             },
           },
+          // todo not needed ?
+          // mutation: {
+          //   triggerTask: {
+          //     type: graphql.Empty,
+          //     args: { id: graphql.arg({ type: graphql.nonNull(graphql.ID) }) },
+          //     resolve: (source, args, context, info) => {
+          //       const { id } = args;
+          //
+          //       const task = context.db.Task.findOne({
+          //         where: { id },
+          //       });
+          //
+          //       if (!task) {
+          //         throw new Error("Task not found");
+          //       }
+          //
+          //       if (task.status !== UPLOAD_STATUS.PENDING_RELEASE) {
+          //         throw new Error("Task not pending release");
+          //       }
+          //
+          //       context.db.Task.updateOne({
+          //         where: { id },
+          //         data: {
+          //           status: UPLOAD_STATUS.QUEUED,
+          //         },
+          //       });
+          //     },
+          //   },
+          // },
         };
       }),
     },
@@ -102,9 +134,6 @@ export default withAuth(
 
             if (!userId) {
               console.log("User not authenticated");
-              console.log(JSON.stringify(googleUser));
-              console.log(JSON.stringify(userId));
-              console.log(JSON.stringify(tokens));
 
               return res.redirect(
                 "http://localhost:5173/profile?error=youtube_not_authenticated"
@@ -146,6 +175,7 @@ export default withAuth(
             if (existingToken) {
               // Update existing token
               await commonContext.db.UserToken.updateOne({
+                // @ts-ignore
                 where: { id: existingToken.id },
                 data: tokenData,
               });
@@ -169,5 +199,3 @@ export default withAuth(
     },
   })
 );
-
-import "./src/cron/scheduler";

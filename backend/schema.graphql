@@ -305,6 +305,181 @@ input ManagedAccountRelateToOneForCreateInput {
   connect: ManagedAccountWhereUniqueInput
 }
 
+type Task {
+  id: ID!
+  type: TaskType
+  status: String
+  priority: Int
+  startedAt: DateTime
+  completedAt: DateTime
+  metadata: JSON
+  errorMessage: String
+  project: UploadProject
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TaskWhereUniqueInput {
+  id: ID
+}
+
+input TaskWhereInput {
+  AND: [TaskWhereInput!]
+  OR: [TaskWhereInput!]
+  NOT: [TaskWhereInput!]
+  id: IDFilter
+  type: TaskTypeWhereInput
+  status: StringFilter
+  priority: IntFilter
+  startedAt: DateTimeNullableFilter
+  completedAt: DateTimeNullableFilter
+  errorMessage: StringFilter
+  project: UploadProjectWhereInput
+  createdAt: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input TaskOrderByInput {
+  id: OrderDirection
+  status: OrderDirection
+  priority: OrderDirection
+  startedAt: OrderDirection
+  completedAt: OrderDirection
+  errorMessage: OrderDirection
+  createdAt: OrderDirection
+  updatedAt: OrderDirection
+}
+
+input TaskUpdateInput {
+  type: TaskTypeRelateToOneForUpdateInput
+  status: String
+  priority: Int
+  startedAt: DateTime
+  completedAt: DateTime
+  metadata: JSON
+  errorMessage: String
+  project: UploadProjectRelateToOneForUpdateInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TaskTypeRelateToOneForUpdateInput {
+  create: TaskTypeCreateInput
+  connect: TaskTypeWhereUniqueInput
+  disconnect: Boolean
+}
+
+input UploadProjectRelateToOneForUpdateInput {
+  create: UploadProjectCreateInput
+  connect: UploadProjectWhereUniqueInput
+  disconnect: Boolean
+}
+
+input TaskUpdateArgs {
+  where: TaskWhereUniqueInput!
+  data: TaskUpdateInput!
+}
+
+input TaskCreateInput {
+  type: TaskTypeRelateToOneForCreateInput
+  status: String
+  priority: Int
+  startedAt: DateTime
+  completedAt: DateTime
+  metadata: JSON
+  errorMessage: String
+  project: UploadProjectRelateToOneForCreateInput
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TaskTypeRelateToOneForCreateInput {
+  create: TaskTypeCreateInput
+  connect: TaskTypeWhereUniqueInput
+}
+
+input UploadProjectRelateToOneForCreateInput {
+  create: UploadProjectCreateInput
+  connect: UploadProjectWhereUniqueInput
+}
+
+type TaskType {
+  id: ID!
+  name: String
+  description: String
+  type: String
+  handler: String
+  isEnabled: Boolean
+  maxRetries: Int
+}
+
+input TaskTypeWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+input TaskTypeWhereInput {
+  AND: [TaskTypeWhereInput!]
+  OR: [TaskTypeWhereInput!]
+  NOT: [TaskTypeWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  description: StringFilter
+  type: StringFilter
+  handler: StringFilter
+  isEnabled: BooleanFilter
+  maxRetries: IntFilter
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
+}
+
+input TaskTypeOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  description: OrderDirection
+  type: OrderDirection
+  handler: OrderDirection
+  isEnabled: OrderDirection
+  maxRetries: OrderDirection
+}
+
+input TaskTypeUpdateInput {
+  name: String
+  description: String
+  type: String
+  handler: String
+  isEnabled: Boolean
+  maxRetries: Int
+}
+
+input TaskTypeUpdateArgs {
+  where: TaskTypeWhereUniqueInput!
+  data: TaskTypeUpdateInput!
+}
+
+input TaskTypeCreateInput {
+  name: String
+  description: String
+  type: String
+  handler: String
+  isEnabled: Boolean
+  maxRetries: Int
+}
+
 type Upload {
   id: ID!
   uploadTo: String
@@ -350,12 +525,6 @@ input UploadUpdateInput {
   updatedAt: DateTime
 }
 
-input UploadProjectRelateToOneForUpdateInput {
-  create: UploadProjectCreateInput
-  connect: UploadProjectWhereUniqueInput
-  disconnect: Boolean
-}
-
 input UploadUpdateArgs {
   where: UploadWhereUniqueInput!
   data: UploadUpdateInput!
@@ -368,11 +537,6 @@ input UploadCreateInput {
   scheduledFor: DateTime
   createdAt: DateTime
   updatedAt: DateTime
-}
-
-input UploadProjectRelateToOneForCreateInput {
-  create: UploadProjectCreateInput
-  connect: UploadProjectWhereUniqueInput
 }
 
 type UploadLocation {
@@ -735,11 +899,6 @@ input UserWhereInput {
   createdAt: DateTimeNullableFilter
 }
 
-input BooleanFilter {
-  equals: Boolean
-  not: BooleanFilter
-}
-
 input UserTokenManyRelationFilter {
   every: UserTokenWhereInput
   some: UserTokenWhereInput
@@ -947,6 +1106,18 @@ type Mutation {
   updateManagedAccountLinks(data: [ManagedAccountLinkUpdateArgs!]!): [ManagedAccountLink]
   deleteManagedAccountLink(where: ManagedAccountLinkWhereUniqueInput!): ManagedAccountLink
   deleteManagedAccountLinks(where: [ManagedAccountLinkWhereUniqueInput!]!): [ManagedAccountLink]
+  createTask(data: TaskCreateInput!): Task
+  createTasks(data: [TaskCreateInput!]!): [Task]
+  updateTask(where: TaskWhereUniqueInput!, data: TaskUpdateInput!): Task
+  updateTasks(data: [TaskUpdateArgs!]!): [Task]
+  deleteTask(where: TaskWhereUniqueInput!): Task
+  deleteTasks(where: [TaskWhereUniqueInput!]!): [Task]
+  createTaskType(data: TaskTypeCreateInput!): TaskType
+  createTaskTypes(data: [TaskTypeCreateInput!]!): [TaskType]
+  updateTaskType(where: TaskTypeWhereUniqueInput!, data: TaskTypeUpdateInput!): TaskType
+  updateTaskTypes(data: [TaskTypeUpdateArgs!]!): [TaskType]
+  deleteTaskType(where: TaskTypeWhereUniqueInput!): TaskType
+  deleteTaskTypes(where: [TaskTypeWhereUniqueInput!]!): [TaskType]
   createUpload(data: UploadCreateInput!): Upload
   createUploads(data: [UploadCreateInput!]!): [Upload]
   updateUpload(where: UploadWhereUniqueInput!, data: UploadUpdateInput!): Upload
@@ -1034,6 +1205,12 @@ type Query {
   managedAccountLink(where: ManagedAccountLinkWhereUniqueInput!): ManagedAccountLink
   managedAccountLinks(where: ManagedAccountLinkWhereInput! = {}, orderBy: [ManagedAccountLinkOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ManagedAccountLinkWhereUniqueInput): [ManagedAccountLink!]
   managedAccountLinksCount(where: ManagedAccountLinkWhereInput! = {}): Int
+  task(where: TaskWhereUniqueInput!): Task
+  tasks(where: TaskWhereInput! = {}, orderBy: [TaskOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TaskWhereUniqueInput): [Task!]
+  tasksCount(where: TaskWhereInput! = {}): Int
+  taskType(where: TaskTypeWhereUniqueInput!): TaskType
+  taskTypes(where: TaskTypeWhereInput! = {}, orderBy: [TaskTypeOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TaskTypeWhereUniqueInput): [TaskType!]
+  taskTypesCount(where: TaskTypeWhereInput! = {}): Int
   upload(where: UploadWhereUniqueInput!): Upload
   uploads(where: UploadWhereInput! = {}, orderBy: [UploadOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UploadWhereUniqueInput): [Upload!]
   uploadsCount(where: UploadWhereInput! = {}): Int

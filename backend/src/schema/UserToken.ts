@@ -4,6 +4,7 @@ import { encrypt } from "../utils/encrypt";
 import { list } from "@keystone-6/core";
 import { UPLOAD_PLATFORM_OPTIONS } from "./helpers/options";
 
+// todo depreciate this
 export const UserToken = list({
   access: allowAll,
   db: {

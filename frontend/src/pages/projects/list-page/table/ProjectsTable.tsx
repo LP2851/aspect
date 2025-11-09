@@ -23,7 +23,7 @@ import {
   UploadPlatform,
 } from "../../../../api/types/types.ts";
 import Table from "../../../../components/table/Table.tsx";
-import { Tag } from "../../../../components/tag/Tag.tsx";
+import Tag from "../../../../components/tag/Tag.tsx";
 import { getTagColorForStatus } from "../../../../utils/tags.ts";
 import { BsCardText } from "react-icons/bs";
 import { TbBoxMultipleFilled } from "react-icons/tb";

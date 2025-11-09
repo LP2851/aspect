@@ -16,9 +16,11 @@
     "@keystone-6/auth": "^8.0.0",
     "@keystone-6/core": "^6.0.0",
     "@keystone-6/fields-document": "^9.0.0",
+    "axios": "^1.13.2",
     "dotenv": "^17.2.2",
     "googleapis": "^159.0.0",
     "node-cron": "^4.2.1",
+    "twitter-api-v2": "^1.27.0",
     "typescript": "^5.5.0"
   },
   "devDependencies": {

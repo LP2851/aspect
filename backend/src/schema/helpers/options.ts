@@ -39,6 +39,14 @@ export const UPLOAD_STATUS_OPTIONS = [
   { label: "Failed", value: "FAILED" },
 ];
 
+export enum UPLOAD_STATUS {
+  PENDING_RELEASE = "PENDING_RELEASE",
+  QUEUED = "QUEUED",
+  UPLOADING = "UPLOADING",
+  COMPLETED = "COMPLETED",
+  FAILED = "FAILED",
+}
+
 export const AUDIT_TYPES_OPTIONS = ["CREATE", "UPDATE", "DELETE"];
 
 export const AUDIT_CHANGE_SUB_TYPES = [

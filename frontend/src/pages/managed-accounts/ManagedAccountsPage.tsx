@@ -1,13 +1,30 @@
-import {memo} from "react";
+import { memo } from "react";
 import "./ManagedAccountsPage.css";
 import Card from "../../components/card/Card.tsx";
-import {useAuth} from "../../auth/AuthProvider.tsx";
-import {Tag} from "../../components/tag/Tag.tsx";
-import {FaArrowCircleRight, FaCogs, FaYoutube} from "react-icons/fa";
-import {useGetManagedAccountsQuery} from "../../generated/graphql.ts";
-import {useNavigate} from "react-router";
+import { useAuth } from "../../auth/AuthProvider.tsx";
+import Tag from "../../components/tag/Tag.tsx";
+import { FaArrowCircleRight, FaCogs, FaYoutube } from "react-icons/fa";
+import { useGetManagedAccountsQuery } from "../../generated/graphql.ts";
+import { useNavigate } from "react-router";
+import { FaXTwitter } from "react-icons/fa6";
 
 const iconStyle = { paddingRight: "8px", height: "24px" };
+
+const generateTag = (accountType: string, accountName: string) => {
+  let accountIcon;
+  switch (accountType) {
+    case "YOUTUBE":
+      accountIcon = <FaYoutube style={iconStyle} />;
+      break;
+    case "X":
+      accountIcon = <FaXTwitter style={iconStyle} />;
+      break;
+    default:
+      accountIcon = <FaYoutube style={iconStyle} />;
+  }
+
+  return <Tag children={accountIcon} label={accountName} color="purple" />;
+};
 
 const ManagedAccountsPage = () => {
   const { user } = useAuth();
@@ -34,29 +51,41 @@ const ManagedAccountsPage = () => {
     <div className="managed-accounts-page">
       <div className="managed-accounts-container">
         <h1>Managed Accounts</h1>
-        <p className="description">Welcome {user?.name}. You manage multiple social media accounts. Select the account you wish to edit.</p>
+        <p className="description">
+          Welcome {user?.name}. You manage multiple social media accounts.
+          Select the account you wish to edit.
+        </p>
 
         <div className="managed-accounts-list">
-
-          { data?.managedAccounts?.map((account) => (
+          {data?.managedAccounts?.map((account) => (
             <Card className="managed-account-card">
-              <div className="managed-account-card-body" onClick={() => {navigate("/projects?managedAccounts=" + account.id)}}>
+              <div
+                className="managed-account-card-body"
+                onClick={() => {
+                  navigate("/projects?managedAccounts=" + account.id);
+                }}
+              >
                 <div className="managed-account-card-header">
                   <h2>{account.name}</h2>
-                  <FaCogs className="managed-account-card-icon-cogs" onClick={(e) => {
-                    e.stopPropagation();
-                    navigate("/profile?element=managed-account_" + account.id);
-                  }} />
+                  <FaCogs
+                    className="managed-account-card-icon-cogs"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(
+                        "/profile?element=managed-account_" + account.id,
+                      );
+                    }}
+                  />
                 </div>
                 <p>{account.description}</p>
 
                 <div>
-                  { account.managedAccountLinks?.map((link) => (
-                    <Tag children={<FaYoutube style={iconStyle} />}
-                         label={link.accountName || account.name || ""}
-                         color="purple"
-                    />
-                  ))}
+                  {account.managedAccountLinks?.map((link) =>
+                    generateTag(
+                      link.tokenFor || "",
+                      link.accountName || account.name || "",
+                    ),
+                  )}
                 </div>
 
                 <div className="managed-account-card-footer">
@@ -68,7 +97,7 @@ const ManagedAccountsPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default memo(ManagedAccountsPage);
