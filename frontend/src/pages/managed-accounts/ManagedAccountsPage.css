@@ -1,0 +1,101 @@
+.managed-accounts-page {
+  display: flex;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.managed-accounts-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 90vw;
+  color: var(--font-color-primary);
+}
+
+.managed-accounts-container h1 {
+  margin-bottom: 0;
+}
+
+.managed-accounts-container .description {
+  margin-top: 0;
+  color: var(--font-color-secondary);
+}
+
+.managed-accounts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.managed-account-card {
+  cursor: pointer;
+  height: 25vh;
+  transition: background-color, border 0.3s ease;
+}
+
+.managed-account-card:hover {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--highlight-color);
+
+  .managed-account-card-header {
+    border-bottom: 2px solid var(--highlight-color);
+  }
+
+  .managed-account-card-icon {
+    color: var(--highlight-color);
+  }
+}
+
+.managed-account-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-left: 0.5rem;
+  color: var(--font-color-secondary);
+  height: 100%;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.managed-account-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.managed-account-card-icon {
+  width: 32px;
+  height: 32px;
+
+  transition: color 0.3s ease;
+}
+
+.managed-account-card-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--highlight-color);
+  transition: border-bottom 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.managed-account-card-icon-cogs {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--highlight-color);
+  }
+}

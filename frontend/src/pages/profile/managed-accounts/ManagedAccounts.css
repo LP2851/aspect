@@ -1,0 +1,65 @@
+.managed-accounts-section {
+  margin: 0 auto;
+  padding-right: 1rem;
+  max-height: 75vh;
+}
+
+.managed-accounts-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--font-color-purple);
+  font-size: 20px;
+}
+
+.managed-accounts-section p {
+  margin-bottom: 20px;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
+.managed-account-settings-card {
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease-in-out;
+
+  &:hover {
+    border-color: var(--highlight-color);
+  }
+}
+
+.managed-account-settings-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--highlight-color);
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.managed-account-settings-card-header-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.managed-account-settings-card-body {
+  padding-left: 1rem;
+  padding-top: 1rem;
+
+  p {
+    color: var(--font-color-strong-white);
+    margin: 0;
+  }
+
+  .description {
+    color: var(--font-color-secondary);
+    font-weight: 100;
+    font-style: italic;
+  }
+}
+
+.managed-accounts-section-list {
+  padding-right: 1rem;
+}

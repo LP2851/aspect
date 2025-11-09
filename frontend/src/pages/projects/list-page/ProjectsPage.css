@@ -1,0 +1,13 @@
+.projects-page {
+  display: flex;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.projects-page-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 90vw;
+  color: var(--font-color-primary);
+}

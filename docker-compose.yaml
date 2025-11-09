@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=aspect
+      - POSTGRES_PASSWORD=aspect
+      - POSTGRES_USER=aspect
+    ports:
+      - '5432:5432'
+
+  keystone:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgres://aspect:aspect@postgres:5432/aspect
+    depends_on:
+      - postgres

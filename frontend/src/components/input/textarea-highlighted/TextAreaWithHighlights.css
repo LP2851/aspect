@@ -1,0 +1,108 @@
+.textarea-highlighted-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.textarea-highlighted-input:focus {
+  border-color: var(--input-focus-border-color);
+  background-color: var(--input-focus-bg);
+}
+
+.textarea-highlighted-input:disabled {
+  opacity: var(--input-disabled-opacity);
+  border-color: var(--input-disabled-border-color);
+  background-color: var(--input-disabled-bg);
+  cursor: not-allowed;
+  color: var(--input-disabled-color);
+}
+
+.textarea-highlighteda-input.error {
+  border-color: var(--border-color-red);
+}
+
+.textarea-highlighted-error-text {
+  color: var(--color-red);
+  font-size: var(--input-error-message-font-size);
+}
+
+.textarea-highlighted-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.textarea-highlighted-highlights,
+.textarea-highlighted-input {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--input-font-size);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.textarea-highlighted-highlights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  border-radius: var(--input-border-radius);
+  color: var(--input-color);
+  pointer-events: none;
+  z-index: 1;
+  overflow: auto;
+}
+
+.textarea-highlighted-input {
+  position: relative;
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  padding: 10px 12px;
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  transition: border-color 0.3s;
+  font-family: inherit;
+  font-size: var(--input-font-size);
+  background-color: var(--input-bg);
+
+  outline: none;
+  color: transparent;
+  caret-color: var(--input-color);
+  overflow: auto;
+}
+
+.textarea-highlighted-highlights .mention {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.textarea-highlighted-highlights .hashtag {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.textarea-highlighted-highlights .url {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.textarea-highlighted-highlights .url {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.textarea-highlighted-highlights .stock {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.textarea-highlighted-highlights::-webkit-scrollbar {
+  display: none;
+}
+.textarea-highlighted-highlights {
+  scrollbar-width: none;
+}

@@ -1,26 +1,28 @@
-import { memo, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import Select from "../../components/input/select/Select.tsx";
-import TextInput from "../../components/input/text/TextInput.tsx";
-import Button from "../../components/button/Button.tsx";
-import ErrorMessage from "../../components/error-message/ErrorMessage.tsx";
-import AspectClient from "../../api/AspectClient.ts";
-import type { Project } from "../../api/types/types.ts";
 import "./Home.css";
 
+import { memo, useState } from "react";
+import { useNavigate } from "react-router";
+
+import type { Project } from "../../api/types/types.ts";
+import ErrorMessage from "../../components/error-message/ErrorMessage.tsx";
+import Select from "../../components/input/select/Select.tsx";
+import TextInput from "../../components/input/text/TextInput.tsx";
+import Button from "../../components/old-button/Button.tsx";
+
 const Home = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
+  // const [projects, setProjects] = useState<Project[]>([]);
+  const projects: Project[] = [];
   const [selectedProject, setSelectedProject] = useState("");
   const [newProject, setNewProject] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const client = new AspectClient();
-    client.getProjects().then((projects) => {
-      setProjects(projects);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const client = new AspectClient();
+  //   client.getProjects().then((projects) => {
+  //     setProjects(projects);
+  //   });
+  // }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,18 +34,18 @@ const Home = () => {
     }
     const project = newProject || selectedProject;
 
-    if (newProject) {
-      const aspectClient = new AspectClient();
-      try {
-        await aspectClient.createProject(newProject);
-      } catch (err) {
-        console.log(err);
-        setError(
-          "Please select an existing project or enter a new project name.",
-        );
-        return;
-      }
-    }
+    // if (newProject) {
+    //   const aspectClient = new AspectClient();
+    //   try {
+    //     await aspectClient.createProject(newProject);
+    //   } catch (err) {
+    //     console.log(err);
+    //     setError(
+    //       "Please select an existing project or enter a new project name.",
+    //     );
+    //     return;
+    //   }
+    // }
     navigate(`/project/${encodeURIComponent(project)}`);
   };
 
@@ -61,7 +63,7 @@ const Home = () => {
             setError("");
           }}
           options={projects.map((project: Project) => {
-            return { value: project.id, label: project.project_name };
+            return { value: project.id, label: project.projectName };
           })}
           defaultOption="-- Select project --"
         />

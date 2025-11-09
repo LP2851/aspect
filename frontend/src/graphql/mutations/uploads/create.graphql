@@ -1,0 +1,5 @@
+mutation CreateUpload($data: UploadCreateInput!) {
+  createUpload(data: $data) {
+    id
+  }
+}

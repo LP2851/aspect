@@ -1,0 +1,15 @@
+export enum Platform {
+  X = "X",
+  TIK_TOK = "TIK_TOK",
+  YOUTUBE = "YOUTUBE",
+  INSTAGRAM = "INSTAGRAM",
+  FACEBOOK = "FACEBOOK",
+}
+
+export enum UploadStatus {
+  PENDING_RELEASE = "PENDING_RELEASE",
+  QUEUED = "QUEUED",
+  UPLOADING = "UPLOADING",
+  COMPLETED = "COMPLETED",
+  FAILED = "FAILED",
+}

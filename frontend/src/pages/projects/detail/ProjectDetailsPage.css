@@ -1,0 +1,39 @@
+.project-detail-page {
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  background-color: var(--bg-primary);
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--font-color-primary);
+}
+
+.project-detail-page h2 {
+  margin: 0 0 10px;
+  color: var(--font-color-purple);
+  font-size: 20px;
+}
+
+.project-detail-page p.description {
+  margin: 0;
+  color: var(--font-color-secondary);
+  font-size: 16px;
+}
+
+.project-detail-page .new-section {
+  margin-top: 2rem;
+  border-top: 1px solid var(--highlight-color);
+  padding-top: 2rem;
+}
+
+.sidebar-footer-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.card-height-setting {
+  height: auto;
+  max-height: 75vh;
+}

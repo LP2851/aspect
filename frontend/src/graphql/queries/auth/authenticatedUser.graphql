@@ -1,0 +1,18 @@
+query Me {
+  authenticatedItem {
+    ... on User {
+      id
+      name
+      email
+      isAdmin
+      tokens {
+        id
+        tokenFor
+      }
+      managedAccounts {
+        id
+        name
+      }
+    }
+  }
+}

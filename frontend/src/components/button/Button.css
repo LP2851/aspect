@@ -1,43 +1,55 @@
 .button {
-  box-sizing: border-box;
-  font-family: inherit;
-}
-
-.button.primary,
-.button.secondary,
-.button.danger {
-  width: 100%;
+  transition: all 0.2s ease;
   border: none;
-  padding: 12px 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: white;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  user-select: none;
-  transition: background 0.3s;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.primary {
-  background: linear-gradient(90deg, #6a5acd, #8a2be2, #730bbf);
-
-  &:hover {
-    background: linear-gradient(90deg, #8a2be2, #6a5acd, #730bbf);
-  }
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.danger {
-  background: linear-gradient(90deg, #e53935, #b71c1c);
-
-  &:hover {
-    background: linear-gradient(90deg, #b71c1c, #e53935);
-  }
+/* Primary */
+.button-primary {
+  background-color: var(--button-bg-primary);
+  color: var(--font-color-primary);
 }
 
-.secondary {
-  background: linear-gradient(90deg, #4caf50, #388e3c);
+.button-primary:hover:not(:disabled) {
+  background-color: var(--button-bg-primary-hover);
+}
 
-  &:hover {
-    background: linear-gradient(90deg, #388e3c, #4caf50);
-  }
+/* Secondary */
+.button-secondary {
+  background-color: var(--button-bg-secondary) !important;
+  color: var(--font-color-primary);
+}
+
+.button-secondary:hover:not(:disabled) {
+  background-color: var(--button-bg-secondary-hover) !important;
+}
+
+/* Danger */
+.button-danger {
+  background-color: var(--button-bg-danger);
+  color: var(--font-color-primary);
+}
+
+.button-danger:hover:not(:disabled) {
+  background-color: var(--button-bg-danger-hover);
+}
+
+/* Fancy Primary */
+.button-fancy-primary {
+  background: var(--button-bg-fancy-primary);
+  color: var(--font-color-primary);
+}
+
+.button-fancy-primary:hover:not(:disabled) {
+  background: var(--button-bg-fancy-primary-hover);
 }

@@ -1,28 +1,30 @@
-import { memo, useEffect, useState } from "react";
-import { redirect, useParams } from "react-router";
-import Sidebar from "../../../components/sidebar/Sidebar.tsx";
 import "./ProjectEditorPage.css";
+
+import { memo, useState } from "react";
+import { useParams } from "react-router";
+
 import type { Project } from "../../../api/types/types.ts";
-import AspectClient from "../../../api/AspectClient.ts";
+import Sidebar from "../../../components/sidebar/Sidebar.tsx";
+// import AspectClient from "../../../api/AspectClient.ts";
 
 const ProjectEditorPage = ({ files = [] }: { files: string[] }) => {
   const { projectId } = useParams<{ projectId: string }>();
   const [project, setProject] = useState<Project>();
 
-  useEffect(() => {
-    const client = new AspectClient();
-    if (!projectId) {
-      return;
-    }
-    client
-      .getProject(projectId)
-      .then((project) => {
-        setProject(project);
-      })
-      .catch(() => {
-        redirect("/");
-      });
-  }, [projectId]);
+  // useEffect(() => {
+  //   const client = new AspectClient();
+  //   if (!projectId) {
+  //     return;
+  //   }
+  //   client
+  //     .getProject(projectId)
+  //     .then((project) => {
+  //       setProject(project);
+  //     })
+  //     .catch(() => {
+  //       redirect("/");
+  //     });
+  // }, [projectId]);
 
   return (
     <>

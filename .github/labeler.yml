@@ -26,4 +26,4 @@ backend:
 schema:
   - any:
       - changed-files:
-          - any-glob-to-any-file: ["**/*.sql"]
+          - any-glob-to-any-file: ["**/*.sql", "**/*.prisma", "**/*.graphql"]

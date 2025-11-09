@@ -1,17 +1,25 @@
 .select-input {
-  font-family: inherit;
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background-color: #121212;
-  color: #eee;
-  font-size: 1rem;
-  outline: none;
   transition: border-color 0.3s;
+  outline: none;
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-bg);
+  padding: 10px 12px;
+  width: 100%;
+  color: var(--input-color);
+  font-family: inherit;
+  font-size: var(--input-font-size);
 
   &:focus {
-    border-color: #6a5acd;
-    background-color: #181818;
+    border-color: var(--input-focus-border-color);
+    background-color: var(--input-focus-bg);
   }
+}
+
+.input-description {
+  color: var(--font-color-secondary);
+  font-size: 14px;
+  font-style: italic;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
 }

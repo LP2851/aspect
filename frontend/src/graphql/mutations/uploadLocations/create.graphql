@@ -1,0 +1,6 @@
+mutation CreateUploadLocation($data: UploadLocationCreateInput!) {
+  createUploadLocation(data: $data) {
+    id
+    type
+  }
+}

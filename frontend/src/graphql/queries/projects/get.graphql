@@ -1,0 +1,45 @@
+query GetUploadProject($where: UploadProjectWhereUniqueInput!) {
+  uploadProject(where: $where) {
+    id
+    projectName
+    description
+    account {
+      id
+      name
+      user {
+       id
+      }
+    }
+    projectType
+    textContent
+    status
+    uploadLocation {
+      id
+      type
+      localLink {
+        id
+        path
+      }
+      s3Link {
+        id
+        key
+        bucket
+      }
+      googleDrive {
+        id
+        name
+        driveId
+      }
+    }
+    uploadsTo {
+      id
+      uploadStatus
+      uploadTo
+      scheduledFor
+    }
+    uploadsToCount
+    createdAt
+    updatedAt
+    deletedAt
+  }
+}

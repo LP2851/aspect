@@ -1,5 +1,6 @@
-import { useState, memo } from "react";
 import "./ConfigBox.css";
+
+import { memo, useState } from "react";
 
 const ConfigBox = ({
   children,

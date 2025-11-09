@@ -1,0 +1,9 @@
+
+.highlight-text {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
+}

@@ -1,9 +1,11 @@
-import { memo, useState, useRef, useEffect } from "react";
-import Button from "../button/Button";
+import "./Sidebar.css";
+
+import { memo, useEffect, useRef, useState } from "react";
+
+import type { Project } from "../../api/types/types.ts";
 import ConfigBox from "../config-box/ConfigBox";
 import TextInput from "../input/text/TextInput";
-import type { Project } from "../../api/types/types.ts";
-import "./Sidebar.css";
+import Button from "../old-button/Button";
 
 const Sidebar = ({
   project,
@@ -43,7 +45,7 @@ const Sidebar = ({
       document.removeEventListener("mousemove", resize);
       document.removeEventListener("mouseup", stopResizing);
     };
-  }, []);
+  });
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
@@ -55,12 +57,12 @@ const Sidebar = ({
   };
 
   const setProjectName = (projectName: string) => {
-    setProject({ ...project, project_name: projectName } as Project);
+    setProject({ ...project, projectName: projectName } as Project);
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (project.project_name.trim() === "") {
+    if (project.projectName.trim() === "") {
       setError("Project name cannot be empty.");
     } else {
       setError("");
@@ -81,7 +83,7 @@ const Sidebar = ({
             >
               <TextInput
                 id="project-name"
-                value={project.project_name}
+                value={project.projectName}
                 label="Project Name:"
                 onChange={(e) => setProjectName(e.target.value)}
                 placeholder="Project name"
